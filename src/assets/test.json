@@ -1,0 +1,320 @@
+[
+  {
+    "blocktype": "hero",
+    "title": "<b>Connect</b> the blockchain to our <b>future.</b>",
+    "content": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.",
+    "buttons": [
+      {
+        "type": "primary",
+        "route": "/get-started",
+        "text": "Get Started"
+      },
+      {
+        "type": "secondary",
+        "route": "/case-studies",
+        "text": "Case Studies"
+      }
+    ],
+    "cta": {
+      "type": "primary",
+      "route": "/get-started",
+      "text": "Casper is live<br/>on mainnet!<br/>More <span class=\"fake-link\">here.</span>"
+    }
+  },
+  {
+    "blocktype": "ctacollection",
+    "extraclass": "",
+    "title": "<span>Team up </span>with Casper and enrich our <span>community.</span>",
+    "content": "Activated charcoal chartreuse pabst snackwave, fugiat shabby chic la croix retro non est church-key gastropub.<br/><br/>Sartorial schlitz letterpress pariatur. Scenester veniam 3 wolf moon flexitarian fingerstache blue bottle cardigan snackwave.",
+    "numCols": 3,
+    "items": [
+      {
+        "type": "",
+        "icon": "rocket",
+        "title": "Discord",
+        "content": "> 2000"
+      },
+      {
+        "type": "",
+        "icon": "rocket",
+        "title": "Twitter",
+        "content": "> 2000"
+      },
+      {
+        "type": "",
+        "icon": "rocket",
+        "title": "Telegram",
+        "content": "> 2000"
+      },
+      {
+        "type": "",
+        "icon": "rocket",
+        "title": "LinkedIn",
+        "content": "> 2000"
+      },
+      {
+        "type": "",
+        "icon": "rocket",
+        "title": "Github",
+        "content": "> 2000"
+      },
+      {
+        "type": "",
+        "icon": "rocket",
+        "title": "Youtube",
+        "content": "> 2000"
+      }
+    ]
+  },
+  {
+    "blocktype": "videocollection",
+    "extraclass": "container",
+    "title": "Don’t miss anything <b>subscribe</b> to our <b>newsletter</b>",
+    "items": [
+      {
+        "provider": "youtube",
+        "id": "dQw4w9WgXcQ",
+        "caption": "test caption youtube"
+      },
+      {
+        "provider": "vimeo",
+        "id": "713742301",
+        "caption": "test caption vimeo"
+      }
+    ]
+  },
+  {
+    "blocktype": "fullteaser",
+    "extraclass": "container",
+    "title": "Don’t miss anything <b>subscribe</b> to our <b>newsletter</b>",
+    "button": {
+      "type": "primary",
+      "route": "newsletter",
+      "text": "Newsletter subscription"
+    }
+  },
+  {
+    "blocktype": "countup",
+    "extraclass": "",
+    "title": "",
+    "items": [
+      {
+        "title": "Transactions per Second",
+        "value": "1135",
+        "options": {
+          "useGrouping": true,
+          "decimals": 0,
+          "prefix": "",
+          "suffix": ""
+        }
+      },
+      {
+        "title": "Total Transactions",
+        "value": "231135234",
+        "options": {
+          "useGrouping": true,
+          "decimals": 0,
+          "prefix": "",
+          "suffix": ""
+        }
+      },
+      {
+        "title": "Avg. cost per transaction",
+        "value": "0.000034",
+        "options": {
+          "useGrouping": true,
+          "decimals": 6,
+          "prefix": "",
+          "suffix": " $"
+        }
+      },
+      {
+        "title": "Validator Nodes",
+        "value": "1497",
+        "options": {
+          "useGrouping": true,
+          "decimals": 0,
+          "prefix": "",
+          "suffix": ""
+        }
+      }
+    ]
+  },
+  {
+    "blocktype": "carousel",
+    "extraclass": "",
+    "title": "Blockchain <b>Glossary</b>",
+    "items": [
+      {
+        "image": "https://picsum.photos/id/3/1920/1080",
+        "title": "Green Blockchain",
+        "content": "Teaser text why blockchains are not always polluters and how you can tell. It\"s worth taking a closer look, we\"re not evil and neither are our competitors always, just sometimes",
+        "link": {
+          "text": "Learn more",
+          "url": "#"
+        }
+      },
+      {
+        "image": "https://picsum.photos/id/1/1920/1080",
+        "title": "Usecases for Blockchains",
+        "content": "Teaser text why blockchains are not always polluters and how you can tell. It\"s worth taking a closer look, we\"re not evil and neither are our competitors always, just sometimes",
+        "link": {
+          "text": "Learn more",
+          "url": "#"
+        }
+      },
+      {
+        "image": "https://picsum.photos/id/2/1920/1080",
+        "title": "Future of Blockchain",
+        "content": "Teaser text why blockchains are not always polluters and how you can tell. It\"s worth taking a closer look, we\"re not evil and neither are our competitors always, just sometimes",
+        "link": {
+          "text": "Learn more",
+          "url": "#"
+        }
+      },
+      {
+        "image": "https://picsum.photos/id/8/1920/1080",
+        "title": "Blockchain ",
+        "content": "Teaser text why blockchains are not always polluters and how you can tell. It\"s worth taking a closer look, we\"re not evil and neither are our competitors always, just sometimes",
+        "link": {
+          "text": "Learn more",
+          "url": "#"
+        }
+      },
+      {
+        "image": "https://picsum.photos/id/2/1920/1080",
+        "title": "Future of Blockchain",
+        "content": "Teaser text why blockchains are not always polluters and how you can tell. It\"s worth taking a closer look, we\"re not evil and neither are our competitors always, just sometimes",
+        "link": {
+          "text": "Learn more",
+          "url": "#"
+        }
+      },
+      {
+        "image": "https://picsum.photos/id/8/1920/1080",
+        "title": "Blockchain ",
+        "content": "Teaser text why blockchains are not always polluters and how you can tell. It\"s worth taking a closer look, we\"re not evil and neither are our competitors always, just sometimes",
+        "link": {
+          "text": "Learn more",
+          "url": "#"
+        }
+      },
+      {
+        "image": "https://picsum.photos/id/2/1920/1080",
+        "title": "Future of Blockchain",
+        "content": "Teaser text why blockchains are not always polluters and how you can tell. It\"s worth taking a closer look, we\"re not evil and neither are our competitors always, just sometimes",
+        "link": {
+          "text": "Learn more",
+          "url": "#"
+        }
+      },
+      {
+        "image": "https://picsum.photos/id/8/1920/1080",
+        "title": "Blockchain ",
+        "content": "Teaser text why blockchains are not always polluters and how you can tell. It\"s worth taking a closer look, we\"re not evil and neither are our competitors always, just sometimes",
+        "link": {
+          "text": "Learn more",
+          "url": "#"
+        }
+      }
+    ]
+  },
+  {
+    "blocktype": "textteaser",
+    "extraclass": "container",
+    "title": "<span>Team up </span>with Casper and enrich our <span>community.</span>",
+    "content": "Activated charcoal chartreuse pabst snackwave, fugiat shabby chic la croix retro non est church-key gastropub.<br/><br/>Sartorial schlitz letterpress pariatur. Scenester veniam 3 wolf moon flexitarian fingerstache blue bottle cardigan snackwave."
+  },
+  {
+    "blocktype": "video",
+    "extraclass": "container -long",
+    "id": "M7lc1UVf-VE",
+    "provider": "youtube",
+    "caption": "Youtube Test 123"
+  },
+  {
+    "blocktype": "textteaser",
+    "extraclass": "container",
+    "title": "Why <span>Casper</span>",
+    "content": "Not only do we think our concept is insanely great, but our users think we're really good too, but take a look for yourself."
+  },
+  {
+    "blocktype": "accordion",
+    "extraclass": "container",
+    "title": "",
+    "content": "",
+    "items": [
+      {
+        "title": "Item 1",
+        "content": "Item 1 Content"
+      },
+      {
+        "title": "Item 2",
+        "content": "Item 2 Content"
+      },
+      {
+        "title": "Item 3",
+        "content": "Item 3 Content"
+      }
+    ]
+  },
+  {
+    "blocktype": "quoteslider",
+    "title": "",
+    "content": "",
+    "quotes": [
+      {
+        "title": "Item 1",
+        "content": "Item 1 Content",
+        "image": "/woman.png",
+        "citer": "Michaela Oppenheim",
+        "citer_company": "CTO of Cosmos"
+      },
+      {
+        "title": "Item 2",
+        "content": "Item 2 Content",
+        "image": "/woman.png",
+        "citer": "Anja Habenschaden",
+        "citer_company": "CTO of Signal"
+      },
+      {
+        "title": "Item 3",
+        "content": "Item 3 Content",
+        "image": "/woman.png",
+        "citer": "Ruth Moschner",
+        "citer_company": "CTO of Ethereum"
+      }
+    ]
+  },
+  {
+    "blocktype": "latestnews",
+    "title": "Keep up with our <b>latest</b>",
+    "content": ""
+  },
+  {
+    "blocktype": "startnow",
+    "title": "Do not hesitate<br/><b>start now</b>",
+    "content": "",
+    "buttons": [
+      {
+        "type": "readmore",
+        "route": "/get-started-devs",
+        "icon": "code",
+        "text": "Are you a developer"
+      },
+      {
+        "type": "readmore",
+        "route": "/get-started-reg",
+        "icon": "git",
+        "text": "Are you a user?"
+      },
+      {
+        "type": "readmore",
+        "extraClass": "full",
+        "route": "/community",
+        "icon": "git",
+        "text": "Want to join our community?"
+      }
+    ]
+  }
+]

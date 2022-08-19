@@ -1,0 +1,116 @@
+@import './mixins.scss';
+
+h1,
+.h1 {
+  margin: 0 0 48px 0;
+  font-size: var(--typography-h1-d-font-size);
+
+  @include breakpoint('sm') {
+    font-size: var(--typography-h1-m-font-size);
+    margin-bottom: 24px;
+  }
+}
+
+h2,
+.h2 {
+  margin: 0;
+  font-size: var(--typography-h2-d-font-size);
+
+  @include breakpoint('sm') {
+    font-size: var(--typography-h2-m-font-size);
+  }
+}
+
+h3,
+.h3 {
+  margin: 0;
+  font-weight: 400;
+  font-size: var(--typography-h3-d-font-size);
+
+  @include breakpoint('sm') {
+    font-size: var(--typography-h3-m-font-size);
+  }
+}
+
+h4,
+.h4 {
+  margin: 0;
+  font-weight: 400;
+  font-size: var(--typography-h4-d-font-size);
+
+  @include breakpoint('sm') {
+    font-size: var(--typography-h4-m-font-size);
+  }
+}
+
+h5,
+.h5 {
+  font-size: var(--typography-h4-d-font-size);
+  line-height: 1.1;
+
+  @include breakpoint('sm') {
+    font-size: var(--typography-h4-m-font-size);
+  }
+}
+
+h6,
+.h6 {
+  font-size: var(--typography-h4-d-font-size);
+
+  @include breakpoint('sm') {
+    font-size: var(--typography-h4-m-font-size);
+  }
+}
+
+p {
+  margin: 0;
+  @include style-body('large');
+
+}
+
+p.body-large {
+  margin: 0;
+  @include style-body('large');
+}
+
+.big {
+  font-size: var(--typography-big-d-font-size);
+
+  @include breakpoint('sm') {
+    font-size: var(--typography-big-m-font-size);
+  }
+}
+
+.d1 {
+  font-size: var(--typography-d1-d-font-size);
+
+  @include breakpoint('sm') {
+    font-size: var(--typography-d1-m-font-size);
+  }
+}
+
+.buttonLabel {
+  font-size: var(--typography-button-d-font-size);
+  line-height: 1.2;
+
+  @include breakpoint('sm') {
+    font-size: var(--typography-button-m-font-size);
+  }
+}
+
+.tagLabel {
+  font-size: var(--typography-tag-d-font-size);
+  line-height: 1.2;
+
+  @include breakpoint('sm') {
+    font-size: var(--typography-tag-m-font-size);
+  }
+}
+
+.link-cta {
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: 0.5px;
+  text-align: left;
+}

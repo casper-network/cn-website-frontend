@@ -1,0 +1,306 @@
+.form-container {
+  background: #f5f5f5;
+  border-radius: var(--border-radius-teaser);
+  transition: all 0.35s ease-in-out;
+  // width: 83%;
+  width: 100%;
+  display: block;
+  margin-top: 45px;
+
+  @include breakpoint('sm') {
+    width: calc(100% - 46px);
+  }
+
+  form {
+    padding: 80px 128px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+
+    @include breakpoint('sm') {
+      width: 100%;
+      padding: 60px 0;
+    }
+  }
+
+  @include breakpoint('sm') {
+    padding: 0 23px;
+    margin-top: 32px;
+  }
+
+  .form-group {
+    display: flex;
+    gap: 32px;
+    position: relative;
+
+    > div {
+      display: block;
+      position: relative;
+      width: 50%;
+
+      @include breakpoint('sm') {
+        width: 100%;
+      }
+    }
+
+    &.col {
+      label {
+        margin-bottom: 0;
+      }
+
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    &.buttons {
+      display: flex;
+      justify-content: flex-end;
+      align-items: flex-end;
+
+      @include breakpoint('sm') {
+        flex-direction: row;
+      }
+
+      .btn {
+        width: initial;
+      }
+    }
+
+    &.wide {
+      > div {
+        width: 100%;
+      }
+    }
+
+    @include breakpoint('sm') {
+      flex: 1 0 100%;
+      flex-direction: column;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    textarea,
+    input[type="text"],
+    input[type="tel"],
+    input[type="url"],
+    input[type="file"],
+    input[type="email"] {
+      font-family: 'Inter', sans-serif;
+      padding: 10px 10px 10px 20px;
+      width: calc(100% - 32px);
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 28px;
+      border: 1px solid #ccc;
+      border-radius: var(--border-radius-input);
+      outline: none;
+
+      &:focus {
+        border-color: var(--color-blue);
+        outline: none;
+      }
+
+      &.error {
+        border-color: var(--color-red);
+        outline: none;
+      }
+    }
+
+    /*input[type="search"] {
+      border: 0 solid #ccc;
+      border-radius: var(--border-radius-input);
+      outline: none;
+    }*/
+
+    div.error {
+      font-size: 14px;
+      margin-top: 8px;
+      color: var(--color-red);
+    }
+
+    input[type="tel"] {
+      padding-left: 56px;
+      margin-right: 16px;
+      width: 100%;
+    }
+
+    input[type="file"]::file-selector-button {
+      appearance: none;
+      display: inline-flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      padding: 12px 30px 14px;
+      cursor: pointer;
+      margin: 0;
+      margin-right: 16px;
+      text-align: center;
+      text-decoration: none;
+      vertical-align: middle;
+      white-space: nowrap;
+      width: auto;
+      font-size: var(--typography-cta-s-font-size);
+      background-color: var(--color-blue);
+      border-radius: var(--border-radius-button);
+      border: 1px solid var(--color-white);
+      color: var(--color-white);
+
+      svg {
+        margin-right: 15px;
+
+        path {
+          fill: var(--color-white);
+        }
+      }
+
+      &:hover {
+        background-color: var(--color-dark-blue);
+      }
+    }
+
+    ::placeholder {
+      color: #ccc;
+    }
+
+    .iti__flag-container {
+      right: 0;
+      width: 100%;
+    }
+
+    .iti__selected-flag {
+      width: 56px;
+    }
+
+    .iti.iti--allow-dropdown {
+      width: 100%;
+    }
+
+    &.checkboxes {
+      flex-basis: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 30px;
+
+      @include breakpoint('sm') {
+        flex-direction: column;
+      }
+
+      > div {
+        display: flex;
+        align-items: center;
+        @include breakpoint('sm') {
+          flex-direction: column;
+        }
+
+        label {
+          margin: 0;
+        }
+      }
+
+      .group {
+        div {
+          align-items: center;
+          display: flex;
+          margin-right: 24px;
+          @include breakpoint('sm') {
+            flex-direction: column;
+          }
+        }
+      }
+    }
+  }
+}
+
+.result-success {
+  display: flex;
+  background: linear-gradient(0deg, rgba(0, 152, 58, 0.05), rgba(0, 152, 58, 0.05)), #FFFFFF;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  min-height: 450px;
+  border-radius: inherit;
+
+  p {
+    margin-top: 12px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 28px;
+    text-align: center;
+    letter-spacing: 0.5px;
+    color: #00983A;
+  }
+}
+
+.result-error {
+  display: flex;
+  background: linear-gradient(0deg, rgba(190, 22, 34, 0.05), rgba(190, 22, 34, 0.05)), #FFFFFF;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  min-height: 450px;
+  border-radius: inherit;
+
+  p {
+    margin-top: 12px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 28px;
+    text-align: center;
+    letter-spacing: 0.5px;
+    color: #BE1622;
+    margin-bottom: 22px;
+  }
+}
+
+::v-deep #vs1__combobox {
+  padding: 10px 10px 10px 20px;
+  width: calc(100%);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 28px;
+  border: 1px solid #ccc;
+  border-radius: var(--border-radius-input);
+  outline: 1px solid #ccc;
+}
+
+.vs__dropdown-toggle {
+  border-radius: var(--border-radius-input) !important;
+  padding: 10px 8px !important;
+}
+
+.vs__actions {
+  &:after {
+    content: '';
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 129 129'%3E%3Cpath d='M121.3 34.6c-1.6-1.6-4.2-1.6-5.8 0l-51 51.1-51.1-51.1c-1.6-1.6-4.2-1.6-5.8 0-1.6 1.6-1.6 4.2 0 5.8l53.9 53.9c.8.8 1.8 1.2 2.9 1.2 1 0 2.1-.4 2.9-1.2l53.9-53.9c1.7-1.6 1.7-4.2.1-5.8z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    width: 20px;
+    height: 20px;
+    transform-origin: center;
+    transition: all 0.35s ease-in-out;
+  }
+}
+
+.v-select.vs--open {
+  .vs__actions {
+    &:after {
+      transform: rotate(-180deg);
+    }
+  }
+}
+
+.vs__clear,
+.vs__open-indicator {
+  display: none !important;
+}
