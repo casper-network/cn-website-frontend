@@ -48,6 +48,7 @@
           <a>{{ $t('ctas.joinNow') }}</a>
         </Button>
       </div>
+      <div class="form-group legal" v-html="$t('form.legal.newsletter')" />
     </form>
     <div class="result-success" v-if="wasSubmitted">
       <SVGCheck/>

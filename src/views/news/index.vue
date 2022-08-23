@@ -49,13 +49,13 @@ export default {
         { property: 'og:title', content: `${metaPageData.title}` },
         { itemprop: 'name', content: `${metaPageData.title}` },
         { itemprop: 'description', content: `${metaPageData.description}` },
-        { itemprop: 'image', content: `${process.env.VUE_APP_API_URL}/${metaPageData.image}` },
-        { name: 'twitter:card', content: `${process.env.VUE_APP_API_URL}/${metaPageData.image}` },
+        { itemprop: 'image', content: `${process.env.VUE_APP_API_URL}/assets/${metaPageData.image}` },
+        { name: 'twitter:card', content: `${process.env.VUE_APP_API_URL}/assets/${metaPageData.image}` },
         { property: 'og:site_name', content: window.location.hostname },
         { property: 'og:description', content: metaPageData.description },
         { property: 'og:type', content: 'website' },
         { property: 'og:url', content: window.location.href },
-        { property: 'og:image', content: `${process.env.VUE_APP_API_URL}/${metaPageData.image}` },
+        { property: 'og:image', content: `${process.env.VUE_APP_API_URL}/assets/${metaPageData.image}` },
       ],
     };
   },
@@ -65,10 +65,16 @@ export default {
   },
   methods: {
     finallyDoSearch(val) {
-      this.isSearching = !!(val.length);
-      this.searchData = val;
-      this.searchData[0].sort((a, b) => Date.parse(b.publish_date) - Date.parse(a.publish_date));
-      console.log('searching', val);
+      if (!val) {
+        this.newsData = this.$d.data.page_blocks;
+        this.isSearching = false;
+        this.searchData = null;
+      } else {
+        this.isSearching = !!(val.length);
+        this.searchData = val;
+        this.searchData[0].sort((a, b) => Date.parse(b.publish_date) - Date.parse(a.publish_date));
+        console.log('searching', val);
+      }
     },
     filterByTag(val) {
       console.log('filtering', val);

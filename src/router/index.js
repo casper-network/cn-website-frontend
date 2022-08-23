@@ -33,6 +33,7 @@ const VIEW_MAPPING = {
   lp_community: PageFactory,
   lp_pressmedia: PageFactory,
   lp_imprint: PageFactory,
+  lp_privacy: PageFactory,
   lp_documentation: PageFactory,
   lp_ecosystem: EcoSystem,
   lp_newsletter: Newsletter,

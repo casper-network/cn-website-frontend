@@ -76,11 +76,11 @@ export default {
         },
         {
           itemprop: 'image',
-          content: `${process.env.VUE_APP_API_URL}/${metaPageData.image}`,
+          content: `${process.env.VUE_APP_API_URL}/assets/${metaPageData.image}`,
         },
         {
           name: 'twitter:card',
-          content: `${process.env.VUE_APP_API_URL}/${metaPageData.image}`,
+          content: `${process.env.VUE_APP_API_URL}/assets/${metaPageData.image}`,
         },
         {
           property: 'og:site_name',
@@ -100,7 +100,7 @@ export default {
         },
         {
           property: 'og:image',
-          content: `${process.env.VUE_APP_API_URL}/${metaPageData.image}`,
+          content: `${process.env.VUE_APP_API_URL}/assets/${metaPageData.image}`,
         },
       ],
     };
@@ -115,15 +115,21 @@ export default {
       this.categories = res.data;
     },
     finallyDoSearch(val) {
-      // eslint-disable-next-line prefer-destructuring
-      this.searchString = val[1];
-      this.isSearching = !!(val[1]);
-      this.searchData = val;
-      const numResults = (val[0] || []).length;
-      if (numResults === 0) {
-        this.searchResults = 0;
+      if (!val) {
+        this.applicationData = this.$d.data.page_blocks;
+        this.isSearching = false;
+        this.searchData = null;
       } else {
-        this.searchResults = numResults.toString().padStart(2, '0');
+        // eslint-disable-next-line prefer-destructuring
+        this.searchString = val[1];
+        this.isSearching = !!(val[1]);
+        this.searchData = val;
+        const numResults = (val[0] || []).length;
+        if (numResults === 0) {
+          this.searchResults = 0;
+        } else {
+          this.searchResults = numResults.toString().padStart(2, '0');
+        }
       }
     },
     filterByTag(val) {

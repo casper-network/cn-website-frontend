@@ -69,9 +69,9 @@
         </div>
         <div class="secondary-footer-nav">
           <ul>
-            <li><a href="#">Imprint</a></li>
-            <li><a href="#">Privacy Policy</a></li>
-            <li><a href="#">Trademark Policy & Guidelines</a></li>
+            <li v-for="(navItem, i) in compNavFooter4" :key="`nav-col-2-${i}`">
+              <router-link :to="`/${$i18n.locale}/${navItem.url}`">{{navItem.title}}</router-link>
+            </li>
           </ul>
         </div>
       </div>
@@ -135,6 +135,13 @@ export default {
     },
     compNavFooter3() {
       const path = 'footer.nav3Content';
+      if (this.$i18n.te(path)) {
+        return this.$i18n.t(path);
+      }
+      return null;
+    },
+    compNavFooter4() {
+      const path = 'footer.nav4Content';
       if (this.$i18n.te(path)) {
         return this.$i18n.t(path);
       }

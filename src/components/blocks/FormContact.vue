@@ -37,9 +37,10 @@
       </div>
       <div class="form-group buttons">
         <Button class="primary" icon="" @click.native="submitForm()">
-          <a>send</a>
+          <a>Send</a>
         </Button>
       </div>
+      <div class="form-group legal" v-html="$t('form.legal.contact')" />
     </form>
     <div class="result-success" v-if="wasSubmitted">
       <SVGCheck />

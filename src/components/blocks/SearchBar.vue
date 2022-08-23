@@ -141,10 +141,14 @@ export default {
     // Event Handlers
     //----------------------------------
     forwardSearchEvent(val) {
-      const searchContainer = (this.type === 'News') ? 'news' : 'applications';
-      axios.get(`${process.env.VUE_APP_API_URL}/cce/search?collection=${searchContainer}&locale=${Intl.getCanonicalLocales(this.$i18n.locale)}&q=${val}`).then((resp) => {
-        this.$emit('search', [resp.data.data, val]);
-      });
+      if (val === '') {
+        this.$emit('search', null);
+      } else {
+        const searchContainer = (this.type === 'News') ? 'news' : 'applications';
+        axios.get(`${process.env.VUE_APP_API_URL}/cce/search?collection=${searchContainer}&locale=${Intl.getCanonicalLocales(this.$i18n.locale)}&q=${val}`).then((resp) => {
+          this.$emit('search', [resp.data.data, val]);
+        });
+      }
     },
   },
 };

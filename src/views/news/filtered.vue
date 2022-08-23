@@ -51,14 +51,21 @@ export default {
   },
   methods: {
     finallyDoSearch(val) {
-      // eslint-disable-next-line prefer-destructuring
-      this.newsData = val[0];
-      this.isFiltering = false;
-      this.isSearching = !!(val[1]);
-      // eslint-disable-next-line prefer-destructuring
-      this.searchString = val[1];
-      this.newsData.sort((a, b) => Date.parse(b.publish_date) - Date.parse(a.publish_date));
-      console.log('searching', val[0]);
+      if (!val) {
+        this.newsData = this.$d.data;
+        this.isSearching = false;
+        this.isFiltering = true;
+        this.searchString = '';
+      } else {
+        // eslint-disable-next-line prefer-destructuring
+        this.newsData = val[0];
+        this.isFiltering = false;
+        this.isSearching = !!(val[1]);
+        // eslint-disable-next-line prefer-destructuring
+        this.searchString = val[1];
+        this.newsData.sort((a, b) => Date.parse(b.publish_date) - Date.parse(a.publish_date));
+        console.log('searching', val[0]);
+      }
     },
     filterByTag(val) {
       this.newsData = this.$d.data;

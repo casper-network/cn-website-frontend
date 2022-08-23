@@ -52,6 +52,10 @@ export default {
         value: 'introduce-project',
       },
     ],
+    legal: {
+      newsletter: 'You can withdraw your consent at any time by sending an e-mail to <a href="mailto:withdraw@casper.network">withdraw@casper.network</a>.<br/> For further information see the <a href="/en-us/privacy-policy">Data Privacy Policy</a>.',
+      contact: '<a href="/en-us/privacy-policy">Privacy Policy</a>',
+    },
   },
   formErrors: {
     required: 'This field is required.',
@@ -243,6 +247,10 @@ export default {
         url: 'https://arxiv.org/pdf/2101.02159.pdf',
         type: 'ext',
       },
+    ],
+    nav4Content: [
+      { title: 'Imprint', url: 'imprint' },
+      { title: 'Privacy Policy', url: 'privacy-policy' },
     ],
   },
   countries: [

@@ -67,12 +67,19 @@ export default {
       this.categories = res.data;
     },
     finallyDoSearch(val) {
-      // eslint-disable-next-line prefer-destructuring
-      this.applicationData = val[0];
-      this.isSearching = !!(val[1]);
-      // eslint-disable-next-line prefer-destructuring
-      this.searchString = val[1];
-      console.log('searching', val);
+      if (!val) {
+        this.applicationData = this.$d.data;
+        this.isSearching = false;
+        this.isFiltering = true;
+        this.searchString = '';
+      } else {
+        // eslint-disable-next-line prefer-destructuring
+        this.applicationData = val[0];
+        this.isSearching = !!(val[1]);
+        // eslint-disable-next-line prefer-destructuring
+        this.searchString = val[1];
+        console.log('searching', val);
+      }
     },
     filterByTag(val) {
       this.applicationData = this.$d.data;
