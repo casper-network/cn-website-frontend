@@ -26,6 +26,7 @@ VUE_APP_ASSET_URL=https://{DIRECTUS-URL}/assets/
 VUE_APP_ITEMS_URL=https://{DIRECTUS-URL}/items/
 VUE_APP_ZOHO_ENDPOINT=https://oitn.maillist-manage.eu/weboptin.zc
 ```
+
 * `VUE_APP_I18N_LOCALE` should always be `en-us`.
 * `VUE_APP_LANGUAGES` is a comma separated list of available languages Currently only `en-us` exists.
 * Replace `{DIRECTUS-URL}` with the URL where Directus lives.
