@@ -104,8 +104,8 @@ export default {
   //---------------------------------------------------
   methods: {
     async getCount() {
-      const response = await axios.get(`${process.env.VUE_APP_ITEMS_URL}news?aggregate[count]=*`);
-      this.numEntries = response.data.data[0].count || 0;
+      const response = await axios.get(`${process.env.VUE_APP_ITEMS_URL}news?aggregate[count]=*&groupBy[]=status`);
+      this.numEntries = response.data.data[1].count || 0;
     },
     async getNews() {
       try {

@@ -12,7 +12,7 @@
             {{ tag.name }}
           </router-link>
         </li>
-        <li class="has-children" tabindex="-1">
+        <li class="has-children" tabindex="-1" v-if="allOtherCategories.length > 0">
           <a>More <SVGChevronDown /></a>
           <ul>
             <li v-for="(tag, j) in allOtherCategories" :key="`tag-${j}`">

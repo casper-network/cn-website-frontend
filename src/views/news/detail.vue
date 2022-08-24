@@ -144,7 +144,11 @@ export default {
       const relatedAPIURL = '/news?filter[content][languages_code][_eq]=VAR_LOCALE&fields=*.*&limit=-1';
       const requestAPIEndpoint = relatedAPIURL.replace('VAR_LOCALE', Intl.getCanonicalLocales(this.$i18n.locale));
       const res = await this.$d.api.get(requestAPIEndpoint);
-      this.relatedNews = res.data.sort(() => ((Math.random() > 0.5) ? 1 : -1)).slice(1, 3);
+      const currentId = this.$d.data.data.id;
+      this.relatedNews = res.data
+        .filter((o) => o.id !== currentId)
+        .sort(() => ((Math.random() > 0.5) ? 1 : -1))
+        .slice(1, 3);
     },
     //----------------------------------
     // Event Handlers
