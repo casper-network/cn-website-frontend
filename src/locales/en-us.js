@@ -249,7 +249,7 @@ export default {
       },
     ],
     nav4Content: [
-      { title: 'Imprint', url: 'imprint' },
+      { title: 'Terms of Use', url: 'terms-of-use' },
       { title: 'Privacy Policy', url: 'privacy-policy' },
     ],
   },

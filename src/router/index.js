@@ -32,7 +32,7 @@ const VIEW_MAPPING = {
   lp_case_studies: PageFactory,
   lp_community: PageFactory,
   lp_pressmedia: PageFactory,
-  lp_imprint: PageFactory,
+  lp_terms_of_use: PageFactory,
   lp_privacy: PageFactory,
   lp_documentation: PageFactory,
   lp_ecosystem: EcoSystem,
