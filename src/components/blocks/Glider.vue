@@ -4,7 +4,8 @@
       <div class="glide__track" data-glide-el="track">
         <ul class="glide__slides">
           <li class="glide__slide" v-for="(item, i) in glideData" :key="`glide-slide-${i}`">
-            <img loading="lazy" width="1024" height="768" :src="item" alt="">
+            <img loading="lazy" width="1024" height="768" :src="slideImage(item)" alt="">
+            <div v-if="item.text" v-html="item.text"></div>
           </li>
         </ul>
       </div>
@@ -25,7 +26,7 @@
 </template>
 
 <script>
-import Glide, { Controls } from '@glidejs/glide/dist/glide.modular.esm';
+import Glide from '@glidejs/glide/dist/glide';
 import ChevronLeft from '@/assets/svg/chevronLeft.svg?inline';
 import ChevronRight from '@/assets/svg/chevronRight.svg?inline';
 
@@ -89,15 +90,7 @@ export default {
       type: 'carousel',
       perView: 1,
       gap: 10,
-      breakpoints: {
-        800: {
-          perView: 1,
-        },
-        1200: {
-          perView: 2,
-        },
-      },
-    }).mount({ Controls });
+    }).mount();
   },
   // beforeUpdate() {},
   // updated() {},
@@ -109,6 +102,9 @@ export default {
   //
   //---------------------------------------------------
   methods: {
+    slideImage(val) {
+      return process.env.VUE_APP_ASSET_URL + val.id;
+    },
     //----------------------------------
     // Event Handlers
     //----------------------------------
@@ -121,12 +117,12 @@ export default {
 @import "./node_modules/@glidejs/glide/src/assets/sass/glide.theme";
 
 .glide__slide {
-  background: #ccc;
+  // background: #ccc;
 
   img {
     width: 100%;
     height: 100%;
-    aspect-ratio: 16 / 9;
+    // aspect-ratio: 16 / 9;
     object-fit: cover;
   }
 }
@@ -171,6 +167,7 @@ export default {
   padding: 6px;
   border-radius: var(--border-radius-button);
   background: var(--color-grey-light);
+  bottom: 0;
 
   .glide__bullet {
     width: 6px;

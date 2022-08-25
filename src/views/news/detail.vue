@@ -21,8 +21,10 @@
               :quote="block.content"/>
           </div>
         </div>
-        <div class="container block" v-if="block.blocktype === 'carousel'">
-          <Glider :glide-data="glideData"></Glider>
+        <div class="container block" v-if="block.blocktype === 'imagegallery'">
+          <div class="half-carousel">
+            <Glider :glide-data="block.media"></Glider>
+          </div>
         </div>
         <ArticleImage
           v-if="block.blocktype === 'image'"
@@ -239,6 +241,21 @@ div.container {
 
   &.redactor-content {
     flex-direction: column;
+  }
+
+  div.half-carousel {
+    width: calc(60% - 43px);
+    margin-left: auto;
+
+    ::v-deep ul > li > div:last-of-type {
+      font-size: 20px;
+      line-height: 24px;
+    }
+
+    @include breakpoint('sm') {
+      margin-left: auto;
+      width: 100%;
+    }
   }
 }
 </style>
