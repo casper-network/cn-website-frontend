@@ -60,6 +60,8 @@ export default {
     };
   },
   mounted() {
+    const root = document.querySelector(':root');
+    root.style.setProperty('--headerHeight', `${document.querySelector('header').clientHeight}px`);
     this.newsData = this.$d.data.page_blocks;
     this.getAllCategories();
   },
@@ -87,9 +89,16 @@ export default {
 };
 </script>
 <style lang="scss">
+@import '~scss/mixins';
+
 .page-news-index {
   padding-top: 110px;
   padding-bottom: 110px;
+
+  @include breakpoint('sm') {
+    padding-top: 75px;
+    padding-bottom: 75px;
+  }
 
   div.container {
     display: flex;

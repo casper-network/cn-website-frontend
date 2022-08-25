@@ -143,6 +143,13 @@ article {
     flex-direction: column;
     padding: 24px 0;
     gap: 24px;
+
+    &:hover {
+      .img-container {
+        transform: none;
+        animation: none;
+      }
+    }
   }
 
   h3 {

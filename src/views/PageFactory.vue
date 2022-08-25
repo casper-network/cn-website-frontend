@@ -55,7 +55,7 @@
       <div class="container col"
            v-if="block.blocktype === 'accordion'">
         <TextTeaser v-if="block.title"
-                    class="container mb-md"
+                    class="container mb-md px-0"
                     :box-title="block.title"
                     :box-content="(block.content) ? block.content : ''"
         />

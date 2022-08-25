@@ -81,8 +81,14 @@ export default {
 };
 </script>
 <style lang="scss">
+@import '~scss/mixins';
+
 .page-news-index {
   padding-top: 110px;
+
+  @include breakpoint('sm') {
+    padding-top: 75px;
+  }
 
   div.container {
     display: flex;

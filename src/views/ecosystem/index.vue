@@ -106,6 +106,8 @@ export default {
     };
   },
   mounted() {
+    const root = document.querySelector(':root');
+    root.style.setProperty('--headerHeight', `${document.querySelector('header').clientHeight}px`);
     this.applicationData = this.$d.data.page_blocks;
     this.getAllCategories();
   },

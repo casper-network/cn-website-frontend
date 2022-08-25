@@ -7,7 +7,7 @@
             {{ $t('general.overview') }}
           </router-link>
         </li>
-        <li v-for="(tag, i) in topCategories" :key="`tag-${i}`">
+        <li v-for="(tag, i) in topCategories" :key="`tag1-${i}`">
           <router-link :to="`/${$i18n.locale}/${type.toLowerCase()}/tag/${tag.key}`" :class="{'active': $route.params.category === tag.name}">
             {{ tag.name }}
           </router-link>
@@ -15,7 +15,7 @@
         <li class="has-children" tabindex="-1" v-if="allOtherCategories.length > 0">
           <a>More <SVGChevronDown /></a>
           <ul>
-            <li v-for="(tag, j) in allOtherCategories" :key="`tag-${j}`">
+            <li v-for="(tag, j) in allOtherCategories" :key="`tag2-${j}`">
               <router-link :to="`/${$i18n.locale}/${type.toLowerCase()}/tag/${tag.key}`" :class="{'active': $route.params.category === tag.name}">
                 {{ tag.name }}
               </router-link>
@@ -29,12 +29,12 @@
             {{ $t('general.overview') }}
           </router-link>
         </li>
-        <li v-for="(tag, i) in topCategories" :key="`tag-${i}`">
+        <li v-for="(tag, i) in topCategories" :key="`tag3-${i}`">
           <router-link :to="`/${$i18n.locale}/${type.toLowerCase()}/tag/${tag.key}`" :class="{'active': $route.params.category === tag.name}">
             {{ tag.name }}
           </router-link>
         </li>
-        <li v-for="(tag, j) in allOtherCategories" :key="`tag-${j}`">
+        <li v-for="(tag, j) in allOtherCategories" :key="`tag4-${j}`">
           <router-link :to="`/${$i18n.locale}/${type.toLowerCase()}/tag/${tag.key}`" :class="{'active': $route.params.category === tag.name}">
             {{ tag.name }}
           </router-link>
@@ -180,6 +180,10 @@ div.search-bar {
     @include breakpoint('sm') {
       flex-direction: column;
       gap: 26px;
+
+      &.-long {
+        padding: 0;
+      }
     }
 
     ul {
@@ -193,6 +197,8 @@ div.search-bar {
         overflow-x: scroll;
         -ms-overflow-style: none;  /* IE and Edge */
         scrollbar-width: none;
+        padding: 0 15px;
+        max-width: calc(100% - 30px);
       }
 
       &::-webkit-scrollbar {

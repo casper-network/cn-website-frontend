@@ -123,6 +123,11 @@ export default {
   align-items: center;
   position: relative;
 
+  @include breakpoint('sm') {
+    max-width: calc(100% - 30px);
+    padding: 0 0 10px 0;
+  }
+
   &:after {
     content: '';
     position: absolute;

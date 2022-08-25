@@ -15,7 +15,7 @@
               <ChevronFuckedUp v-if="item.children" @click.native="toggleChildren"/>
             </div>
             <div v-if="!item.url">
-              <a class="curs-point">
+              <a class="curs-point" @click="toggleChildren">
                 <span>{{ item.title }}</span>
               </a>
               <ChevronFuckedUp v-if="item.children" @click.native="toggleChildren"/>
@@ -164,7 +164,6 @@ export default {
       evt.currentTarget.classList.add('hover');
     },
     toggleChildren(evt) {
-      console.log(evt.currentTarget);
       evt.currentTarget.parentNode.parentNode.classList.toggle('hover');
       evt.currentTarget.parentNode.classList.toggle('hover');
     },
@@ -172,7 +171,6 @@ export default {
       evt.currentTarget.classList.remove('hover');
     },
     openNavigation() {
-      console.log('openNavigation');
       this.$store.state.isMobileNavigationOpen = !this.$store.state.isMobileNavigationOpen;
 
       document.querySelector('.nav-button')
@@ -221,8 +219,6 @@ export default {
           .classList
           .add('theme-light');
       }
-
-      console.log('iwas here');
     },
     onScroll() {
       const currentScrollPosition = window.pageYOffset || document.documentElement.scrollTop;

@@ -200,7 +200,7 @@ div[data-vimeo-initialized="true"] {
   overflow: hidden;
   border-radius: var(--border-radius-teaser);
   transform: translateY(0);
-  aspect-ratio: 16/9;
+  padding-bottom: 56.25%;
 
   img {
     position: absolute;
@@ -208,7 +208,6 @@ div[data-vimeo-initialized="true"] {
     object-fit: cover;
     inset: 0;
     width: 100%;
-    aspect-ratio: 16/9;
     opacity: 1;
     transition: transform, 0.35s ease-in-out;
   }
@@ -220,14 +219,16 @@ div[data-vimeo-initialized="true"] {
   }
 
   > div {
-    position: relative;
+    position: absolute;
     display: block;
+    left: 50%;
+    top: 50%;
     width: 120px;
     height: 120px;
     z-index: 2000;
     cursor: pointer;
     backface-visibility: hidden;
-    transform: translate3d(0, 0, 0);
+    transform: translate3d(-50%, -50%, 0);
 
     @include breakpoint('sm') {
       width: 45px;

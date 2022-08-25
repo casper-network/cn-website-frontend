@@ -111,8 +111,8 @@ export default {
       try {
         const [locale] = Intl.getCanonicalLocales(i18n.locale);
         const totalItems = (this.collectionAmount) ? this.collectionAmount : this.currentPage * 10;
-        const response = await axios.get(`${process.env.VUE_APP_ITEMS_URL}news?fields=*.*&limit=${totalItems}&sort=-publish_date&filter[content][languages_code][_eq]=${locale}`);
-        this.news = response.data.data.filter((item) => item.status === 'published');
+        const response = await axios.get(`${process.env.VUE_APP_ITEMS_URL}news?fields=*.*&limit=${totalItems}&sort=-publish_date&filter[content][languages_code][_eq]=${locale}&filter[status][_eq]=published`);
+        this.news = response.data.data;
       } catch (error) {
         this.news = false;
         console.log(error);
@@ -134,8 +134,8 @@ export default {
       });
 
       const [locale] = Intl.getCanonicalLocales(i18n.locale);
-      const response = await axios.get(`${process.env.VUE_APP_ITEMS_URL}news?fields=*.*&limit=10&page=${this.currentPage}&sort=-publish_date&filter[content][languages_code][_eq]=${locale}`);
-      this.news = [...this.news, ...response.data.data.filter((item) => item.status === 'published')];
+      const response = await axios.get(`${process.env.VUE_APP_ITEMS_URL}news?fields=*.*&limit=10&page=${this.currentPage}&sort=-publish_date&filter[content][languages_code][_eq]=${locale}&filter[status][_eq]=published`);
+      this.news = [...this.news, ...response.data.data];
     },
     //----------------------------------
     // Event Handlers
@@ -160,12 +160,15 @@ div.container {
     }
 
     @include breakpoint('sm') {
-      padding-top: 45px;
+      padding: 45px 0 45px 0;
     }
   }
 
   @include breakpoint('sm') {
     padding-top: 45px;
+    .posts > article:first-of-type {
+      padding-top: 45px;
+    }
   }
 
   .posts {
@@ -176,6 +179,10 @@ div.container {
     width: 100%;
     justify-content: space-between;
     align-items: center;
+
+    @include breakpoint('sm') {
+      h2 { margin-bottom: 40px; }
+    }
   }
 }
 </style>

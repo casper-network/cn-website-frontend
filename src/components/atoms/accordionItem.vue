@@ -140,7 +140,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import '@/assets/scss/mixins.scss';
 
 .accordion__item {
@@ -171,6 +171,7 @@ export default {
 
   .accordion__content {
     margin-left: 43%;
+    margin-bottom: 45px;
     width: auto;
 
     @include breakpoint('sm') {
@@ -189,6 +190,7 @@ export default {
 .accordion__trigger {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   margin-left: 43%;
   width: auto;
   padding: 47px 20px 47px 0;
@@ -204,7 +206,6 @@ export default {
 
     @include breakpoint('sm') {
       width: 24px;
-      margin-top: 20px;
     }
   }
 

@@ -180,6 +180,9 @@ div.hero {
 
       .hero__content {
         padding: 210px 20px 120px 20px;
+        @include breakpoint('sm') {
+          padding-top: 120px;
+        }
       }
     }
   }
