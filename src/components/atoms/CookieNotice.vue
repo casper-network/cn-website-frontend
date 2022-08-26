@@ -1,6 +1,6 @@
 <template>
   <div id="cookieNotice" ref="cookieNotice">
-    <p>This website uses cookies. <router-link to="/privacy-policy">Privacy&nbsp;Policy</router-link></p>
+    <p>This website uses cookies. <router-link :to="`/${$i18n.locale}/privacy-policy`">Privacy&nbsp;Policy</router-link></p>
     <div class="buttons">
       <Button class="primary">
         <a href="#" @click="declineCookies">Disable All</a>
@@ -13,6 +13,7 @@
 </template>
 
 <script>
+// import ScriptLoader from '@/utils/ScriptLoader';
 
 export default {
   name: 'CookieNotice',
@@ -80,6 +81,14 @@ export default {
       this.$cookies.set('cookie-notice', 'accepted', {
         expires: 365,
       });
+
+      /*
+      const layer = 'dataLayer';
+      window[layer] = window[layer] || [];
+      window[layer].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+      ScriptLoader.load('https://www.googletagmanager.com/gtm.js?id=GTM-PHQC53L', 'gtag', true);
+      */
+
       this.$emit('accepted');
       this.$refs.cookieNotice.classList.add('hidden');
     },
