@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container" v-if="careerItems && careerItems.length > 0">
     <accordion type="full">
       <accordion-item v-for="(job, i) in careerItems" :key="`job-item-${i}`" :job-slug="job.content[0].slug">
         <!-- This slot will handle the title/header of the accordion and is the part you click on -->
