@@ -17,7 +17,7 @@
         </div>
       </div>
       <Disturber
-        v-if="cta.text"
+        v-if="cta.url"
         :cta-u-r-l="cta.url"
         cta-target="_blank"
       >

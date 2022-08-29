@@ -237,11 +237,13 @@ export default {
         url: 'documentation',
         type: 'int',
       },
+      /*
       {
         title: 'Membership Portal',
         url: 'https://members.casper.network/',
         type: 'ext',
       },
+      */
       {
         title: 'Whitepaper',
         url: 'https://arxiv.org/pdf/2101.02159.pdf',
