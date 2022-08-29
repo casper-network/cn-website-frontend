@@ -5,11 +5,11 @@ import Vue from 'vue';
 import api from './api';
 import config from './config';
 
-const { APP_ENV, LANGUAGES } = config;
+const { LANGUAGES } = config;
+
 const reactiveVm = new Vue({ data: { dData: null, clientWidth: window.innerWidth } });
 const directus = {
   api,
-  env: APP_ENV,
   languages: LANGUAGES,
   install: () => {
     Object.defineProperty(directus, 'data', {

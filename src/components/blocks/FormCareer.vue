@@ -80,6 +80,9 @@ import intlTelInput from 'intl-tel-input';
 import axios from 'axios';
 import SVGCheck from '@/assets/svg/checkCircle.svg?inline';
 import SVGError from '@/assets/svg/closeCircle.svg?inline';
+import config from '@/directus/config';
+
+const { API_URL } = config;
 
 export default {
   name: 'FormCareer',
@@ -220,7 +223,7 @@ export default {
         form.append('file', this.formData.file);
         const options = {
           method: 'POST',
-          url: `${process.env.VUE_APP_API_URL}/cce/applicants`,
+          url: `${API_URL}/cce/applicants`,
           headers: { 'content-type': 'multipart/form-data; boundary=---011000010111000001101001' },
           data: form,
         };

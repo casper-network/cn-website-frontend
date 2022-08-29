@@ -16,6 +16,9 @@
 </template>
 
 <script>
+import config from '@/directus/config';
+
+const { API_URL } = config;
 
 export default {
   name: 'FullTeaser',
@@ -59,7 +62,7 @@ export default {
   //---------------------------------------------------
   computed: {
     bgImage() {
-      return process.env.VUE_APP_ASSET_URL + this.teaserBlock.media;
+      return `${API_URL}/assets/${this.teaserBlock.media}`;
     },
   },
   //---------------------------------------------------

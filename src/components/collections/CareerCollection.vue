@@ -30,6 +30,9 @@
 
 <script>
 import axios from 'axios';
+import config from '@/directus/config';
+
+const { API_URL } = config;
 
 export default {
   name: 'CareerCollection',
@@ -103,7 +106,7 @@ export default {
     },
     async getCareerItems() {
       try {
-        const response = await axios.get(`${process.env.VUE_APP_ITEMS_URL}jobs?fields=*.*&limit=-1&sort=sort,date_created`);
+        const response = await axios.get(`${API_URL}/items/jobs?fields=*.*&limit=-1&sort=sort,date_created`);
         this.careerItems = response.data.data.filter((item) => item.status === 'published');
       } catch (error) {
         this.careerItems = false;

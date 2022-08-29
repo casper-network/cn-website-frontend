@@ -37,6 +37,9 @@
 import dayjs from 'dayjs';
 import RelativeTime from 'dayjs/plugin/relativeTime';
 import SVGWatch from '@/assets/svg/watch.svg?inline';
+import config from '@/directus/config';
+
+const { API_URL } = config;
 
 dayjs.extend(RelativeTime);
 
@@ -73,7 +76,10 @@ export default {
       return dayjs().to(this.postItemData.publish_date);
     },
     postImage() {
-      return (this.type === 'news') ? process.env.VUE_APP_ASSET_URL + this.postItemData.content[0].image : process.env.VUE_APP_ASSET_URL + this.postItemData.image;
+      if (this.type === 'news') {
+        return `${API_URL}/assets/${this.postItemData.content[0].image}`;
+      }
+      return `${API_URL}/assets/${this.postItemData.image}`;
     },
   },
   //---------------------------------------------------

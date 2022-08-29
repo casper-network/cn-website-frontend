@@ -28,6 +28,9 @@
 </template>
 
 <script>
+import config from '@/directus/config';
+
+const { API_URL } = config;
 
 export default {
   name: 'Hero',
@@ -77,9 +80,9 @@ export default {
   computed: {
     heroImage() {
       if (!this.block) {
-        return `${process.env.VUE_APP_ASSET_URL}34dff585-16a1-4499-ac08-907f5c853e25`;
+        return `${API_URL}/assets/34dff585-16a1-4499-ac08-907f5c853e25`;
       }
-      return process.env.VUE_APP_ASSET_URL + this.block.media[0];
+      return `${API_URL}/assets/${this.block.media[0]}`;
     },
   },
   //---------------------------------------------------

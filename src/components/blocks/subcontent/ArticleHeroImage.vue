@@ -5,6 +5,10 @@
 </template>
 
 <script>
+import config from '@/directus/config';
+
+const { API_URL } = config;
+
 export default {
   name: 'ArticleHeroImage',
   components: {},
@@ -38,7 +42,7 @@ export default {
   //---------------------------------------------------
   computed: {
     postImage() {
-      return process.env.VUE_APP_ASSET_URL + this.imgSrc;
+      return `${API_URL}/assets/${this.imgSrc}`;
     },
   },
   //---------------------------------------------------

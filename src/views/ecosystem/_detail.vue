@@ -54,6 +54,9 @@
 import Button from '@/components/atoms/Button.vue';
 import Tag from '@/components/atoms/Tag.vue';
 import RelatedApplications from '@/components/collections/RelatedApplications.vue';
+import config from '@/directus/config';
+
+const { API_URL } = config;
 
 export default {
   name: 'detail.vue',
@@ -89,10 +92,10 @@ export default {
   //---------------------------------------------------
   computed: {
     cardImage() {
-      return process.env.VUE_APP_ASSET_URL + this.pageData.data.image;
+      return `${API_URL}/assets/${this.pageData.data.image}`;
     },
     logoImage() {
-      return process.env.VUE_APP_ASSET_URL + this.pageData.data.logo;
+      return `${API_URL}/assets/${this.pageData.data.logo}`;
     },
   },
   //---------------------------------------------------

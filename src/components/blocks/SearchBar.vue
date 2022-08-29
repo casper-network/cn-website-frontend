@@ -48,6 +48,9 @@
 <script>
 import SVGChevronDown from '@/assets/svg/chevronDown.svg?inline';
 import axios from 'axios';
+import config from '@/directus/config';
+
+const { API_URL } = config;
 
 export default {
   name: 'SearchBar',
@@ -129,11 +132,11 @@ export default {
       let res = {};
       switch (this.type) {
         case 'News':
-          res = await axios.get(`${process.env.VUE_APP_API_URL}/cce/categories?locale=en-US&collection=news`);
+          res = await axios.get(`${API_URL}/cce/categories?locale=en-US&collection=news`);
           break;
         case 'ecosystem':
         default:
-          res = await axios.get(`${process.env.VUE_APP_API_URL}/cce/categories?locale=en-US&collection=applications`);
+          res = await axios.get(`${API_URL}/cce/categories?locale=en-US&collection=applications`);
       }
       this.categories = res.data;
     },
@@ -145,7 +148,7 @@ export default {
         this.$emit('search', null);
       } else {
         const searchContainer = (this.type === 'News') ? 'news' : 'applications';
-        axios.get(`${process.env.VUE_APP_API_URL}/cce/search?collection=${searchContainer}&locale=${Intl.getCanonicalLocales(this.$i18n.locale)}&q=${val}`).then((resp) => {
+        axios.get(`${API_URL}/cce/search?collection=${searchContainer}&locale=${Intl.getCanonicalLocales(this.$i18n.locale)}&q=${val}`).then((resp) => {
           this.$emit('search', [resp.data.data, val]);
         });
       }

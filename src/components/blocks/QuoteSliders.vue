@@ -35,6 +35,9 @@
 <script>
 import SVGArrowLeft from '@/assets/svg/arrowLeft.svg?inline';
 import SVGArrowRight from '@/assets/svg/arrowRight.svg?inline';
+import config from '@/directus/config';
+
+const { API_URL } = config;
 
 export default {
   name: 'QuoteSliders',
@@ -74,7 +77,7 @@ export default {
   //---------------------------------------------------
   computed: {
     quoteImage() {
-      return process.env.VUE_APP_ASSET_URL + this.currentQuote.image;
+      return `${API_URL}/assets/${this.currentQuote.image}`;
     },
   },
   //---------------------------------------------------

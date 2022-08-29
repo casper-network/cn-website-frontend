@@ -22,6 +22,9 @@
 <script>
 import axios from 'axios';
 import i18n from '@/i18n';
+import config from '@/directus/config';
+
+const { API_URL } = config;
 
 export default {
   name: 'ItemNews',
@@ -104,14 +107,14 @@ export default {
   //---------------------------------------------------
   methods: {
     async getCount() {
-      const response = await axios.get(`${process.env.VUE_APP_ITEMS_URL}news?aggregate[count]=*&groupBy[]=status`);
+      const response = await axios.get(`${API_URL}/items/news?aggregate[count]=*&groupBy[]=status`);
       this.numEntries = response.data.data[1].count || 0;
     },
     async getNews() {
       try {
         const [locale] = Intl.getCanonicalLocales(i18n.locale);
         const totalItems = (this.collectionAmount) ? this.collectionAmount : this.currentPage * 10;
-        const response = await axios.get(`${process.env.VUE_APP_ITEMS_URL}news?fields=*.*&limit=${totalItems}&sort=-publish_date&filter[content][languages_code][_eq]=${locale}&filter[status][_eq]=published`);
+        const response = await axios.get(`${API_URL}/items/news?fields=*.*&limit=${totalItems}&sort=-publish_date&filter[content][languages_code][_eq]=${locale}&filter[status][_eq]=published`);
         this.news = response.data.data;
       } catch (error) {
         this.news = false;
@@ -120,7 +123,7 @@ export default {
       return this.news;
     },
     async getAllCategories() {
-      const res = await axios.get(`${process.env.VUE_APP_API_URL}/cce/categories?locale=en-US&collection=news`);
+      const res = await axios.get(`${API_URL}/cce/categories?locale=en-US&collection=news`);
       this.categories = res.data;
     },
     async incrementPageCount() {
@@ -134,7 +137,7 @@ export default {
       });
 
       const [locale] = Intl.getCanonicalLocales(i18n.locale);
-      const response = await axios.get(`${process.env.VUE_APP_ITEMS_URL}news?fields=*.*&limit=10&page=${this.currentPage}&sort=-publish_date&filter[content][languages_code][_eq]=${locale}&filter[status][_eq]=published`);
+      const response = await axios.get(`${API_URL}/items/news?fields=*.*&limit=10&page=${this.currentPage}&sort=-publish_date&filter[content][languages_code][_eq]=${locale}&filter[status][_eq]=published`);
       this.news = [...this.news, ...response.data.data];
     },
     //----------------------------------

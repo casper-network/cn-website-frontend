@@ -8,6 +8,9 @@
 
 <script>
 import axios from 'axios';
+import config from '@/directus/config';
+
+const { API_URL } = config;
 
 export default {
   name: 'TeamCollection',
@@ -83,7 +86,7 @@ export default {
   methods: {
     async getTeamData() {
       try {
-        const response = await axios.get(process.env.VUE_APP_TEAM_API);
+        const response = await axios.get(`${API_URL}/items/team_members?fields=*.*&sort%5B%5D=sort&limit=-1`);
         this.teamData = response.data.data;
       } catch (error) {
         this.teamData = false;

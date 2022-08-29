@@ -70,6 +70,9 @@ import { required, minLength } from 'vuelidate/lib/validators';
 import 'vue-select/dist/vue-select.css';
 import SVGCheck from '@/assets/svg/checkCircle.svg?inline';
 import SVGError from '@/assets/svg/closeCircle.svg?inline';
+import config from '@/directus/config';
+
+const { ZOHO_ENDPOINT } = config;
 
 export default {
   name: 'FormNewsletter',
@@ -194,7 +197,7 @@ export default {
           }
         });
 
-        xhr.open('POST', process.env.VUE_APP_ZOHO_ENDPOINT);
+        xhr.open('POST', ZOHO_ENDPOINT);
         xhr.setRequestHeader('content-type', 'application/x-www-form-urlencoded');
 
         xhr.send(data);

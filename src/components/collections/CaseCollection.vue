@@ -11,6 +11,9 @@
 
 <script>
 import axios from 'axios';
+import config from '@/directus/config';
+
+const { API_URL } = config;
 
 export default {
   name: 'ItemCaseStudy',
@@ -82,7 +85,7 @@ export default {
   methods: {
     async getCaseStudies() {
       try {
-        const response = await axios.get(`${process.env.VUE_APP_ITEMS_URL}casestudies?fields=*.*&limit=-1&sort=sort,date_created`);
+        const response = await axios.get(`${API_URL}/items/casestudies?fields=*.*&limit=-1&sort=sort,date_created`);
         this.casestudies = response.data.data.filter((item) => item.status === 'published');
       } catch (error) {
         this.casestudies = false;

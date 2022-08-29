@@ -15,6 +15,9 @@
 
 <script>
 import SVGTeamLinkedin from '@/assets/svg/teamlinkedin.svg?inline';
+import config from '@/directus/config';
+
+const { API_URL } = config;
 
 export default {
   name: 'TeamCard',
@@ -44,7 +47,7 @@ export default {
   //---------------------------------------------------
   computed: {
     teamImage() {
-      return process.env.VUE_APP_ASSET_URL + this.member.content[0].image;
+      return `${API_URL}/assets/${this.member.content[0].image}`;
     },
   },
   //---------------------------------------------------

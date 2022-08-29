@@ -11,6 +11,10 @@
 </template>
 
 <script>
+import config from '@/directus/config';
+
+const { API_URL } = config;
+
 export default {
   name: 'FileList',
   components: {},
@@ -76,7 +80,7 @@ export default {
   //---------------------------------------------------
   methods: {
     downloadLink(linkID) {
-      return `${process.env.VUE_APP_API_URL}/assets/${linkID}?download`;
+      return `${API_URL}/assets/${linkID}?download`;
     },
     //----------------------------------
     // Event Handlers

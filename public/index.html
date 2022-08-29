@@ -6,7 +6,14 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <link rel="icon" href="<%= BASE_URL %>favicon.ico" sizes="any">
     <link rel="icon" href="<%= BASE_URL %>favicon.svg" sizes="any" type="image/svg+xml" />
-    <title><%= htmlWebpackPlugin.options.title %></title>
+    <script type="application/javascript">
+      var ENV = {
+        VUE_APP_LANGUAGES: '{{VUE_APP_LANGUAGES}}',
+        VUE_APP_API_URL: '{{VUE_APP_API_URL}}',
+        VUE_APP_ZOHO_ENDPOINT: '{{VUE_APP_ZOHO_ENDPOINT}}',
+      }
+    </script>
+    <title>Casper Network</title>
 </head>
 <body>
 <noscript>

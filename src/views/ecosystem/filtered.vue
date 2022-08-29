@@ -22,8 +22,10 @@
 
 <script>
 // import { HTTP } from '@/utils/http-common';
-
 import axios from 'axios';
+import config from '@/directus/config';
+
+const { API_URL } = config;
 
 export default {
   name: 'EcoSystemFiltered',
@@ -58,11 +60,11 @@ export default {
       let res = {};
       switch (this.type) {
         case 'News':
-          res = await axios.get(`${process.env.VUE_APP_API_URL}/cce/categories?locale=en-US&collection=news`);
+          res = await axios.get(`${API_URL}/cce/categories?locale=en-US&collection=news`);
           break;
         case 'ecosystem':
         default:
-          res = await axios.get(`${process.env.VUE_APP_API_URL}/cce/categories?locale=en-US&collection=applications`);
+          res = await axios.get(`${API_URL}/cce/categories?locale=en-US&collection=applications`);
       }
       this.categories = res.data;
     },

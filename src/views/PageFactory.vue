@@ -136,6 +136,9 @@
 </template>
 <script>
 import { getDummyPage } from '@/api/endpoints/directusEndpoints';
+import config from '@/directus/config';
+
+const { API_URL } = config;
 
 export default {
   name: 'PageFactory',
@@ -195,11 +198,11 @@ export default {
         },
         {
           itemprop: 'image',
-          content: `${process.env.VUE_APP_API_URL}/assets/${metaPageData.image}`,
+          content: `${API_URL}/assets/${metaPageData.image}`,
         },
         {
           name: 'twitter:card',
-          content: `${process.env.VUE_APP_API_URL}/assets/${metaPageData.image}`,
+          content: `${API_URL}/assets/${metaPageData.image}`,
         },
         {
           property: 'og:site_name',
@@ -219,7 +222,7 @@ export default {
         },
         {
           property: 'og:image',
-          content: `${process.env.VUE_APP_API_URL}/assets/${metaPageData.image}`,
+          content: `${API_URL}/assets/${metaPageData.image}`,
         },
       ],
     };

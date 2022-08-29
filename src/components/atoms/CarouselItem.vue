@@ -24,6 +24,10 @@
 </template>
 
 <script>
+import config from '@/directus/config';
+
+const { API_URL } = config;
+
 export default {
   name: 'CarouselItem',
   components: {},
@@ -50,7 +54,7 @@ export default {
   //---------------------------------------------------
   computed: {
     postImage() {
-      return process.env.VUE_APP_ASSET_URL + this.cardData.image;
+      return `${API_URL}/assets/${this.cardData.image}`;
     },
   },
   //---------------------------------------------------

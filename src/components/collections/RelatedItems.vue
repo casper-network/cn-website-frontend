@@ -32,8 +32,10 @@
 </template>
 
 <script>
-
 import axios from 'axios';
+import config from '@/directus/config';
+
+const { API_URL } = config;
 
 export default {
   name: 'RelatedItems',
@@ -106,7 +108,7 @@ export default {
   //---------------------------------------------------
   methods: {
     async getAllCategories() {
-      const res = await axios.get(`${process.env.VUE_APP_API_URL}/cce/categories?locale=en-US&collection=news`);
+      const res = await axios.get(`${API_URL}/cce/categories?locale=en-US&collection=news`);
       this.categories = res.data;
     },
     //----------------------------------

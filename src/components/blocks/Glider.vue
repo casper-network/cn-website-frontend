@@ -29,6 +29,9 @@
 import Glide from '@glidejs/glide/dist/glide';
 import ChevronLeft from '@/assets/svg/chevronLeft.svg?inline';
 import ChevronRight from '@/assets/svg/chevronRight.svg?inline';
+import config from '@/directus/config';
+
+const { API_URL } = config;
 
 export default {
   name: 'Glider',
@@ -103,7 +106,7 @@ export default {
   //---------------------------------------------------
   methods: {
     slideImage(val) {
-      return process.env.VUE_APP_ASSET_URL + val.id;
+      return `${API_URL}/assets/${val.id}`;
     },
     //----------------------------------
     // Event Handlers

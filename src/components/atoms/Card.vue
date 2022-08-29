@@ -20,6 +20,9 @@
 </template>
 
 <script>
+import config from '@/directus/config';
+
+const { API_URL } = config;
 
 export default {
   name: 'Card',
@@ -47,10 +50,10 @@ export default {
   //---------------------------------------------------
   computed: {
     cardImage() {
-      return (this.cardData.image) ? process.env.VUE_APP_ASSET_URL + this.cardData.image : '/mesh6.png';
+      return (this.cardData.image) ? `${API_URL}/assets/${this.cardData.image}` : '/mesh6.png';
     },
     logoImage() {
-      return (this.cardData.image) ? process.env.VUE_APP_ASSET_URL + this.cardData.logo : '/mesh1.png';
+      return (this.cardData.image) ? `${API_URL}/assets/${this.cardData.logo}` : '/mesh1.png';
     },
   },
   //---------------------------------------------------

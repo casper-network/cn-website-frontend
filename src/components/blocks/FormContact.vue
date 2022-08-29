@@ -63,6 +63,9 @@ import axios from 'axios';
 import 'vue-select/dist/vue-select.css';
 import SVGCheck from '@/assets/svg/checkCircle.svg?inline';
 import SVGError from '@/assets/svg/closeCircle.svg?inline';
+import config from '@/directus/config';
+
+const { API_URL } = config;
 
 export default {
   name: 'FormContact',
@@ -175,7 +178,7 @@ export default {
         form.append('message', this.formData.message);
         const options = {
           method: 'POST',
-          url: `${process.env.VUE_APP_API_URL}/cce/contact`,
+          url: `${API_URL}/cce/contact`,
           headers: { 'content-type': 'multipart/form-data; boundary=---011000010111000001101001' },
           data: form,
         };

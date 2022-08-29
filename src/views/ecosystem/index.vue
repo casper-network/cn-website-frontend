@@ -34,8 +34,10 @@
 </template>
 
 <script>
-
 import axios from 'axios';
+import config from '@/directus/config';
+
+const { API_URL } = config;
 
 export default {
   name: 'EcoSystem',
@@ -76,11 +78,11 @@ export default {
         },
         {
           itemprop: 'image',
-          content: `${process.env.VUE_APP_API_URL}/assets/${metaPageData.image}`,
+          content: `${API_URL}/assets/${metaPageData.image}`,
         },
         {
           name: 'twitter:card',
-          content: `${process.env.VUE_APP_API_URL}/assets/${metaPageData.image}`,
+          content: `${API_URL}/assets/${metaPageData.image}`,
         },
         {
           property: 'og:site_name',
@@ -100,7 +102,7 @@ export default {
         },
         {
           property: 'og:image',
-          content: `${process.env.VUE_APP_API_URL}/assets/${metaPageData.image}`,
+          content: `${API_URL}/assets/${metaPageData.image}`,
         },
       ],
     };
@@ -113,7 +115,7 @@ export default {
   },
   methods: {
     async getAllCategories() {
-      const res = await axios.get(`${process.env.VUE_APP_API_URL}/cce/categories?locale=en-US&collection=applications`);
+      const res = await axios.get(`${API_URL}/cce/categories?locale=en-US&collection=applications`);
       this.categories = res.data;
     },
     finallyDoSearch(val) {

@@ -10,6 +10,9 @@
 </template>
 
 <script>
+import config from '@/directus/config';
+
+const { API_URL } = config;
 
 export default {
   name: 'Contact',
@@ -46,13 +49,13 @@ export default {
         { property: 'og:title', content: `${metaPageData.title}` },
         { itemprop: 'name', content: `${metaPageData.title}` },
         { itemprop: 'description', content: `${metaPageData.description}` },
-        { itemprop: 'image', content: `${process.env.VUE_APP_API_URL}/assets/${metaPageData.image}` },
-        { name: 'twitter:card', content: `${process.env.VUE_APP_API_URL}/assets/${metaPageData.image}` },
+        { itemprop: 'image', content: `${API_URL}/assets/${metaPageData.image}` },
+        { name: 'twitter:card', content: `${API_URL}/assets/${metaPageData.image}` },
         { property: 'og:site_name', content: window.location.hostname },
         { property: 'og:description', content: metaPageData.description },
         { property: 'og:type', content: 'website' },
         { property: 'og:url', content: window.location.href },
-        { property: 'og:image', content: `${process.env.VUE_APP_API_URL}/assets/${metaPageData.image}` },
+        { property: 'og:image', content: `${API_URL}/assets/${metaPageData.image}` },
       ],
     };
   },

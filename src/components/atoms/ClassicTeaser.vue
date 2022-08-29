@@ -15,6 +15,9 @@
 </template>
 
 <script>
+import config from '@/directus/config';
+
+const { API_URL } = config;
 
 export default {
   name: 'ClassicTeaser',
@@ -42,7 +45,7 @@ export default {
   //---------------------------------------------------
   computed: {
     teaserImage() {
-      return process.env.VUE_APP_ASSET_URL + this.blockData.media;
+      return `${API_URL}/assets/${this.blockData.media}`;
     },
   },
   //---------------------------------------------------
