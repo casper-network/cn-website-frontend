@@ -79,7 +79,12 @@ export default {
 @import '~scss/mixins';
 
 .singleQuote {
-  padding: 0 20px;
+  padding: 0 30px;
+  margin-top: 80px;
+  @include breakpoint('sm') {
+    margin-top: 40px;
+  }
+
   p.h3 {
     color: var(--color-blue);
     font-size: var(--typography-h3-d-font-size);

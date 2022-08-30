@@ -159,8 +159,8 @@ export default {
       type: '',
       children: [
         {
-          title: 'Casper Universe',
-          url: 'universe',
+          title: 'Casper',
+          url: 'casper',
           type: 'int',
         },
         {

@@ -43,6 +43,12 @@
         v-if="block.blocktype === 'quotes'"
         :quotes="block.items"
       />
+      <SingleQuote
+        class="container"
+        v-if="block.blocktype === 'highlight'"
+        :quote="block.content"
+      >
+      </SingleQuote>
       <LatestNews
         v-if="block.blocktype === 'latestnews'"
         :collection-title="block.title"
