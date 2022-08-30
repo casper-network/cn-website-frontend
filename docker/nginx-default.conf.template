@@ -34,9 +34,9 @@ server {
         if ($prerender = 1) {
 
             #setting prerender as a variable forces DNS resolution since nginx caches IPs and doesnt play well with load balancing
-            set $prerender "${CUSTOM_PRERENDER_DOMAIN}";
+            set $prerender "${VUE_APP_PRERENDER_URL}";
             rewrite .* /$scheme://$host$request_uri? break;
-            proxy_pass http://$prerender;
+            proxy_pass $prerender;
         }
         if ($prerender = 0) {
             rewrite .* /index.html break;
