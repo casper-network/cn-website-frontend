@@ -50,10 +50,10 @@ export default {
   //---------------------------------------------------
   computed: {
     cardImage() {
-      return (this.cardData.image) ? `${API_URL}/assets/${this.cardData.image}` : '/mesh6.png';
+      return (this.cardData.image) ? `${API_URL}/assets/${this.cardData.image}` : '/img/mesh6.webp';
     },
     logoImage() {
-      return (this.cardData.image) ? `${API_URL}/assets/${this.cardData.logo}` : '/mesh1.png';
+      return (this.cardData.image) ? `${API_URL}/assets/${this.cardData.logo}` : '/img/mesh1.webp';
     },
   },
   //---------------------------------------------------

@@ -1,7 +1,7 @@
 <template>
   <div class="video-container">
     <div class="video-overlay" @click="removeCoverAndPlay()">
-      <img :src="(thumb) ? thumb : '/bg.jpg'" alt="" class="yt-cover">
+      <img :src="(thumb) ? thumb : '/img/bg.webp'" alt="" class="yt-cover">
       <div>
         <div class="blur"/>
         <SVGIconPlay/>

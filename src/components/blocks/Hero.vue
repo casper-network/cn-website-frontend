@@ -194,7 +194,7 @@ div.hero {
     height: 100%;
     background: linear-gradient(180deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0) 50%),
     linear-gradient(90.28deg, rgba(0, 0, 0, 0.2) 0.21%, rgba(0, 0, 0, 0) 72.89%),
-    url('/bg.jpg');
+    url('/img/bg.webp');
     background-size: cover;
     background-position: center;
 

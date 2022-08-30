@@ -1,6 +1,6 @@
 <template>
   <div class="teaser-full" :class="teaserType" :style="`background-image: url(${bgImage});`">
-    <video src="/bgvideo.mp4" autoplay loop muted v-if="!teaserBlock.media"></video>
+    <video src="/video/bgvideo.mp4" autoplay loop muted v-if="!teaserBlock.media"></video>
     <div class="container">
       <h2 v-html="teaserTitle"></h2>
     </div>
