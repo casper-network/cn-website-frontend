@@ -152,6 +152,9 @@ export default {
 
   & > .glide__track {
     overflow: visible;
+    @media (max-width: 1241px) {
+      overflow: hidden;
+    }
   }
 }
 

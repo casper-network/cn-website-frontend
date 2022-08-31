@@ -356,13 +356,20 @@ header {
           color: var(--color-white);
         }
 
-        &:hover {
-          background: var(--color-blue);
-          color: var(--color-white) !important;
+        @media (max-width: 1241px) {
+          border: 0;
+          border-radius: 0;
+        }
 
-          div,
-          a {
+        @media (hover) {
+          &:hover {
+            background: var(--color-blue);
             color: var(--color-white) !important;
+
+            div,
+            a {
+              color: var(--color-white) !important;
+            }
           }
         }
       }
@@ -390,7 +397,7 @@ header {
           }
         }
 
-        @include breakpoint('sm') {
+        @media (max-width: 1241px) {
           padding: 0;
 
           > div {
@@ -475,7 +482,7 @@ header {
         }
       }
 
-      @include breakpoint('sm') {
+      @media (max-width: 1241px) {
         flex-direction: column;
 
         > div {
@@ -496,7 +503,7 @@ header {
           color: var(--color-blue);
         }
 
-        @include breakpoint('sm') {
+        @media (max-width: 1241px) {
           ul {
             height: auto;
           }
@@ -509,7 +516,7 @@ header {
             color: var(--color-blue);
           }
 
-          @include breakpoint('sm') {
+          @media (max-width: 1241px) {
             ul {
               height: auto;
             }
@@ -531,8 +538,9 @@ header {
         padding: 6px 15px;
         transition: all 0.15s ease;
 
-        @include breakpoint('m') {
+        @media (max-width: 1241px) {
           border: 0;
+          border-radius: 0;
         }
 
         @media (hover) {
@@ -580,7 +588,7 @@ header {
           }
         }
 
-        @include breakpoint('sm') {
+        @media (max-width: 1241px) {
           padding: 0;
 
           > div {
@@ -639,6 +647,10 @@ header {
   }
 
   nav {
+    @media (max-width: 1241px) {
+      background: white;
+    }
+
     ul {
       display: flex;
       padding-left: 0;
@@ -666,7 +678,7 @@ header {
             pointer-events: all;
             transform: translateY(50px);
 
-            @include breakpoint('sm') {
+            @media (max-width: 1241px) {
               transform: translateY(0);
             }
 
@@ -689,7 +701,7 @@ header {
               pointer-events: all;
               transform: translateY(50px);
 
-              @include breakpoint('sm') {
+              @media (max-width: 1241px) {
                 transform: translateY(0);
               }
 
@@ -739,7 +751,7 @@ header {
           left: -8%;
           z-index: 999;
 
-          @include breakpoint('sm') {
+          @media (max-width: 1241px) {
             position: relative;
 
             &:after,
@@ -853,7 +865,7 @@ header {
     align-items: center;
     white-space: nowrap;
 
-    @include breakpoint('sm') {
+    @media (max-width: 1241px) {
       div.dropdown {
         min-width: 38px;
         min-height: 38px;
@@ -878,7 +890,7 @@ header {
         color: var(--color-white);
       }
 
-      @include breakpoint('sm') {
+      @media (max-width: 1241px) {
         display: none;
       }
     }*/
