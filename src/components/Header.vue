@@ -166,9 +166,6 @@ export default {
   },
   // destroyed() {},
   methods: {
-    displayChildren(evt) {
-      evt.currentTarget.classList.add('hover');
-    },
     toggleChildren(evt) {
       const els = this.$el.querySelectorAll('.nav-item.hover');
       els.forEach((el) => {
@@ -179,9 +176,7 @@ export default {
       evt.currentTarget.parentNode.parentNode.classList.toggle('hover');
       evt.currentTarget.parentNode.classList.toggle('hover');
     },
-    hideChildren(evt) {
-      evt.currentTarget.classList.remove('hover');
-    },
+
     toggleNavigation() {
       this.$store.state.isMobileNavigationOpen = !this.$store.state.isMobileNavigationOpen;
       if (!this.$store.state.isMobileNavigationOpen) {
@@ -191,53 +186,29 @@ export default {
         });
       }
 
-      document.querySelector('.nav-button')
-        .classList
-        .toggle('open');
-      document.querySelector('header nav')
-        .classList
-        .toggle('open');
-      document.querySelector('body')
-        .classList
-        .toggle('no-scroll');
+      const body = document.querySelector('body').classList;
+      const header = document.querySelector('header').classList;
 
-      if (document.querySelector('body')
-        .classList
-        .contains('no-scroll')) {
-        document.querySelector('header')
-          .classList
-          .remove('overlap-state-true');
-        document.querySelector('header')
-          .classList
-          .remove('theme-light');
-        document.querySelector('header')
-          .classList
-          .add('overlap-state-false');
-        document.querySelector('header')
-          .classList
-          .add('theme-dark');
+      document.querySelector('.nav-button').classList.toggle('open');
+      document.querySelector('header nav').classList.toggle('open');
+      body.toggle('no-scroll');
+
+      if (body.contains('no-scroll')) {
+        header.remove('overlap-state-true');
+        header.remove('theme-light');
+        header.add('overlap-state-false');
+        header.add('theme-dark');
       } else if (document.querySelector('.hero')) {
-        document.querySelector('header')
-          .classList
-          .remove('overlap-state-false');
-        document.querySelector('header')
-          .classList
-          .remove('theme-dark');
-        document.querySelector('header')
-          .classList
-          .add('overlap-state-true');
-        document.querySelector('header')
-          .classList
-          .add('theme-light');
+        header.remove('overlap-state-false');
+        header.remove('theme-dark');
+        header.add('overlap-state-true');
+        header.add('theme-light');
       } else {
-        document.querySelector('header')
-          .classList
-          .add('overlap-state-false');
-        document.querySelector('header')
-          .classList
-          .add('theme-light');
+        header.add('overlap-state-false');
+        header.add('theme-light');
       }
     },
+
     onScroll() {
       const currentScrollPosition = window.pageYOffset || document.documentElement.scrollTop;
       if (currentScrollPosition <= 10) {
@@ -249,12 +220,8 @@ export default {
 
       if (document.querySelector('.hero')) {
         this.isOverlapping = this.elementsOverlap();
-        if (currentScrollPosition > document.querySelector('.intro-content')
-          .getBoundingClientRect().top) {
-          this.isOverlapping = false;
-        } else {
-          this.isOverlapping = true;
-        }
+        this.isOverlapping = currentScrollPosition <= document.querySelector('.intro-content')
+          .getBoundingClientRect().top;
       } else {
         this.isOverlapping = false;
       }
@@ -264,6 +231,7 @@ export default {
         this.showNavigation = false;
       }
     },
+
     elementsOverlap() {
       const el1 = document.querySelector('.header');
       const el2 = document.querySelector('.hero');
@@ -362,16 +330,18 @@ header {
 
       }
 
-      :hover {
-        > a {
-          color: rgba(255, 255, 255, 0.8);
-        }
+      @media (hover) {
+        :hover {
+          > a {
+            color: rgba(255, 255, 255, 0.8);
+          }
 
-        svg {
-          transform: rotate(-180deg);
+          svg {
+            transform: rotate(-180deg);
 
-          path {
-            stroke: var(--color-blue);
+            path {
+              stroke: var(--color-blue);
+            }
           }
         }
       }
@@ -445,8 +415,7 @@ header {
           }
         }
 
-        &.hover,
-        &:hover {
+        &.hover {
           background: var(--color-grey-light) !important;
 
           svg {
@@ -458,6 +427,23 @@ header {
             display: inline-block;
             transform: translateX(19px);
             color: var(--color-blue);
+          }
+        }
+
+        @media (hover) {
+          &:hover {
+            background: var(--color-grey-light) !important;
+
+            svg {
+              opacity: 1;
+              margin-right: 0;
+            }
+
+            span {
+              display: inline-block;
+              transform: translateX(19px);
+              color: var(--color-blue);
+            }
           }
         }
       }
@@ -505,8 +491,7 @@ header {
         }
       }
 
-      &.hover,
-      :hover {
+      &.hover {
         > a {
           color: var(--color-blue);
         }
@@ -514,6 +499,20 @@ header {
         @include breakpoint('sm') {
           ul {
             height: auto;
+          }
+        }
+      }
+
+      @media (hover) {
+        :hover {
+          > a {
+            color: var(--color-blue);
+          }
+
+          @include breakpoint('sm') {
+            ul {
+              height: auto;
+            }
           }
         }
       }
@@ -536,21 +535,23 @@ header {
           border: 0;
         }
 
-        &:hover {
-          background: var(--color-blue);
-          color: var(--color-white) !important;
-
-          @include breakpoint('m') {
-            border: 0;
-            background: white;
-            color: #000;
-          }
-
-          a {
-            color: inherit;
+        @media (hover) {
+          &:hover {
+            background: var(--color-blue);
+            color: var(--color-white) !important;
 
             @include breakpoint('m') {
-              color: var(--color-blue);
+              border: 0;
+              background: white;
+              color: #000;
+            }
+
+            a {
+              color: inherit;
+
+              @include breakpoint('m') {
+                color: var(--color-blue);
+              }
             }
           }
         }
@@ -604,8 +605,7 @@ header {
           }
         }
 
-        &.hover,
-        &:hover {
+        &.hover {
           background: var(--color-grey-light) !important;
 
           svg {
@@ -616,6 +616,22 @@ header {
           span {
             display: inline-block;
             transform: translateX(19px);
+          }
+        }
+
+        @media (hover) {
+          &:hover {
+            background: var(--color-grey-light) !important;
+
+            svg {
+              opacity: 1;
+              margin-right: 0;
+            }
+
+            span {
+              display: inline-block;
+              transform: translateX(19px);
+            }
           }
         }
       }
@@ -644,8 +660,7 @@ header {
           pointer-events: none;
         }
 
-        &.hover,
-        &:hover {
+        &.hover {
           ul {
             opacity: 1;
             pointer-events: all;
@@ -664,6 +679,30 @@ header {
 
           svg path {
             stroke: var(--color-blue);
+          }
+        }
+
+        @media (hover) {
+          &:hover {
+            ul {
+              opacity: 1;
+              pointer-events: all;
+              transform: translateY(50px);
+
+              @include breakpoint('sm') {
+                transform: translateY(0);
+              }
+
+              li {
+                animation: fade-in 300ms ease forwards;
+              }
+            }
+
+            color: var(--color-blue);
+
+            svg path {
+              stroke: var(--color-blue);
+            }
           }
         }
 
