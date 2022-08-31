@@ -1,0 +1,82 @@
+{{- if .Values.createNamespace}}
+apiVersion: v1
+kind: Namespace
+metadata:
+ name: {{.Values.namespace}}
+{{- end}}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: {{.Values.namespace}}
+  name: {{.Values.appName}}-{{.Values.envName}}-svc
+  labels:
+    app: {{.Values.appName}}-{{.Values.envName}}
+spec:
+  type: ClusterIP
+  ports:
+  - port: {{.Values.servicePort}}
+  selector:
+    app: {{.Values.appName}}-{{.Values.envName}}
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  namespace: {{.Values.namespace}}
+  name: {{.Values.appName}}-{{.Values.envName}}-ingress
+  annotations:     
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    nginx.ingress.kubernetes.io/server-alias: {{.Values.publicDomainName}}
+spec:
+  tls:
+  - hosts:
+    - {{.Values.publicDomainName}}
+    secretName: {{.Values.appName}}-{{.Values.envName}}.{{.Values.dnsSuffix}}-tls
+  rules:
+  - host: {{.Values.appName}}-{{.Values.envName}}.{{.Values.dnsSuffix}}
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: {{.Values.appName}}-{{.Values.envName}}-svc
+            port:
+              number: {{.Values.servicePort}}
+  ingressClassName: nginx
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: {{.Values.namespace}}
+  name: {{.Values.appName}}-{{.Values.envName}}
+  labels:
+    app: {{.Values.appName}}-{{.Values.envName}}
+spec:
+  replicas: {{.Values.replicaCount}}
+  selector:
+    matchLabels:
+      app: {{.Values.appName}}-{{.Values.envName}}
+  template:
+    metadata:
+      labels:
+        app: {{.Values.appName}}-{{.Values.envName}}
+    spec:
+      containers:
+      - name: {{.Values.appName}}-{{.Values.envName}}
+        image: {{.Values.artifactImage}}
+        imagePullPolicy: Always
+        ports:
+        - containerPort: {{.Values.containerPort}}
+        resources:
+          requests:
+            memory: {{.Values.resourceMemoryRequest}}
+            cpu: {{.Values.resourceCpuRequest}}
+          limits:
+            memory: {{.Values.resourceMemoryLimit}}
+            cpu: {{.Values.resourceCpuLimit}}            
+        env:
+        - name: VUE_APP_API_URL
+          value: {{.Values.VueAppApiUrl}}
+        - name: VUE_APP_PRERENDER_URL
+          value: {{.Values.VueAppPrerenderUrl}}
