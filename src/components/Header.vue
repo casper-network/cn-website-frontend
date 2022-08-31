@@ -9,29 +9,35 @@
               v-for="(item, index) in computedNavigation" :key="`navitem-${index}`"
               :data-has-sub="!!(item.children)">
             <div v-if="item.url">
-              <router-link :to="`/${$i18n.locale}/${item.url}`">
+              <router-link @click.native="toggleNavigation" :to="`/${$i18n.locale}/${item.url}`">
                 <span>{{ item.title }}</span>
               </router-link>
-              <ChevronFuckedUp v-if="item.children" @click.native="toggleChildren"/>
+              <ChevronFuckedUp
+                v-if="item.children" @click.native="toggleChildren"
+                class="dropdown"
+              />
             </div>
             <div v-if="!item.url">
               <a class="curs-point" @click="toggleChildren">
                 <span>{{ item.title }}</span>
               </a>
-              <ChevronFuckedUp v-if="item.children" @click.native="toggleChildren"/>
+              <ChevronFuckedUp
+                v-if="item.children" @click.native="toggleChildren"
+                class="dropdown"
+              />
             </div>
             <ul class="nav-item-children" v-if="item.children">
               <li class="nav-item" v-for="(subItem, index) in item.children"
                   :key="`subnav-item-${index}`">
                 <div v-if="subItem.type === 'ext'">
                   <SVGCurvedArrow/>
-                  <a :href="subItem.url" v-if="subItem" target="_blank" @click="openNavigation">
+                  <a @click="toggleNavigation" :href="subItem.url" v-if="subItem" target="_blank">
                     <span>{{ subItem.title }}</span>
                   </a>
                 </div>
                 <div v-if="subItem.type === 'int'">
                   <SVGRightArrow/>
-                  <router-link :to="`/${$i18n.locale}/${subItem.url}`" v-if="subItem">
+                  <router-link @click="toggleNavigation" :to="`/${$i18n.locale}/${subItem.url}`" v-if="subItem">
                     <span>{{ subItem.title }}</span>
                   </router-link>
                 </div>
@@ -40,7 +46,7 @@
           </li>
         </ul>
       </nav>
-      <div class="nav-button" @click="openNavigation()">
+      <div class="nav-button" @click="toggleNavigation()">
         <SVGBurger/>
       </div>
     </div>
@@ -110,7 +116,7 @@ export default {
       if (document.querySelector('.nav-button')
         .classList
         .contains('open')) {
-        this.openNavigation();
+        this.toggleNavigation();
       }
 
       setTimeout(() => {
@@ -164,14 +170,26 @@ export default {
       evt.currentTarget.classList.add('hover');
     },
     toggleChildren(evt) {
+      const els = this.$el.querySelectorAll('.nav-item.hover');
+      els.forEach((el) => {
+        if (el !== evt.currentTarget.parentNode.parentNode) {
+          el.classList.remove('hover');
+        }
+      });
       evt.currentTarget.parentNode.parentNode.classList.toggle('hover');
       evt.currentTarget.parentNode.classList.toggle('hover');
     },
     hideChildren(evt) {
       evt.currentTarget.classList.remove('hover');
     },
-    openNavigation() {
+    toggleNavigation() {
       this.$store.state.isMobileNavigationOpen = !this.$store.state.isMobileNavigationOpen;
+      if (!this.$store.state.isMobileNavigationOpen) {
+        const els = this.$el.querySelectorAll('.nav-item.hover');
+        els.forEach((el) => {
+          el.classList.remove('hover');
+        });
+      }
 
       document.querySelector('.nav-button')
         .classList
@@ -795,6 +813,16 @@ header {
     flex-wrap: nowrap;
     align-items: center;
     white-space: nowrap;
+
+    @include breakpoint('sm') {
+      div.dropdown {
+        min-width: 38px;
+        min-height: 38px;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+      }
+    }
 
     a {
       // @extend .link-cta;
