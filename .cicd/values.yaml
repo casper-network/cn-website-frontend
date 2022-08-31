@@ -1,0 +1,11 @@
+envName: <+env.name>
+appName: <+service.name> 
+artifactImage: <+artifact.image> #from Harness Service Primary Artifact
+containerPort: 80
+servicePort: 80
+createNamespace: true
+namespace:  <+service.name>-<+env.name>
+publicDomainName: <+serviceVariables.publicDomainName>
+
+VueAppApiUrl: <+serviceVariables.VueAppApiUrl>
+VueAppPrerenderUrl: <+serviceVariables.VueAppPrerenderUrl>
