@@ -30,7 +30,10 @@ metadata:
 spec:
   tls:
   - hosts:
+    - {{.Values.appName}}-{{.Values.envName}}.{{.Values.dnsSuffix}}
+    {{- if .Values.publicDomainName}}
     - {{.Values.publicDomainName}}
+    {{- end}}
     secretName: {{.Values.appName}}-{{.Values.envName}}.{{.Values.dnsSuffix}}-tls
   rules:
   - host: {{.Values.appName}}-{{.Values.envName}}.{{.Values.dnsSuffix}}
