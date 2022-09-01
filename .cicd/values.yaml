@@ -6,6 +6,7 @@ servicePort: 80
 createNamespace: true
 namespace:  <+service.name>-<+env.name>
 publicDomainName: <+serviceVariables.publicDomainName>
+dnsSuffix: <+serviceVariables.dnsSuffix>
 
 VueAppApiUrl: <+serviceVariables.VueAppApiUrl>
 VueAppPrerenderUrl: <+serviceVariables.VueAppPrerenderUrl>
