@@ -117,11 +117,13 @@ export default {
     await this.getCollectionData();
     const numItems = this.postCollectionData.length;
 
-    if (!this.glider) {
+    if (!this.glider && numItems) {
       this.glider = new Glide(this.$refs.glider, {
         type: numItems >= 3 ? 'carousel' : 'slider',
         perView: 3,
         gap: 32,
+        autoplay: numItems >= 3 ? 3500 : false,
+        hoverpause: true,
         focusAt: 0,
         startAt: 0,
         breakpoints: {
@@ -141,6 +143,8 @@ export default {
           type: numItems >= 3 ? 'carousel' : 'slider',
           perView: 3,
           gap: 32,
+          autoplay: numItems >= 3 ? 3500 : false,
+          hoverpause: true,
           breakpoints: {
             768: {
               perView: 2,
