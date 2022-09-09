@@ -8,5 +8,7 @@ namespace:  <+service.name>-<+env.name>
 publicDomainName: <+serviceVariables.publicDomainName>
 dnsSuffix: <+serviceVariables.dnsSuffix>
 
-VueAppApiUrl: <+serviceVariables.VueAppApiUrl>
-VueAppPrerenderUrl: <+serviceVariables.VueAppPrerenderUrl>
+vueAppApiUrl: <+serviceVariables.vueAppApiUrl>
+vueAppPrerenderUrl: <+serviceVariables.vueAppPrerenderUrl>
+vueAppLanguages: <+serviceVariables.vueAppLanguages>
+vueAppZohoEndpoint: <+serviceVariables.vueAppZohoEndpoint>

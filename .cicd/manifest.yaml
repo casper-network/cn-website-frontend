@@ -80,6 +80,10 @@ spec:
             cpu: {{.Values.resourceCpuLimit}}            
         env:
         - name: VUE_APP_API_URL
-          value: {{.Values.VueAppApiUrl}}
+          value: {{.Values.vueAppApiUrl}}
         - name: VUE_APP_PRERENDER_URL
-          value: {{.Values.VueAppPrerenderUrl}}
+          value: {{.Values.vueAppPrerenderUrl}}
+        - name: VUE_APP_LANGUAGES
+          value: {{.Values.vueAppLanguages}}
+        - name: VUE_APP_ZOHO_ENDPOINT
+          value: {{.Values.vueAppzohoEndpoint}}
