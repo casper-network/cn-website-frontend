@@ -1,0 +1,66 @@
+
+/* --------------------------------------------------
+   Font Style Mixin
+   -------------------------------------------------- */
+@mixin style-body($body-style: 'large') {
+  font-family: 'Inter', sans-serif;
+  @if $body-style=='large' {
+    font-size: 24px;
+    line-height: 38px;
+    letter-spacing: 0.5px;
+    @include breakpoint('sm') {
+      font-size: 20px;
+      line-height: 32px;
+    }
+  } @else if $body-style=='medium' {
+    font-size: 20px;
+    line-height: 32px;
+    letter-spacing: 0.5px;
+    @include breakpoint('sm') {
+      line-height: 28px;
+    }
+  } @else {
+    font-size: 16px;
+    line-height: 28px;
+    letter-spacing: 0.5px;
+    @include breakpoint('sm') {
+      line-height: 28px;
+    }
+  }
+}
+
+/* --------------------------------------------------
+   Breakpoint Mixin
+   -------------------------------------------------- */
+$media-direction: max;
+$breakpoints: (
+  'default': '',
+  'xs': 480px,
+  's': 667px,
+  'sm': 768px,
+  'm': 1024px,
+  'l': 1280px,
+  'xl': 1680px,
+);
+
+@mixin breakpoint($breakpoint,$direction: $media-direction) {
+  @if map-has-key($breakpoints, $breakpoint) {
+    @media (#{$direction}-width: #{map-get($breakpoints, $breakpoint)}) {
+      @content;
+    }
+  }
+  @else if unitless($breakpoint) {
+    $breakpoint: $breakpoint + 0px;
+    @media (#{$direction}-width: $breakpoint) {
+      @content;
+    }
+  }
+}
+
+@mixin staggerTransition($num, $val) {
+  @for $x from 2 through $num {
+    &:nth-child(#{$x}) {
+      transition-delay: $val * ($x - 1);
+    }
+  }
+}

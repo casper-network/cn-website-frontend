@@ -1,0 +1,77 @@
+.mt-sm {
+    margin-top: var(--margin-32);
+}
+
+.mt-md {
+  margin-top: var(--margin-80);
+}
+
+.mt-lg {
+  margin-top: var(--margin-160);
+}
+
+.mb-sm {
+  margin-bottom: var(--margin-32);
+}
+
+.mb-md {
+  margin-bottom: var(--margin-80) !important;
+}
+
+.mb-lg {
+  margin-bottom: var(--margin-160);
+}
+
+.my-sm {
+  margin-bottom: var(--margin-32);
+  margin-top: var(--margin-32);
+}
+
+.my-md {
+  margin-bottom: var(--margin-80);
+  margin-top: var(--margin-80);
+}
+
+.my-lg {
+  margin-bottom: var(--margin-160);
+  margin-top: var(--margin-160);
+}
+
+.pt-sm {
+  padding-top: var(--margin-32);
+}
+
+.pt-md {
+  padding-top: var(--margin-80);
+}
+
+.pt-lg {
+  padding-top: var(--margin-160);
+}
+
+.pb-sm {
+  padding-bottom: var(--margin-32);
+}
+
+.pb-md {
+  padding-bottom: var(--margin-80);
+}
+
+.pb-lg {
+  padding-bottom: var(--margin-160);
+}
+
+.py-sm {
+  padding-bottom: var(--margin-32);
+  padding-top: var(--margin-32);
+}
+
+.py-md {
+  padding-bottom: var(--margin-80);
+  padding-top: var(--margin-80);
+}
+
+.py-lg {
+  padding-bottom: var(--margin-160);
+  padding-top: var(--margin-160);
+}

@@ -1,0 +1,198 @@
+{
+  "locales": {
+    "en": "English",
+    "de": "German"
+  },
+  "navigation": [
+    {
+      "title": "Community",
+      "url": "/community"
+    },
+    {
+      "title": "Case Studies",
+      "url": "/case-studies"
+    },
+    {
+      "title": "Ecosystem",
+      "url": "/ecosystem"
+    },
+    {
+      "title": "Documentation",
+      "url": "/documentation"
+    },
+    {
+      "title": "News",
+      "url": "/news"
+    },
+    {
+      "title": "About us",
+      "url": "/about-us",
+      "children": [
+        {
+          "title": "Casper Universe",
+          "url": "/casper-universe"
+        },
+        {
+          "title": "Vision",
+          "url": "/vision"
+        },
+        {
+          "title": "Team",
+          "url": "/team"
+        },
+        {
+          "title": "Career",
+          "url": "/career"
+        }
+      ]
+    },
+    {
+      "title": "Get started",
+      "url": "/get-started",
+      "class": "special"
+    }
+  ],
+  "footer": {
+    "socialTitle": "Join our<br/><span>Community</span>",
+    "nav1Title": "Get in touch",
+    "nav2Title": "What's possible",
+    "nav3Title": "Developers",
+    "nav1Content": [
+      {
+        "title": "Community",
+        "url": "/community"
+      },
+      {
+        "title": "Newsletter subscription",
+        "url": "/newsletter"
+      },
+      {
+        "title": "Contact",
+        "url": "/contact"
+      },
+      {
+        "title": "Press & Media",
+        "url": "/press-media"
+      }
+    ],
+    "nav2Content": [
+      {
+        "title": "Ecosystem",
+        "url": "/ecosystem"
+      },
+      {
+        "title": "Case Studies",
+        "url": "/case-studies"
+      }
+    ],
+    "nav3Content": [
+      {
+        "title": "Get Started",
+        "url": "/get-started"
+      },
+      {
+        "title": "Documentation",
+        "url": "/documentation"
+      }
+    ]
+  },
+  "home": [
+    {
+      "hero": {
+        "title": "Connect the block to our future",
+        "cta": "Casper is live<br/>on mainnet!<br/>More here.",
+        "content": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.",
+        "buttons": [
+          {
+            "title": "Get started",
+            "url": "get-started"
+          },
+          {
+            "title": "Case Studies",
+            "url": "case-studies"
+          }
+        ]
+      }
+    },
+    {
+      "titleTextBlock": {
+        "title": "Team up with Casper and enrich our community",
+        "content": "Activated charcoal chartreuse pabst snackwave, fugiat shabby chic la croix retro non est church-key gastropub.<br/><br/>Sartorial schlitz letterpress pariatur. Scenester veniam 3 wolf moon flexitarian fingerstache blue bottle cardigan snackwave.",
+        "buttons": [
+          {
+            "title": "Case Studies",
+            "url": "case-studies"
+          }
+        ]
+      }
+    },
+    {
+      "videoPlayer": {
+        "source": "ytube",
+        "id": "dQw4w9WgXcQ"
+      }
+    },
+    {
+      "titleTextBlock": {
+        "title": "Team up with Casper and enrich our community",
+        "content": "Activated charcoal chartreuse pabst snackwave, fugiat shabby chic la croix retro non est church-key gastropub.<br/><br/>Sartorial schlitz letterpress pariatur. Scenester veniam 3 wolf moon flexitarian fingerstache blue bottle cardigan snackwave.",
+        "buttons": [
+          {
+            "title": "Case Studies",
+            "url": "case-studies"
+          }
+        ]
+      }
+    },
+    {
+      "accordeon": {
+        "title": "",
+        "content": [
+          {
+            "title": "Proof-of-stake with no compromise",
+            "content": "Casper was built off the original CBC Casper specifications designed by Ethereum developers."
+          },
+          {
+            "title": "Thoroughly enterprise optimized",
+            "content": "Casper was built off the original CBC Casper specifications designed by Ethereum developers."
+          },
+          {
+            "title": "Scale for global<br/>requirements",
+            "content": "Casper was built off the original CBC Casper specifications designed by Ethereum developers."
+          },
+          {
+            "title": "Upgradeable and predictable at all stages",
+            "content": "Casper was built off the original CBC Casper specifications designed by Ethereum developers."
+          }
+        ]
+      }
+    },
+    {
+      "quoteSlider": {
+        "title": "",
+        "content": [
+          {
+            "image": "https://i.pravatar.cc/300",
+            "quote": "Casper is a new blockchain technology that is built on the original CBC Casper specifications designed by Ethereum developers.",
+            "author": "Casper Team"
+          },
+          {
+            "image": "https://i.pravatar.cc/300",
+            "quote": "Casper is a new blockchain technology that is built on the original CBC Casper specifications designed by Ethereum developers.",
+            "author": "Casper Team"
+          },
+          {
+            "image": "https://i.pravatar.cc/300",
+            "quote": "Casper is a new blockchain technology that is built on the original CBC Casper specifications designed by Ethereum developers.",
+            "author": "Casper Team"
+          },
+          {
+            "image": "https://i.pravatar.cc/300",
+            "quote": "Casper is a new blockchain technology that is built on the original CBC Casper specifications designed by Ethereum developers.",
+            "author": "Casper Team"
+          }
+        ]
+      }
+    }
+  ]
+}
