@@ -7,10 +7,15 @@ server {
     location / {
         try_files $uri @prerender;
         autoindex on;
-        sub_filter '{{VUE_APP_LANGUAGES}}' $VUE_APP_LANGUAGES;
-        sub_filter '{{VUE_APP_API_URL}}' $VUE_APP_API_URL;
-        sub_filter '{{VUE_APP_ZOHO_ENDPOINT}}' $VUE_APP_ZOHO_ENDPOINT;
-        sub_filter_once on;
+       #sub_filter '{{VUE_APP_LANGUAGES}}' $VUE_APP_LANGUAGES;
+       #sub_filter '{{VUE_APP_API_URL}}' $VUE_APP_API_URL;
+       #sub_filter '{{VUE_APP_ZOHO_ENDPOINT}}' $VUE_APP_ZOHO_ENDPOINT;
+       #sub_filter_once on;
+        ssi on;
+        set $vue_app_languages "${VUE_APP_LANGUAGES}";
+        set $vue_app_api_url "${VUE_APP_API_URL}";
+        set $vue_app_zoho_endpoint "${VUE_APP_ZOHO_ENDPOINT}";
+
     }
 
     location @prerender {
