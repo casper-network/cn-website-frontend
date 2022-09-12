@@ -7,10 +7,6 @@ server {
     location / {
         try_files $uri @prerender;
         autoindex on;
-       #sub_filter '{{VUE_APP_LANGUAGES}}' $VUE_APP_LANGUAGES;
-       #sub_filter '{{VUE_APP_API_URL}}' $VUE_APP_API_URL;
-       #sub_filter '{{VUE_APP_ZOHO_ENDPOINT}}' $VUE_APP_ZOHO_ENDPOINT;
-       #sub_filter_once on;
         ssi on;
         set $vue_app_languages "${VUE_APP_LANGUAGES}";
         set $vue_app_api_url "${VUE_APP_API_URL}";
@@ -19,6 +15,7 @@ server {
     }
 
     location @prerender {
+        ssi on;
         set $prerender 0;
         if ($http_user_agent ~* "googlebot|bingbot|yandex|baiduspider|twitterbot|facebookexternalhit|rogerbot|linkedinbot|embedly|quora link preview|showyoubot|outbrain|pinterest\/0\.|pinterestbot|slackbot|vkShare|W3C_Validator|whatsapp") {
             set $prerender 1;
