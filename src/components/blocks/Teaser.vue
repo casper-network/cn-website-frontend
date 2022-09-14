@@ -1,6 +1,6 @@
 <template>
-  <div class="teaser" :class="`teaser-type-${type}`">
-    <a :href="url" target="_blank">
+  <a class="teaser" :class="`teaser-type-${type}`" :href="url" target="_blank">
+    <div>
       <Icon :icon="icon"/>
       <div class="teaser-content-wrap">
         <p class="teaser-title">
@@ -10,8 +10,8 @@
           <slot name="content"></slot>
         </p>
       </div>
-    </a>
-  </div>
+    </div>
+  </a>
 </template>
 
 <script>
