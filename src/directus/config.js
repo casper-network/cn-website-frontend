@@ -1,7 +1,7 @@
 /* eslint-disable prefer-destructuring */
 const ENV = window.ENV;
 Object.keys(ENV).forEach((key) => {
-  ENV[key] = ENV[key].indexOf('{{') !== -1 ? null : ENV[key];
+  ENV[key] = ENV[key].indexOf('<!--') !== -1 ? null : ENV[key];
 });
 export default {
   API_URL: window.ENV?.VUE_APP_API_URL || process?.env.VUE_APP_API_URL,

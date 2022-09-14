@@ -1,13 +1,13 @@
 <template>
   <div>
     <div class="card">
-      <a :href="`${cardData.url}`">
+      <a :href="`${cardData.url}`" target="_blank">
         <img :src="cardImage" alt="">
       </a>
       <div class="card-header">
         <img :src="logoImage" alt="" class="avatar">
         <div>
-          <a :href="`${cardData.url}`">
+          <a :href="`${cardData.url}`" target="_blank">
             <h5>{{cardData.title}}</h5>
           </a>
         </div>

@@ -37,7 +37,7 @@
 
 <script>
 import SVGIconClose from '@/assets/svg/close.svg?inline';
-// import ScriptLoader from '@/utils/ScriptLoader';
+import ScriptLoader from '@/utils/ScriptLoader';
 import i18n from '@/i18n';
 
 export default {

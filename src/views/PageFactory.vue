@@ -1,6 +1,6 @@
 <template>
-  <main>
-    <section v-for="(block, blockIndex) in dummyData" :key="blockIndex" :class="block.blocktype">
+  <main :class="[pageName]">
+    <section v-for="(block, blockIndex) in dummyData" :key="blockIndex" :class="[block.blocktype]">
       <Hero
         v-if="block.blocktype === 'hero'"
         :block="block"
@@ -162,6 +162,7 @@ export default {
   //---------------------------------------------------
   data() {
     return {
+      imgTeaserInc: 0,
       scripts: [
         'https://www.youtube.com/iframe_api',
         'https://player.vimeo.com/api/player.js',
@@ -179,6 +180,9 @@ export default {
     },
     dummyData() {
       return this.pageData || getDummyPage();
+    },
+    pageName() {
+      return this.$route.name;
     },
   },
   metaInfo() {
@@ -350,4 +354,30 @@ export default {
 <style lang="scss">
 @import '~scss/mixins';
 @import '~scss/variables';
+
+main.lp-casper {
+  padding-bottom: 0;
+
+  .imgteaser {
+    & > .outer-wrap {
+      margin: 80px auto 0;
+    }
+
+    &:last-of-type {
+      & > .outer-wrap {
+        padding-bottom: 240px;
+
+        @include breakpoint('sm') {
+          padding-bottom: 109px;
+        }
+      }
+    }
+
+    & + .imgteaser {
+      & > .outer-wrap {
+        margin: 0 auto 0;
+      }
+    }
+  }
+}
 </style>

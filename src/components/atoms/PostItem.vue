@@ -141,7 +141,7 @@ article {
   &:hover {
     .img-container {
       transform: translateX(16px);
-      animation: flash 0.45s;
+      // animation: flash 0.45s;
     }
   }
 
