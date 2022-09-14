@@ -123,12 +123,10 @@ export default {
         expires: 365,
       });
 
-      /*
       const layer = 'dataLayer';
       window[layer] = window[layer] || [];
       window[layer].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
       ScriptLoader.load('https://www.googletagmanager.com/gtm.js?id=GTM-PHQC53L', 'gtag', true);
-      */
 
       this.$emit('accepted');
       this.$refs.cookieNotice.classList.add('hidden');
