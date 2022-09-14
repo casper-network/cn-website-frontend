@@ -1,5 +1,5 @@
 <template>
-  <div id="cookieNotice" ref="cookieNotice">
+  <div v-if="showNotice" id="cookieNotice" ref="cookieNotice">
     <p>
       This website uses cookies.
       <template v-if="content">
@@ -40,6 +40,10 @@ import SVGIconClose from '@/assets/svg/close.svg?inline';
 import ScriptLoader from '@/utils/ScriptLoader';
 import i18n from '@/i18n';
 
+const COOKIE_NAME = 'cookie-notice';
+const COOKIE_ACCEPTED = 'accepted';
+const COOKIE_DECLINED = 'declined';
+
 export default {
   name: 'CookieNotice',
   components: {
@@ -59,6 +63,7 @@ export default {
   data() {
     return {
       content: null,
+      showNotice: false,
       modalVisible: false,
     };
   },
@@ -93,9 +98,16 @@ export default {
   //---------------------------------------------------
   // beforeCreate() {},
   async created() {
-    const [locale] = Intl.getCanonicalLocales(i18n.locale);
-    const response = await this.$d.api.get(`/cookie_banner?filter[content][languages_code][_eq]=${locale}&fields=*.*`);
-    this.content = response.data?.content[0]?.content || null;
+    const value = this.$cookies.get(COOKIE_NAME);
+    if (value && value === COOKIE_ACCEPTED) {
+      this.loadAnalytics();
+    }
+    if (!value) {
+      this.showNotice = true;
+      const [locale] = Intl.getCanonicalLocales(i18n.locale);
+      const response = await this.$d.api.get(`/cookie_banner?filter[content][languages_code][_eq]=${locale}&fields=*.*`);
+      this.content = response.data?.content[0]?.content || null;
+    }
   },
   // beforeMount() {},
   // render(h) { return h(); },
@@ -119,26 +131,28 @@ export default {
     allowCookies(e) {
       e.preventDefault();
       this.modalVisible = false;
-      this.$cookies.set('cookie-notice', 'accepted', {
+      this.$cookies.set(COOKIE_NAME, COOKIE_ACCEPTED, {
         expires: 365,
       });
 
-      const layer = 'dataLayer';
-      window[layer] = window[layer] || [];
-      window[layer].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
-      ScriptLoader.load('https://www.googletagmanager.com/gtm.js?id=GTM-PHQC53L', 'gtag', true);
-
-      this.$emit('accepted');
+      this.loadAnalytics();
+      this.$emit(COOKIE_ACCEPTED);
       this.$refs.cookieNotice.classList.add('hidden');
     },
     declineCookies(e) {
       e.preventDefault();
       this.modalVisible = false;
-      this.$cookies.set('cookie-notice', 'declined', {
+      this.$cookies.set(COOKIE_NAME, COOKIE_DECLINED, {
         expires: 365,
       });
-      this.$emit('declined');
+      this.$emit(COOKIE_DECLINED);
       this.$refs.cookieNotice.classList.add('hidden');
+    },
+    loadAnalytics() {
+      const layer = 'dataLayer';
+      window[layer] = window[layer] || [];
+      window[layer].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+      ScriptLoader.load('https://www.googletagmanager.com/gtm.js?id=GTM-PHQC53L', 'gtag', true);
     },
   },
 };

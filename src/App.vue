@@ -3,7 +3,7 @@
     <Header></Header>
     <router-view/>
     <Footer></Footer>
-    <CookieNotice v-if="!this.$cookies.get('cookie-notice')"/>
+    <CookieNotice />
   </div>
 </template>
 <script>
