@@ -3,10 +3,10 @@
     <div>
       <h1 v-html="boxTitle"></h1>
       <Button class="primary" v-if="buttonTarget">
-        <router-link :to="`/${$i18n.locale}${buttonTarget}`" v-if="buttonType === 'int'">
+        <router-link v-if="buttonType === 'int'" :to="`/${$i18n.locale}${buttonTarget}`">
           {{buttonLabel}}
         </router-link>
-        <a :href="`${buttonTarget}`" v-if="buttonType === 'ext'">
+        <a v-if="buttonType === 'ext'" :href="`${buttonTarget}`" target="_blank">
           {{buttonLabel}}
         </a>
       </Button>

@@ -1,6 +1,6 @@
 <template>
   <div class="img">
-    <img loading="lazy" :src="postImage" :alt="imgAlt" class="img-fluid">
+    <img v-if="postImage" loading="lazy" :src="postImage" :alt="imgAlt" class="img-fluid">
   </div>
 </template>
 
@@ -20,7 +20,7 @@ export default {
   props: {
     imgSrc: {
       type: String,
-      required: true,
+      default: null,
     },
     imgAlt: {
       type: String,
@@ -42,7 +42,11 @@ export default {
   //---------------------------------------------------
   computed: {
     postImage() {
-      return `${API_URL}/assets/${this.imgSrc}`;
+      const img = this.imgSrc;
+      if (img) {
+        return `${API_URL}/assets/${img}`;
+      }
+      return null;
     },
   },
   //---------------------------------------------------
@@ -98,6 +102,10 @@ div.img {
   width: 100%;
   aspect-ratio: 16 / 8;
   margin-top: 80px;
+
+  &:empty {
+    aspect-ratio: initial;
+  }
 
   .img-fluid {
     width: 100%;

@@ -3,6 +3,14 @@
     <div class="article-text-block">
       <div>
         <h2 v-html="title"></h2>
+        <Button class="primary" v-if="buttonTarget">
+          <router-link :to="`/${$i18n.locale}${buttonTarget}`" v-if="buttonType === 'int'">
+            {{buttonLabel}}
+          </router-link>
+          <a :href="`${buttonTarget}`" target="_blank" v-if="buttonType === 'ext'">
+            {{buttonLabel}}
+          </a>
+        </Button>
       </div>
       <div>
         <p v-html="content"></p>
@@ -23,6 +31,18 @@ export default {
   props: {
     title: String,
     content: String,
+    buttonLabel: {
+      type: String,
+      default: null,
+    },
+    buttonTarget: {
+      type: String,
+      default: null,
+    },
+    buttonType: {
+      type: String,
+      default: null,
+    },
   },
   //---------------------------------------------------
   //

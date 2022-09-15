@@ -13,8 +13,11 @@
         <ArticleTextBlock
           v-if="block.blocktype === 'section'"
           :title="block.title"
-          :content="block.content">
-        </ArticleTextBlock>
+          :content="block.content"
+          :button-target="block.button.url"
+          :button-type="block.button.type"
+          :button-label="block.button.text"
+        />
         <div class="container -long" v-if="block.blocktype === 'highlight'">
           <div class="container">
             <SingleQuote
