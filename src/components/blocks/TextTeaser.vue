@@ -1,7 +1,7 @@
 <template>
   <div class="text-component">
     <div>
-      <h1 v-html="boxTitle"></h1>
+      <h2 class="h1" v-html="boxTitle"></h2>
       <Button class="primary" v-if="buttonTarget">
         <router-link v-if="buttonType === 'int'" :to="`/${$i18n.locale}${buttonTarget}`">
           {{buttonLabel}}

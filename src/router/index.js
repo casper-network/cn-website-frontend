@@ -82,7 +82,7 @@ export function getRouter() {
         const language = (to.params.lang) ? to.params.lang : to.query.lang || '';
         const urlQueryString = window.location.search || '';
 
-        if (!ignoreLanguage && LANGUAGES.length > 1 && !LANGUAGES.includes(language)) {
+        if (!ignoreLanguage && LANGUAGES.length >= 1 && !LANGUAGES.includes(language)) {
           const detected = (navigator.languages.find((lang => LANGUAGES.includes(lang.toLowerCase()))) || '').toLowerCase();
           const final = LANGUAGES.includes(detected) ? detected : LANGUAGES[0];
           return next({ path: `/${final}/${urlQueryString}`, replace: true });

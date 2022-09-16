@@ -35,21 +35,93 @@ export default {
   computed: {},
   data() {
     return {
+      meta: null,
       newsData: '',
-      categories: Array,
+      categories: [],
       searchString: '',
       isFiltering: false,
       isSearching: false,
     };
+  },
+  metaInfo() {
+    // eslint-disable-next-line prefer-destructuring
+    const meta = this.meta;
+    const { locale } = this.$i18n;
+    if (meta) {
+      return {
+        title: `${meta.title}`,
+        link: [
+          {
+            name: 'canonical',
+            href: `${window.location.origin}/${locale}/news/`,
+          },
+        ],
+        meta: [
+          {
+            name: 'description',
+            content: meta.description,
+          },
+          {
+            property: 'og:title',
+            content: `${meta.title}`,
+          },
+          {
+            itemprop: 'name',
+            content: `${meta.title}`,
+          },
+          {
+            itemprop: 'description',
+            content: `${meta.description}`,
+          },
+          {
+            itemprop: 'image',
+            content: `${API_URL}/assets/${meta.image}`,
+          },
+          {
+            name: 'twitter:card',
+            content: `${API_URL}/assets/${meta.image}`,
+          },
+          {
+            property: 'og:site_name',
+            content: window.location.hostname,
+          },
+          {
+            property: 'og:description',
+            content: meta.description,
+          },
+          {
+            property: 'og:type',
+            content: 'website',
+          },
+          {
+            property: 'og:url',
+            content: window.location.href,
+          },
+          {
+            property: 'og:image',
+            content: `${API_URL}/assets/${meta.image}`,
+          },
+        ],
+      };
+    }
+    return null;
   },
   watch: {
     $route() {
       this.filterByTag();
     },
   },
-  mounted() {
+  async created() {
+    const [locale] = Intl.getCanonicalLocales(this.$i18n.locale);
+    const res = await axios.get(`${API_URL}/items/lp_news?filter[content][languages_code][_eq]=${locale}&fields=*.title,*.description,*.image`);
+    if (res.status === 200) {
+      const { data } = res;
+      this.meta = data?.data?.content[0] || null;
+    }
+  },
+  async mounted() {
     this.newsData = this.$d.data;
-    this.categories = this.getAllCategories();
+    this.getAllCategories();
   },
   methods: {
     finallyDoSearch(val) {

@@ -19,7 +19,7 @@
       <div class="tags" v-if="type === 'news' && categoryData">
         <Tag class="secondary" v-for="(tag, i) in postItemData.categories" :key="`tag-${i}`">
           <router-link :to="`/${$i18n.locale}/news/tag/${tag.categories_news_key}`">
-            {{ categoryData.find((category) => category.key === tag.categories_news_key).name }}
+            {{ (categoryData.find((category) => category.key === tag.categories_news_key) || {}).name || '' }}
           </router-link>
         </Tag>
       </div>
@@ -56,7 +56,10 @@ export default {
   props: {
     postItemData: Object,
     type: String,
-    categoryData: Array,
+    categoryData: {
+      type: Array,
+      default: () => [],
+    },
   },
   //---------------------------------------------------
   //

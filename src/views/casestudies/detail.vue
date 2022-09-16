@@ -1,5 +1,5 @@
 <template>
-  <main>
+  <main v-if="pageData">
     <div class="container">
       <ArticleLead
         :title="pageData.page_blocks[0].title"
@@ -57,23 +57,25 @@ export default {
   },
   metaInfo() {
     const metaPageData = this.$d.data;
-    console.log(metaPageData);
-    return {
-      title: `${metaPageData.title}`,
-      meta: [
-        { name: 'description', content: metaPageData.description },
-        { property: 'og:title', content: `${metaPageData.title}` },
-        { itemprop: 'name', content: `${metaPageData.title}` },
-        { itemprop: 'description', content: `${metaPageData.description}` },
-        { itemprop: 'image', content: `${API_URL}/assets/${metaPageData.image}` },
-        { name: 'twitter:card', content: `${API_URL}/assets/${metaPageData.image}` },
-        { property: 'og:site_name', content: window.location.hostname },
-        { property: 'og:description', content: metaPageData.description },
-        { property: 'og:type', content: 'website' },
-        { property: 'og:url', content: window.location.href },
-        { property: 'og:image', content: `${API_URL}/assets/${metaPageData.image}` },
-      ],
-    };
+    if (metaPageData) {
+      return {
+        title: `${metaPageData.title}`,
+        meta: [
+          { name: 'description', content: metaPageData.description },
+          { property: 'og:title', content: `${metaPageData.title}` },
+          { itemprop: 'name', content: `${metaPageData.title}` },
+          { itemprop: 'description', content: `${metaPageData.description}` },
+          { itemprop: 'image', content: `${API_URL}/assets/${metaPageData.image}` },
+          { name: 'twitter:card', content: `${API_URL}/assets/${metaPageData.image}` },
+          { property: 'og:site_name', content: window.location.hostname },
+          { property: 'og:description', content: metaPageData.description },
+          { property: 'og:type', content: 'website' },
+          { property: 'og:url', content: window.location.href },
+          { property: 'og:image', content: `${API_URL}/assets/${metaPageData.image}` },
+        ],
+      };
+    }
+    return null;
   },
   //---------------------------------------------------
   //
@@ -82,7 +84,7 @@ export default {
   //---------------------------------------------------
   computed: {
     pageData() {
-      return this.$d.data;
+      return this.$d.data || null;
     },
     dummyData() {
       return this.pageData || null;
@@ -124,10 +126,13 @@ export default {
   // beforeMount() {},
   // render(h) { return h(); },
   mounted() {
-    this.getRelatedCasestudies();
-
-    const root = document.querySelector(':root');
-    root.style.setProperty('--headerHeight', `${document.querySelector('header').clientHeight}px`);
+    if (!this.$d.data) {
+      this.$router.replace(`/${this.$i18n.locale}/case-studies/`);
+    } else {
+      this.getRelatedCasestudies();
+      const root = document.querySelector(':root');
+      root.style.setProperty('--headerHeight', `${document.querySelector('header').clientHeight}px`);
+    }
   },
   // beforeUpdate() {},
   // updated() {},
