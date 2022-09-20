@@ -4,12 +4,11 @@
       <SearchBar type="News" @search="finallyDoSearch"></SearchBar>
       <div class="container">
         <div class="title">
-          <h1 style="font-weight: 700;margin-top: 32px; margin-bottom: 0;" v-html="(!searchString) ? '<span>The latest</span> of Casper Association' : `'${searchString}'`"></h1>
+          <h1 style="margin-top: 32px; margin-bottom: 0;" v-html="(!searchString) ? `<strong>The latest</strong> from the Casper ${computedFilter}` : `<strong>'${searchString}'</strong>`"></h1>
           <p style="font-weight: 700;margin-top: 16px;" v-if="isSearching">
             <span>{{$t('titles.resultsFound')}}</span>
             <span>{{("0" + newsData.length).slice(-2)}}</span>
           </p>
-          <h2 v-if="isFiltering">{{this.$route.params.category.charAt(0).toUpperCase() + this.$route.params.category.slice(1, this.$route.params.length)}}</h2>
         </div>
         <div class="posts" v-if="newsData">
           <PostItem v-for="(item, i) in newsData"
@@ -32,7 +31,15 @@ const { API_URL } = config;
 export default {
   name: 'NewsFiltered',
   components: {},
-  computed: {},
+  computed: {
+    computedFilter() {
+      const { category } = this.$route.params;
+      if (category) {
+        return category.charAt(0).toUpperCase() + category.slice(1, this.$route.params.length);
+      }
+      return null;
+    },
+  },
   data() {
     return {
       meta: null,
@@ -122,6 +129,7 @@ export default {
   async mounted() {
     this.newsData = this.$d.data;
     this.getAllCategories();
+    this.filterByTag();
   },
   methods: {
     finallyDoSearch(val) {
@@ -141,11 +149,10 @@ export default {
         console.log('searching', val[0]);
       }
     },
-    filterByTag(val) {
+    filterByTag() {
       this.newsData = this.$d.data;
       this.newsData.sort((a, b) => Date.parse(b.publish_date) - Date.parse(a.publish_date));
       this.isFiltering = true;
-      console.log('filtering', val);
     },
     async getAllCategories() {
       const res = await axios.get(`${API_URL}/cce/categories?locale=en-US&collection=news`);
