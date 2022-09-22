@@ -44,22 +44,34 @@ export default {
   },
   metaInfo() {
     const metaPageData = this.$d.data;
-    return {
+    const out = {
       title: `${metaPageData.title}`,
-      meta: [
-        { name: 'description', content: metaPageData.description },
-        { property: 'og:title', content: `${metaPageData.title}` },
-        { itemprop: 'name', content: `${metaPageData.title}` },
-        { itemprop: 'description', content: `${metaPageData.description}` },
-        { itemprop: 'image', content: `${API_URL}/assets/${metaPageData.image}` },
-        { name: 'twitter:card', content: `${API_URL}/assets/${metaPageData.image}` },
-        { property: 'og:site_name', content: window.location.hostname },
-        { property: 'og:description', content: metaPageData.description },
-        { property: 'og:type', content: 'website' },
-        { property: 'og:url', content: window.location.href },
-        { property: 'og:image', content: `${API_URL}/assets/${metaPageData.image}` },
-      ],
+      meta: [],
+      link: null,
     };
+
+    // eslint-disable-next-line prefer-destructuring
+    const canonical = window.canonical;
+    if (canonical) {
+      out.link = [{ rel: 'canonical', href: `${canonical}` }];
+      window.canonical = null;
+    }
+
+    out.meta = [
+      { name: 'description', content: metaPageData.description },
+      { property: 'og:title', content: `${metaPageData.title}` },
+      { itemprop: 'name', content: `${metaPageData.title}` },
+      { itemprop: 'description', content: `${metaPageData.description}` },
+      { itemprop: 'image', content: `${API_URL}/assets/${metaPageData.image}` },
+      { name: 'twitter:card', content: `${API_URL}/assets/${metaPageData.image}` },
+      { property: 'og:site_name', content: window.location.hostname },
+      { property: 'og:description', content: metaPageData.description },
+      { property: 'og:type', content: 'website' },
+      { property: 'og:url', content: window.location.href },
+      { property: 'og:image', content: `${API_URL}/assets/${metaPageData.image}` },
+    ];
+
+    return out;
   },
   mounted() {
     const root = document.querySelector(':root');

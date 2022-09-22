@@ -51,6 +51,7 @@ const VIEW_MAPPING = {
   lp_ecosystem_filtered: EcoSystemFiltered,
   lp_news_filtered: NewsFiltered,
   articles: NewsDetail,
+  landingpages: PageFactory,
 };
 
 // eslint-disable-next-line import/prefer-default-export
@@ -85,7 +86,9 @@ export function getRouter() {
         if (!ignoreLanguage && LANGUAGES.length >= 1 && !LANGUAGES.includes(language)) {
           const detected = (navigator.languages.find((lang => LANGUAGES.includes(lang.toLowerCase()))) || '').toLowerCase();
           const final = LANGUAGES.includes(detected) ? detected : LANGUAGES[0];
-          return next({ path: `/${final}/${urlQueryString}`, replace: true });
+          const url = `/${final}/${urlQueryString}`;
+          window.canonical = window.location.origin + url;
+          return next({ path: url, replace: true });
         }
 
         if (i18n.locale !== language) {
@@ -146,7 +149,6 @@ export function getRouter() {
         // document.dispatchEvent(RENDERED_EVENT);
         return null;
       });
-
       resolve(router);
     }
   });

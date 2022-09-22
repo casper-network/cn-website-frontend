@@ -127,7 +127,9 @@ export default {
   // render(h) { return h(); },
   mounted() {
     if (!this.$d.data) {
-      this.$router.replace(`/${this.$i18n.locale}/case-studies/`);
+      const url = `/${this.$i18n.locale}/case-studies/`;
+      window.canonical = window.location.origin + url;
+      this.$router.replace(url);
     } else {
       this.getRelatedCasestudies();
       const root = document.querySelector(':root');

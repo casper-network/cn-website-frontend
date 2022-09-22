@@ -143,9 +143,13 @@ export default {
       const type = this.$route.meta.details;
       const { locale } = this.$i18n;
       if (type === 'news') {
-        this.$router.replace(`/${locale}/news/`);
+        const url = `/${locale}/news/`;
+        window.canonical = window.location.origin + url;
+        this.$router.replace(url);
       } else {
-        this.$router.replace(`/${locale}/`);
+        const url = `/${locale}/`;
+        window.canonical = window.location.origin + url;
+        this.$router.replace(url);
       }
     } else {
       const root = document.querySelector(':root');

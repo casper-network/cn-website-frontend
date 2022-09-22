@@ -50,7 +50,7 @@ export default {
         title: `${meta.title}`,
         link: [
           {
-            name: 'canonical',
+            rel: 'canonical',
             href: `${window.location.origin}/${locale}/ecosystem/`,
           },
         ],

@@ -115,7 +115,7 @@ export default {
   &:hover {
     img {
       transform: translateY(16px);
-      animation: flash 0.45s;
+      // animation: flash 0.45s;
     }
   }
 
