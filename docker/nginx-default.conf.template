@@ -14,6 +14,10 @@ server {
 
     }
 
+    location /docs {
+         return 301 https://docs.casperlabs.io; 
+    }
+
     location @prerender {
         ssi on;
         set $prerender 0;
