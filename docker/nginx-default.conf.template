@@ -15,7 +15,11 @@ server {
     }
 
     location /docs {
-         return 301 https://docs.casperlabs.io; 
+        return 301 https://docs.casperlabs.io; 
+    }
+
+    location /sitemap.xml  {
+        proxy_pass https://backend.casper.network/cce/sitemap;
     }
 
     location @prerender {
