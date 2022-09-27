@@ -82,10 +82,10 @@ export default {
   //---------------------------------------------------
   computed: {
     topCategories() {
-      return this.categories.slice(0, 6);
+      return this.categories.slice(0, 5);
     },
     allOtherCategories() {
-      return this.categories.slice(6, this.categories.length);
+      return this.categories.slice(5, this.categories.length);
     },
   },
   //---------------------------------------------------
@@ -271,7 +271,8 @@ div.search-bar {
         top: -10px;
         left: -30px;
         z-index: 999;
-        width: 180px;
+        min-width: 180px;
+        width: auto;
 
         @include breakpoint('sm') {
           position: relative;
