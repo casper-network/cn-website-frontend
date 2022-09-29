@@ -11,11 +11,74 @@ server {
         set $vue_app_languages "${VUE_APP_LANGUAGES}";
         set $vue_app_api_url "${VUE_APP_API_URL}";
         set $vue_app_zoho_endpoint "${VUE_APP_ZOHO_ENDPOINT}";
-
     }
 
     location /docs {
-        return 301 https://docs.casperlabs.io; 
+        return 301 https://docs.casperlabs.io;
+    }
+
+    location /en-us/articles/caspers-guide-to-blockchain-development {
+        return 301 https://casper.network/en-us/web3/blockchain/caspers-guide-to-blockchain-development/;
+    }
+
+    location /en-us/articles/the-enterprise-blockchain {
+        return 301 https://casper.network/en-us/web3/blockchain/the-enterprise-blockchain/;
+    }
+
+    location /en-us/articles/the-future-of-blockchain-is-the-future-of-the-internet {
+        return 301 https://casper.network/en-us/web3/blockchain/the-future-of-blockchain-is-the-future-of-the-internet/;
+    }
+
+    location /en-us/articles/a-guide-to-smart-contracts-on-the-blockchain {
+        return 301 https://casper.network/en-us/web3/blockchain/a-guide-to-smart-contracts-on-the-blockchain/;
+    }
+
+    location /en-us/articles/a-guide-to-blockchain-architecture {
+        return 301 https://casper.network/en-us/web3/blockchain/a-guide-to-blockchain-architecture/;
+    }
+
+    location /en-us/articles/a-quick-guide-to-blockchain-use-cases {
+        return 301 https://casper.network/en-us/web3/blockchain/use-cases/;
+    }
+
+    location /en-us/articles/how-blockchain-technology-can-improve-supply-chains {
+        return 301 https://casper.network/en-us/web3/blockchain/use-cases/supply-chain/;
+    }
+
+    location /en-us/articles/blockchain-in-the-healthcare-industry {
+        return 301 https://casper.network/en-us/web3/blockchain/use-cases/healthcare/;
+    }
+
+    location /en-us/articles/blockchain-technology-in-real-estate {
+        return 301 https://casper.network/en-us/web3/blockchain/use-cases/real-estate/;
+    }
+
+    location /en-us/articles/blockchain-in-accounting {
+        return 301 https://casper.network/en-us/web3/blockchain/use-cases/accounting/;
+    }
+
+    location /en-us/articles/blockchain-and-the-insurance-industry {
+        return 301 https://casper.network/en-us/web3/blockchain/use-cases/insurance/;
+    }
+
+    location /en-us/articles/implementing-blockchain-technology-in-the-financial-sector {
+        return 301 https://casper.network/en-us/web3/blockchain/use-cases/finance/;
+    }
+
+    location /en-us/articles/proof-of-stake-explained {
+        return 301 https://casper.network/en-us/web3/pos/;
+    }
+
+    location /en-us/articles/proof-of-work-vs-proof-of-stake {
+        return 301 https://casper.network/en-us/web3/pos/proof-of-work-vs-proof-of-stake/;
+    }
+
+    location /en-us/articles/proof-of-stake-energy-consumption {
+        return 301 https://casper.network/en-us/web3/pos/proof-of-stake-energy-consumption/;
+    }
+
+    location /en-us/articles/an-experts-guide-to-byzantine-fault-tolerance {
+        return 301 https://casper.network/en-us/web3/pos/byzantine-fault-tolerance/;
     }
 
     location /sitemap.xml  {
