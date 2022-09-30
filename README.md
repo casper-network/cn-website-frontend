@@ -40,3 +40,5 @@ These are all neccessary for compiling the vue project.
 
 ### Prerender Variable
 Set this according to the domain where the prerender is running
+
+
