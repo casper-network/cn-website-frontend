@@ -60,50 +60,18 @@ export default {
     return {
       title: `${metaPageData.title}`,
       meta: [
-        {
-          name: 'description',
-          content: metaPageData.description,
-        },
-        {
-          property: 'og:title',
-          content: `${metaPageData.title}`,
-        },
-        {
-          itemprop: 'name',
-          content: `${metaPageData.title}`,
-        },
-        {
-          itemprop: 'description',
-          content: `${metaPageData.description}`,
-        },
-        {
-          itemprop: 'image',
-          content: `${API_URL}/assets/${metaPageData.image}`,
-        },
-        {
-          name: 'twitter:card',
-          content: `${API_URL}/assets/${metaPageData.image}`,
-        },
-        {
-          property: 'og:site_name',
-          content: window.location.hostname,
-        },
-        {
-          property: 'og:description',
-          content: metaPageData.description,
-        },
-        {
-          property: 'og:type',
-          content: 'website',
-        },
-        {
-          property: 'og:url',
-          content: window.location.href,
-        },
-        {
-          property: 'og:image',
-          content: `${API_URL}/assets/${metaPageData.image}`,
-        },
+        { name: 'description', content: metaPageData.description },
+        { itemprop: 'title', content: `${metaPageData.title}` },
+        { itemprop: 'description', content: `${metaPageData.description}` },
+        { itemprop: 'name', content: `${metaPageData.title}` },
+        { itemprop: 'image', content: `${API_URL}/assets/${metaPageData.image}` },
+        { name: 'twitter:card', content: 'summary_large_image' },
+        { property: 'og:title', content: `${metaPageData.title}` },
+        { property: 'og:site_name', content: window.location.hostname },
+        { property: 'og:description', content: metaPageData.description },
+        { property: 'og:type', content: 'website' },
+        { property: 'og:url', content: window.location.href },
+        { property: 'og:image', content: `${API_URL}/assets/${metaPageData.image}` },
       ],
     };
   },

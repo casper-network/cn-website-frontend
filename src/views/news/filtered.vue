@@ -58,56 +58,21 @@ export default {
       return {
         title: `${meta.title}`,
         link: [
-          {
-            rel: 'canonical',
-            href: `${window.location.origin}/${locale}/news/`,
-          },
+          { rel: 'canonical', href: `${window.location.origin}/${locale}/news/` },
         ],
         meta: [
-          {
-            name: 'description',
-            content: meta.description,
-          },
-          {
-            property: 'og:title',
-            content: `${meta.title}`,
-          },
-          {
-            itemprop: 'name',
-            content: `${meta.title}`,
-          },
-          {
-            itemprop: 'description',
-            content: `${meta.description}`,
-          },
-          {
-            itemprop: 'image',
-            content: `${API_URL}/assets/${meta.image}`,
-          },
-          {
-            name: 'twitter:card',
-            content: `${API_URL}/assets/${meta.image}`,
-          },
-          {
-            property: 'og:site_name',
-            content: window.location.hostname,
-          },
-          {
-            property: 'og:description',
-            content: meta.description,
-          },
-          {
-            property: 'og:type',
-            content: 'website',
-          },
-          {
-            property: 'og:url',
-            content: window.location.href,
-          },
-          {
-            property: 'og:image',
-            content: `${API_URL}/assets/${meta.image}`,
-          },
+          { name: 'description', content: meta.description },
+          { itemprop: 'title', content: `${meta.title}` },
+          { itemprop: 'description', content: `${meta.description}` },
+          { itemprop: 'name', content: `${meta.title}` },
+          { itemprop: 'image', content: `${API_URL}/assets/${meta.image}` },
+          { name: 'twitter:card', content: 'summary_large_image' },
+          { property: 'og:title', content: `${meta.title}` },
+          { property: 'og:site_name', content: window.location.hostname },
+          { property: 'og:description', content: meta.description },
+          { property: 'og:type', content: 'website' },
+          { property: 'og:url', content: window.location.href },
+          { property: 'og:image', content: `${API_URL}/assets/${meta.image}` },
         ],
       };
     }
