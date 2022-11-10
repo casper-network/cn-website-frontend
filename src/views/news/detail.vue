@@ -29,6 +29,17 @@
             <Glider :glide-data="block.media"></Glider>
           </div>
         </div>
+        <div class="container block" v-if="block.blocktype === 'video'">
+          <div class="half-carousel">
+            <VideoPlayer
+              :thumb="block.media.thumbnail"
+              :provider="block.media.service"
+              :video-id="block.media.id"
+              :caption="block.media.caption"
+              in-article
+            />
+          </div>
+        </div>
         <ArticleImage
           v-if="block.blocktype === 'image'"
           :img-src="block.media"
@@ -64,6 +75,10 @@ export default {
   data() {
     return {
       relatedNews: [],
+      scripts: [
+        'https://www.youtube.com/iframe_api',
+        'https://player.vimeo.com/api/player.js',
+      ],
     };
   },
   //---------------------------------------------------
@@ -74,6 +89,9 @@ export default {
   computed: {
     pageData() {
       return this.$d.data?.data || null;
+    },
+    pageCategories() {
+      return (this.$d.data?.categories || []).map((i) => i.categories_news_key);
     },
     dummyData() {
       return this.pageData || null;
@@ -159,7 +177,20 @@ export default {
     }
   },
   // beforeUpdate() {},
-  // updated() {},
+  updated() {
+    if (document.querySelector('.video-container')) {
+      this.scripts.forEach((script) => {
+        const tag = document.createElement('script');
+        tag.setAttribute('src', script);
+        if (script.includes('youtube')) {
+          tag.setAttribute('id', 'youtube-api');
+        } else {
+          tag.setAttribute('id', 'vimeo-api');
+        }
+        document.head.appendChild(tag);
+      });
+    }
+  },
   // beforeDestroy() {},
   // destroyed() {},
   //---------------------------------------------------
@@ -169,12 +200,17 @@ export default {
   //---------------------------------------------------
   methods: {
     async getRelatedNews() {
+      const availableCategories = this.pageCategories;
       const relatedAPIURL = '/news?filter[content][languages_code][_eq]=VAR_LOCALE&fields=*.*&limit=-1';
       const requestAPIEndpoint = relatedAPIURL.replace('VAR_LOCALE', Intl.getCanonicalLocales(this.$i18n.locale));
       const res = await this.$d.api.get(requestAPIEndpoint);
       const currentId = this.$d.data.data.id;
       this.relatedNews = res.data
-        .filter((o) => o.id !== currentId)
+        .filter((o) => {
+          const articleCategories = (o.categories || []).map((i) => i.categories_news_key);
+          const intersection = availableCategories.filter((e) => articleCategories.includes(e));
+          return o.id !== currentId && intersection.length > 0;
+        })
         .sort(() => ((Math.random() > 0.5) ? 1 : -1))
         .slice(1, 3);
     },

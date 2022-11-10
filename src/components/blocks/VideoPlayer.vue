@@ -1,5 +1,5 @@
 <template>
-  <div class="video-container">
+  <div class="video-container" :class="{ 'in-article': inArticle }">
     <div class="video-overlay" @click="removeCoverAndPlay()">
       <img :src="(thumb) ? thumb : '/img/bg.webp'" alt="" class="yt-cover">
       <div>
@@ -13,7 +13,7 @@
       <div class="close-btn" @click="hideVideoModal()">
         <SVGClose/>
       </div>
-      <div :id="vpID"></div>
+      <div :data-video-container="vpID"></div>
     </div>
   </div>
 </template>
@@ -38,6 +38,10 @@ export default {
     caption: String,
     provider: String,
     thumb: String,
+    inArticle: {
+      type: Boolean,
+      default: false,
+    },
   },
   //---------------------------------------------------
   //
@@ -102,13 +106,14 @@ export default {
   //---------------------------------------------------
   methods: {
     removeCoverAndPlay() {
+      const videoId = this.vpID;
+      const videoContainer = document.querySelector(`div[data-video-container="${videoId}"]`);
       this.isModalVisible = true;
       document.body.classList.add('no-scroll');
-      console.log(document.getElementById(this.vpID));
       // this.isVideoPlaying = true;
 
       if (this.provider === 'youtube') {
-        this.player = new window.YT.Player(document.getElementById(this.vpID), {
+        this.player = new window.YT.Player(videoContainer, {
           videoId: this.videoId,
           events: {
             onReady: this.onPlayerReady,
@@ -116,12 +121,13 @@ export default {
           },
         });
       } else {
-        this.player = new window.Vimeo.Player(document.getElementById(this.vpID), { id: this.videoId });
+        this.player = new window.Vimeo.Player(videoContainer, { id: this.videoId });
         this.player.play();
       }
     },
     hideVideoModal() {
-      document.getElementById(this.vpID)
+      const videoId = this.vpID;
+      document.querySelector(`[data-video-container="${videoId}"]`)
         .remove();
       this.isModalVisible = false;
 
@@ -129,8 +135,8 @@ export default {
       (this.provider === 'youtube') ? this.player.stopVideo() : this.player.pause();
 
       const emptyVideoElement = document.createElement('div');
-      emptyVideoElement.setAttribute('id', this.vpID);
-      document.querySelector(`.video-modal[data-video-id="${this.vpID}"]`)
+      emptyVideoElement.setAttribute('data-video-container', videoId);
+      document.querySelector(`.video-modal[data-video-id="${videoId}"]`)
         .appendChild(emptyVideoElement);
       document.body.classList.remove('no-scroll');
     },
@@ -174,6 +180,10 @@ div[data-vimeo-initialized="true"] {
   aspect-ratio: 16 / 9;
   width: 100%;
   padding: 160px 0 0;
+
+  &.in-article {
+    padding-top: 0;
+  }
 
   @include breakpoint('sm') {
     padding: 80px 0 0;

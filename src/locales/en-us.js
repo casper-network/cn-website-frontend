@@ -44,8 +44,8 @@ export default {
         value: 'give-feedback',
       },
       {
-        label: 'I want to introduce my company',
-        value: 'introduce-company',
+        label: 'I want to apply for a grant',
+        value: 'apply-for-grant',
       },
       {
         label: 'I want to introduce my project',
