@@ -108,7 +108,8 @@ export default {
   methods: {
     async getCount() {
       const response = await axios.get(`${API_URL}/items/news?aggregate[count]=*&groupBy[]=status`);
-      this.numEntries = response.data.data[1].count || 0;
+      const count = (((response || {}).data || []).data[0] || {}).count || (((response || {}).data || []).data[1] || {}).count;
+      this.numEntries = count || 0;
     },
     async getNews() {
       try {
