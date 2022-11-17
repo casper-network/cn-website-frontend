@@ -178,11 +178,18 @@ export default {
       margin-left: 0;
     }
 
+    ::v-deep a {
+      font-family: inherit;
+      font-size: inherit;
+      color: var(--color-blue);
+      text-decoration: underline;
+    }
+
     p {
       max-width: 90%;
       margin-bottom: 32px;
 
-      @include style-body('large')
+      @include style-body('large');
     }
   }
 }

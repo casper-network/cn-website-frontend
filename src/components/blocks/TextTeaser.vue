@@ -155,7 +155,14 @@ export default {
   }
 
   p {
-    @include style-body('large')
+    @include style-body('large');
+
+    a {
+      font-family: inherit;
+      font-size: inherit;
+      color: var(--color-blue);
+      text-decoration: underline;
+    }
   }
 
   .btn.primary {

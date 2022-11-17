@@ -1,6 +1,6 @@
 <template>
   <div class="hero" :class="type">
-    <div>
+    <div :style="`background-image: url('${heroImage}')`">
       <div class="hero__content">
         <div class="intro-content">
           <h1 v-html="blockTitle"></h1>
@@ -121,10 +121,7 @@ export default {
   // created() {},
   // beforeMount() {},
   // render(h) { return h(); },
-  mounted() {
-    const root = document.querySelector(':root');
-    root.style.setProperty('--heroBG', `url(${this.heroImage})`);
-  },
+  // mounted() {},
   // beforeUpdate() {},
   // updated() {},
   // beforeDestroy() {},
@@ -157,8 +154,7 @@ div.hero {
 
     > div {
       background: linear-gradient(180deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0) 50%),
-      linear-gradient(90.28deg, rgba(0, 0, 0, 0.2) 0.21%, rgba(0, 0, 0, 0) 72.89%),
-      var(--heroBG);
+      linear-gradient(90.28deg, rgba(0, 0, 0, 0.2) 0.21%, rgba(0, 0, 0, 0) 72.89%);
       background-size: cover;
       background-position: center;
       display: flex;
@@ -202,8 +198,7 @@ div.hero {
   > div {
     height: 100%;
     background: linear-gradient(180deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0) 50%),
-    linear-gradient(90.28deg, rgba(0, 0, 0, 0.2) 0.21%, rgba(0, 0, 0, 0) 72.89%),
-    var(--heroBG);
+    linear-gradient(90.28deg, rgba(0, 0, 0, 0.2) 0.21%, rgba(0, 0, 0, 0) 72.89%);
     background-size: cover;
     background-position: center;
 
