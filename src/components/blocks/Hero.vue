@@ -8,11 +8,15 @@
         </div>
         <slot></slot>
         <div class="buttons" v-if="buttons">
-          <Button v-for="(button, btnIndex) in buttons" :key="`hero-btn-${btnIndex}`"
-                  :class="button.style">
-            <router-link :to="`/${$i18n.locale}${button.url}`">
-              {{ button.text }}
-            </router-link>
+          <Button v-for="(button, btnIndex) in buttons" :key="`hero-btn-${btnIndex}`" :class="button.style">
+            <template v-if="button.type === 'ext'">
+              <a :href="button.url" target="_blank" rel="noopener">{{ button.text }}</a>
+            </template>
+            <template v-else>
+              <router-link :to="`/${$i18n.locale}${button.url}`">
+                {{ button.text }}
+              </router-link>
+            </template>
           </Button>
         </div>
       </div>
@@ -79,10 +83,14 @@ export default {
   //---------------------------------------------------
   computed: {
     heroImage() {
-      if (!this.block) {
+      const media = this.block?.media || [];
+      if (media.length === 0) {
+        if (this.type === 'full' || this.type === '' || !this.type) {
+          return '/img/bg.webp';
+        }
         return `${API_URL}/assets/34dff585-16a1-4499-ac08-907f5c853e25`;
       }
-      return `${API_URL}/assets/${this.block.media[0]}`;
+      return `${API_URL}/assets/${media[0]}`;
     },
   },
   //---------------------------------------------------
@@ -90,7 +98,8 @@ export default {
   //  Watch Properties
   //
   //---------------------------------------------------
-  watch: {},
+  watch: {
+  },
   //---------------------------------------------------
   //
   //  Filter Properties
@@ -194,7 +203,7 @@ div.hero {
     height: 100%;
     background: linear-gradient(180deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0) 50%),
     linear-gradient(90.28deg, rgba(0, 0, 0, 0.2) 0.21%, rgba(0, 0, 0, 0) 72.89%),
-    url('/img/bg.webp');
+    var(--heroBG);
     background-size: cover;
     background-position: center;
 
