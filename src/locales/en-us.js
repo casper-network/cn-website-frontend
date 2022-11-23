@@ -100,6 +100,13 @@ export default {
       title: 'Ecosystem',
       url: 'ecosystem',
       type: 'int',
+      children: [
+        {
+          title: 'Grant Program',
+          url: 'lp/accelerate-grant-program',
+          type: 'int',
+        },
+      ],
     },
     {
       title: 'Documentation',
@@ -218,6 +225,11 @@ export default {
       {
         title: 'Ecosystem',
         url: 'ecosystem',
+        type: 'int',
+      },
+      {
+        title: 'Grant Program',
+        url: 'lp/accelerate-grant-program',
         type: 'int',
       },
       {

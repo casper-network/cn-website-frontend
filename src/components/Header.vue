@@ -384,7 +384,7 @@ header {
         width: 100%;
 
         a {
-          padding: 13px 19px 13px 0;
+          padding: 13px 26px 13px 0;
         }
 
         > div {
@@ -432,7 +432,7 @@ header {
 
           span {
             display: inline-block;
-            transform: translateX(19px);
+            transform: translateX(9px);
             color: var(--color-blue);
           }
         }
@@ -448,7 +448,7 @@ header {
 
             span {
               display: inline-block;
-              transform: translateX(19px);
+              transform: translateX(9px);
               color: var(--color-blue);
             }
           }
@@ -575,7 +575,7 @@ header {
         width: 100%;
 
         a {
-          padding: 13px 19px 13px 0;
+          padding: 13px 26px 13px 0;
         }
 
         > div {
@@ -623,7 +623,7 @@ header {
 
           span {
             display: inline-block;
-            transform: translateX(19px);
+            transform: translateX(9px);
           }
         }
 
@@ -638,7 +638,7 @@ header {
 
             span {
               display: inline-block;
-              transform: translateX(19px);
+              transform: translateX(9px);
             }
           }
         }
