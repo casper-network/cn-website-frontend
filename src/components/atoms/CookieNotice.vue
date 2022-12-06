@@ -2,32 +2,53 @@
   <div v-if="showNotice" id="cookieNotice" ref="cookieNotice">
     <p>
       This website uses cookies.
-      <template v-if="content">
-        <span class="readmore" @click="showModal()">Read more</span>
-      </template>
-      <template v-else>
-        <router-link :to="`/${$i18n.locale}/privacy-policy`">Privacy&nbsp;Policy</router-link>
-      </template>
+      <router-link :to="`/${$i18n.locale}/privacy-policy`">Privacy&nbsp;Policy</router-link>
     </p>
     <div class="buttons">
       <Button class="primary">
-        <a href="#" @click="declineCookies">Disable All</a>
+        <a href="#" @click="showModal">Manage</a>
       </Button>
       <Button class="secondary">
-        <a href="#" @click="allowCookies">Allow All</a>
+        <a href="#" @click="allowAll">Allow All</a>
       </Button>
     </div>
     <div class="modal" :class="{ visible: modalVisible }">
       <div/>
       <div>
         <div class="close"><SVGIconClose @click="closeModal()" /></div>
-        <div class="content" v-html="content" />
+        <div class="content">
+          <div class="item" v-for="(item, idx) in items" :key="`item-${idx}`">
+            <div class="description">
+              <h4>{{ item.title }} <span v-if="item.required">(Required)</span></h4>
+              <div v-html="item.description"></div>
+            </div>
+            <div class="checkbox">
+              <template v-if="item.required">
+                <input
+                  :value="item.parameter"
+                  v-model="parameters"
+                  :checked="item.required"
+                  :disabled="item.required"
+                  :id="`item-cb-${idx}`"
+                  type="checkbox"
+                >
+                <label :for="`item-cb-${idx}`"></label>
+              </template>
+              <template v-else>
+                <input
+                  :value="item.parameter"
+                  v-model="parameters"
+                  :id="`item-cb-${idx}`"
+                  type="checkbox"
+                >
+                <label :for="`item-cb-${idx}`"></label>
+              </template>
+            </div>
+          </div>
+        </div>
         <div class="actions">
-          <Button class="secondary">
-            <a href="#" @click="declineCookies">Disable All</a>
-          </Button>
           <Button class="primary">
-            <a href="#" @click="allowCookies">Allow All</a>
+            <a href="#" @click="save">Save</a>
           </Button>
         </div>
       </div>
@@ -62,7 +83,8 @@ export default {
   //---------------------------------------------------
   data() {
     return {
-      content: null,
+      parameters: [],
+      items: null,
       showNotice: false,
       modalVisible: false,
     };
@@ -78,7 +100,11 @@ export default {
   //  Watch Properties
   //
   //---------------------------------------------------
-  watch: {},
+  watch: {
+    parameters(val) {
+      console.log(val);
+    },
+  },
   //---------------------------------------------------
   //
   //  Filter Properties
@@ -105,8 +131,11 @@ export default {
     if (!value) {
       this.showNotice = true;
       const [locale] = Intl.getCanonicalLocales(i18n.locale);
-      const response = await this.$d.api.get(`/cookie_banner?filter[content][languages_code][_eq]=${locale}&fields=*.*`);
-      this.content = response.data?.content[0]?.content || null;
+      const response = await this.$d.api.get(`/cookie_banner?filter[content][languages_code][_eq]=${locale}&fields=*.*.*.*`);
+      let items = ((response.data?.content || [])[0] || {}).items || [];
+      items = items.map((o) => ({ ...(o.item || {}) }));
+      this.items = items;
+      this.parameters = items.map((o) => o.parameter);
     }
   },
   // beforeMount() {},
@@ -128,7 +157,7 @@ export default {
     closeModal() {
       this.modalVisible = false;
     },
-    allowCookies(e) {
+    allowAll(e) {
       e.preventDefault();
       this.modalVisible = false;
       this.$cookies.set(COOKIE_NAME, COOKIE_ACCEPTED, {
@@ -138,6 +167,9 @@ export default {
       this.loadAnalytics();
       this.$emit(COOKIE_ACCEPTED);
       this.$refs.cookieNotice.classList.add('hidden');
+    },
+    save() {
+      console.log('saving');
     },
     declineCookies(e) {
       e.preventDefault();
@@ -246,7 +278,7 @@ export default {
         justify-content: flex-start;
         align-items: flex-start;
         border-radius: var(--border-radius-teaser);
-        padding: 48px;
+        padding: 28px;
         transition: all 0.3s ease-in-out;
 
         .close {
@@ -254,19 +286,125 @@ export default {
           margin-bottom: 16px;
           display: flex;
           justify-content: flex-end;
+          cursor: pointer;
         }
 
         .content {
+          width: 100%;
           max-height: calc(75vh - 80px);
-          font-size: 16px;
+          font-size: 0.85rem;
           color: black;
           overflow: hidden;
           overflow-y: auto;
 
+          & > .item {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            width: 100%;
+            padding: 12px 4px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.075);
+
+            &:last-of-type {
+              border-bottom: 1px solid transparent;
+            }
+
+            & > div {
+              &.description {
+                width: calc(100% - 48px);
+              }
+              &.checkbox {
+                position: relative;
+                width: 34px;
+                height: 18px;
+
+                input[type=checkbox] {
+                  position: absolute;
+                  z-index: -1;
+                  opacity: 0;
+
+                  /* Box */
+                  & + label:before {
+                    position: absolute;
+                    content: '';
+                    left: 8px;
+                    top: 26px;
+                    width: 16px;
+                    height: 16px;
+                    border: 1px solid #ccc;
+                    background-color: transparent;
+                    transition: box-shadow 0.3s ease;
+                    border-radius: 4px;
+                  }
+
+                  /* Checkmark */
+                  & + label:after {
+                    position: absolute;
+                    content: "";
+                    left: 14px;
+                    top: 28px;
+                    opacity: 0;
+                    border-radius: 0;
+                    width: 3px;
+                    height: 8px;
+                    border: solid white;
+                    border-width: 0 3px 3px 0;
+                    transform: rotate(45deg);
+                  }
+
+                  /* Label */
+                  & + label {
+                    user-select: none;
+                    font-family: inherit;
+                    -webkit-tap-highlight-color: transparent;
+                    position: absolute;
+                    padding-left: 0;
+                    cursor: pointer;
+                    display: inline-block;
+                  }
+
+                  &:focus, &:hover {
+                    & + label:before {
+                    }
+                  }
+
+                  &:disabled {
+                    & + label:before {
+                      background-color: #0024CF;
+                      border: 1px solid #0024CF;
+                      opacity: 0.5;
+                      cursor: default !important;
+                    }
+                    & + label:after {
+                      opacity: 0.5;
+                      cursor: default !important;
+                    }
+                    pointer-events: none;
+                  }
+
+                  &:checked {
+                    & + label:before {
+                      background-color: #0024CF;
+                      border: 1px solid #0024CF;
+                    }
+                    & + label:after {
+                      opacity: 1;
+                    }
+                  }
+                }
+              }
+            }
+          }
+
           ::v-deep {
+            h4 {
+              font-size: inherit;
+              font-weight: bold;
+              margin-bottom: 8px;
+            }
             p {
               font-size: inherit;
-              line-height: 25px;
+              line-height: 1.1;
             }
             ul li {
               margin-bottom: 4px;
@@ -283,11 +421,15 @@ export default {
         .actions {
           margin-top: 24px;
           width: 100%;
+          max-width: none;
           display: flex;
           gap: 24px;
-          transform: scale(0.8, 0.8);
-          transform-origin: 50% 50%;
-          justify-content: center;
+          justify-content: flex-end;
+
+          & .btn.primary {
+            transform: scale(0.8);
+            transform-origin: 100% 100%;
+          }
 
           @include breakpoint('sm') {
             margin-top: 24px;
