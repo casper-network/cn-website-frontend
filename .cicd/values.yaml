@@ -4,7 +4,7 @@ artifactImage: <+artifact.image> #from Harness Service Primary Artifact
 containerPort: 80
 servicePort: 80
 namespace: <+service.name>-<+env.name>
-ingressDomainName: <+serviceVariables.publicDomainName>
+ingressDomainName: <+serviceVariables.ingressDomainName>
 
 
 vueAppApiUrl: <+serviceVariables.vueAppApiUrl>
