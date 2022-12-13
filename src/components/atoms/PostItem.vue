@@ -176,7 +176,7 @@ article {
 
   img {
     max-width: 500px;
-    aspect-ratio: 16 / 9;
+    aspect-ratio: 16 / 8;
     border-radius: var(--border-radius-input);
 
     @include breakpoint('sm') {

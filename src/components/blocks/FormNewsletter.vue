@@ -3,7 +3,7 @@
     <form action="" v-if="!submissionFailed && !wasSubmitted">
       <div class="form-group">
         <div>
-          <label for="name">{{ $t('form.otherSelectLabel') }}</label>
+          <label for="name">{{ $t('form.newsletterSelectLabel') }}</label>
           <Dropdown :filters="$t('form.newsletterOptions')"
                     dropdownLabel="dropdownLabel"
                     :class="{ 'error': $v.formData.categories.$error }"

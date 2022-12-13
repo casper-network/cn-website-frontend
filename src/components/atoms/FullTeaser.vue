@@ -119,7 +119,7 @@ export default {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  aspect-ratio: 16 / 7;
+  aspect-ratio: 16 / 8;
   text-align: center;
   background: var(--color-gradient-diagonal);
   background-repeat: no-repeat;

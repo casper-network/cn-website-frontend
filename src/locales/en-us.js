@@ -21,6 +21,7 @@ export default {
     selectLabel: 'Please select',
     chooseCategory: 'Choose Category',
     otherSelectLabel: 'How can we help you?',
+    newsletterSelectLabel: 'I am a',
     newsletterOptions: ['Web3 Developer', 'Web2 Developer', 'Validator', 'Blockchain Newbie', 'Blockchain Expert', 'Crypto Enthusiast', 'NFT Enthusiast'],
     otherOptions: [''],
     portfolioUrl: 'Portfolio URL (if applicable)',
