@@ -136,7 +136,7 @@ export function getRouter() {
         }
 
         if (to.meta.filtered) {
-          let { data } = await api.get(`/${to.meta.collection}?filter[content][languages_code][_eq]=${locale}&filter[categories][categories_${to.meta.collection}_key][_eq]=${to.params.category}&fields=*.*&limit=-1`);
+          let { data } = await api.get(`/${to.meta.collection}?filter[content][languages_code][_eq]=${locale}&filter[categories][categories_${to.meta.collection}_key][_eq]=${to.params.category}&fields=*.*&limit=-1&filter[status][_eq]=published`);
           if (data && data.length >= 1) {
             directus.data = data;
             next();
