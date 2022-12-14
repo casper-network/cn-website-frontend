@@ -106,7 +106,7 @@ div.container {
 
   div.img {
     width: 100%;
-    aspect-ratio: 16 / 7;
+    aspect-ratio: 16 / 8;
     margin-top: 80px;
 
     .img-fluid {
@@ -120,7 +120,7 @@ div.container {
     }
 
     @include breakpoint('sm') {
-      aspect-ratio: 16 / 7;
+      aspect-ratio: 16 / 8;
       margin-top: 32px;
     }
 
