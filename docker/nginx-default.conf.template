@@ -26,8 +26,12 @@ server {
     }
 
     location /en-us/articles/the-enterprise-blockchain {
-        return 301 https://casper.network/en-us/web3/blockchain/the-enterprise-blockchain/;
+        return 301 https://casper.network/en-us/web3/blockchain/enterprise-blockchain/;
     }
+
+    location /en-us/web3/blockchain/the-enterprise-blockchain {
+            return 301 https://casper.network/en-us/web3/blockchain/enterprise-blockchain/;
+        }
 
     location /en-us/articles/the-future-of-blockchain-is-the-future-of-the-internet {
         return 301 https://casper.network/en-us/web3/blockchain/the-future-of-blockchain-is-the-future-of-the-internet/;
