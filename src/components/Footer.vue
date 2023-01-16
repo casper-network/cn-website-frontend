@@ -234,6 +234,7 @@ footer {
       @include breakpoint('sm') {
         margin-top: 24px;
         justify-content: flex-start;
+        gap: 0;
       }
 
       li {
