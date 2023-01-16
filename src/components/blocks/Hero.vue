@@ -23,7 +23,7 @@
         </div>
       </div>
       <div class="inner-right" :class="placement">
-        <img :src="heroImage">
+        <img :src="heroImage" :class="{ more: moreImagePadding}">
       </div>
       <Disturber
         v-if="cta.url"
@@ -79,7 +79,9 @@ export default {
   //
   //---------------------------------------------------
   data() {
-    return {};
+    return {
+      moreImagePadding: false,
+    };
   },
   //---------------------------------------------------
   //
@@ -129,9 +131,13 @@ export default {
   // created() {},
   // beforeMount() {},
   // render(h) { return h(); },
-  // mounted() {},
+  mounted() {
+    this.checkContainerHeight();
+  },
   // beforeUpdate() {},
-  // updated() {},
+  updated() {
+    this.checkContainerHeight();
+  },
   // beforeDestroy() {},
   // destroyed() {},
   //---------------------------------------------------
@@ -140,6 +146,15 @@ export default {
   //
   //---------------------------------------------------
   methods: {
+    checkContainerHeight() {
+      this.$nextTick(() => {
+        const container = document.querySelector('.hero.reduced > .outer-center');
+        if (container) {
+          const rect = container.getBoundingClientRect();
+          this.moreImagePadding = rect.height < 500;
+        }
+      });
+    },
     //----------------------------------
     // Event Handlers
     //----------------------------------
@@ -159,7 +174,7 @@ div.hero {
 
   @include breakpoint('sm') {
     height: auto;
-    min-height: none;
+    min-height: unset;
   }
 
   & > div.outer-center {
@@ -213,6 +228,7 @@ div.hero {
     padding: 0;
 
     @include breakpoint('sm') {
+      min-height: auto;
     }
 
     h1 {
@@ -268,9 +284,9 @@ div.hero {
     justify-content: center;
 
     img {
-      flex: 0;
       width: 100%;
       height: auto;
+      object-fit: contain;
       max-width: 400px;
       max-height: 400px;
     }
@@ -306,7 +322,10 @@ div.hero {
     & > div.outer-center {
       & > div.inner-right img {
         position: relative;
-        top: 20%;
+
+        &.more {
+          top: 90px;
+        }
       }
     }
 

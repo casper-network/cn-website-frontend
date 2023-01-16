@@ -185,7 +185,7 @@ export default {
   }
 
   &.hidden {
-    transform: translateY(calc(100% + 1px));
+    transform: translateY(calc(100% + 2px));
   }
 
   .readmore {
