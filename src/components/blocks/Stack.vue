@@ -125,7 +125,7 @@ export default {
   & > .container {
     display: block;
     padding: 100px 30px;
-    max-width: calc(100% - 60px);
+    max-width: 1248px;
 
     @include breakpoint('sm') {
       padding-top: 60px;
