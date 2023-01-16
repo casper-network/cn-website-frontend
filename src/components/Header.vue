@@ -1,6 +1,6 @@
 <template>
   <header class="header"
-          :class="`overlap-state-${isOverlapping} navbar-state-${showNavigation} theme-${this.$store.state.navigationTintState}`">
+          :class="`overlap-state-${isOverlapping} navbar-state-${showNavigation} theme-${themeState}`">
     <div class="container -long">
       <SVGLogo class="logo" @click="$router.push(`/${$i18n.locale}/`)"/>
       <nav>
@@ -11,23 +11,25 @@
             <div v-if="item.url">
               <router-link @click.native="toggleNavigation" :to="`/${$i18n.locale}/${item.url}`">
                 <span>{{ item.title }}</span>
+                <ChevronFuckedUp
+                  v-if="item.children" @click.native="toggleChildren"
+                  class="dropdown"
+                />
               </router-link>
-              <ChevronFuckedUp
-                v-if="item.children" @click.native="toggleChildren"
-                class="dropdown"
-              />
             </div>
             <div v-if="!item.url">
               <a class="curs-point" @click="toggleChildren">
                 <span>{{ item.title }}</span>
+                <ChevronFuckedUp
+                  v-if="item.children" @click.native="toggleChildren"
+                  class="dropdown"
+                />
               </a>
-              <ChevronFuckedUp
-                v-if="item.children" @click.native="toggleChildren"
-                class="dropdown"
-              />
             </div>
             <ul class="nav-item-children" v-if="item.children">
-              <li class="nav-item" v-for="(subItem, index) in item.children"
+              <li v-for="(subItem, index) in item.children"
+                  class="nav-item"
+                  :class="[subItem.type]"
                   :key="`subnav-item-${index}`">
                 <div v-if="subItem.type === 'ext'">
                   <SVGCurvedArrow/>
@@ -55,9 +57,9 @@
 
 <script>
 import SVGLogo from '@/assets/svg/logo.svg?inline';
-import SVGBurger from '@/assets/svg/burger.svg?inline';
-import SVGCurvedArrow from '@/assets/svg/curvedArrow.svg?inline';
-import SVGRightArrow from '@/assets/svg/arrowRight.svg?inline';
+import SVGBurger from '@/assets/svg/icon-burger.svg?inline';
+import SVGCurvedArrow from '@/assets/svg/icon-arrow-curved-right.svg?inline';
+import SVGRightArrow from '@/assets/svg/icon-arrow-right.svg?inline';
 
 export default {
   name: 'Header',
@@ -83,6 +85,7 @@ export default {
       showNavigation: true,
       lastScrollPosition: 0,
       isOverlapping: true,
+      timeoutId: null,
     };
   },
   //---------------------------------------------------
@@ -98,6 +101,12 @@ export default {
       }
       return null;
     },
+    themeState() {
+      return this.$store.getters.navigationTintState;
+    },
+    heroHasBgColor() {
+      return this.$store.getters.heroHasBgColor || false;
+    },
   },
   //---------------------------------------------------
   //
@@ -106,7 +115,7 @@ export default {
   //---------------------------------------------------
   watch: {
     isOverlapping(newVal) {
-      if (newVal) {
+      if (newVal && this.heroHasBgColor) {
         this.$store.commit('changeNavigationTintState', 'light');
       } else {
         this.$store.commit('changeNavigationTintState', 'dark');
@@ -119,7 +128,8 @@ export default {
         this.toggleNavigation();
       }
 
-      setTimeout(() => {
+      clearTimeout(this.timeoutId);
+      this.timeoutId = setTimeout(() => {
         if (document.querySelector('.hero') && document.documentElement.scrollTop < 100) {
           this.isOverlapping = this.elementsOverlap();
         } else if (document.querySelector('.hero') && document.documentElement.scrollTop > 100) {
@@ -199,10 +209,14 @@ export default {
         header.add('overlap-state-false');
         header.add('theme-dark');
       } else if (document.querySelector('.hero')) {
+        /*
         header.remove('overlap-state-false');
         header.remove('theme-dark');
         header.add('overlap-state-true');
         header.add('theme-light');
+        console.log('case 1');
+        */
+        // WHAT THE FUCK IS THIS SHIT!?
       } else {
         header.add('overlap-state-false');
         header.add('theme-light');
@@ -263,11 +277,11 @@ header {
   transition: top 0.65s ease-in-out, background 0.35s ease-in-out;
 
   &.navbar-state-false {
-    top: -110px;
+    top: -130px;
   }
 
   &.overlap-state-false {
-    background: var(--color-white);
+    background: var(--color-lighthouse);
   }
 
   &.overlap-state-true {
@@ -279,9 +293,13 @@ header {
   }
 
   svg.logo {
-    min-width: 176px;
-    max-width: 176px;
+    min-width: 159px;
+    max-width: 159px;
     cursor: pointer;
+
+    path {
+      transition: fill 0.65s ease, stroke 0.65s ease;
+    }
 
     @include breakpoint(1241) {
       max-width: 120px;
@@ -291,9 +309,6 @@ header {
 
   &.theme-light {
     svg.logo {
-      g {
-        fill: var(--color-white);
-      }
     }
 
     .nav-item {
@@ -301,7 +316,7 @@ header {
       flex-wrap: nowrap;
       align-items: center;
       white-space: nowrap;
-      color: var(--color-white);
+      color: var(--color-lighthouse);
 
       div {
         display: flex;
@@ -311,23 +326,17 @@ header {
 
         div {
           margin-left: 8px;
-
-          ::v-deep svg path {
-            stroke: var(--color-white);
-          }
         }
       }
 
       svg {
         transition: all 0.35s ease-in-out;
-
-        path {
-          stroke: var(--color-white);
-        }
       }
 
       a {
-
+        display: flex;
+        font-weight: 500;
+        letter-spacing: 0.3px;
       }
 
       @media (hover) {
@@ -338,37 +347,38 @@ header {
 
           svg {
             transform: rotate(-180deg);
-
             path {
-              stroke: var(--color-blue);
+              stroke: var(--color-sky-dancer);
             }
           }
         }
       }
 
       &.special {
-        border: 1px solid var(--color-white);
-        border-radius: var(--border-radius-button);
+        border: 2px solid var(--color-atomic-lime);
+        background-color: var(--color-atomic-lime);
         padding: 6px 15px;
         transition: all 0.15s ease;
 
-        a.router-link-active {
-          color: var(--color-white);
+        a {
+          color: var(--color-black);
+          &.router-link-active {
+            color: var(--color-black);
+          }
         }
 
         @media (max-width: 1241px) {
           border: 0;
-          border-radius: 0;
         }
 
         @media (hover) {
           &:hover {
-            background: var(--color-blue);
-            color: var(--color-white) !important;
+            background: var(--color-black);
+            color: var(--color-atomic-lime) !important;
 
             div,
             a {
-              color: var(--color-white) !important;
+              color: var(--color-atomic-lime) !important;
             }
           }
         }
@@ -418,8 +428,13 @@ header {
           transform: rotate(0);
 
           path {
-            stroke: var(--color-blue);
+            fill: var(--color-sky-dancer);
           }
+        }
+
+        &.ext svg {
+          position: relative;
+          top: 2px;
         }
 
         &.hover {
@@ -433,7 +448,7 @@ header {
           span {
             display: inline-block;
             transform: translateX(9px);
-            color: var(--color-blue);
+            color: var(--color-sky-dancer);
           }
         }
 
@@ -449,7 +464,7 @@ header {
             span {
               display: inline-block;
               transform: translateX(9px);
-              color: var(--color-blue);
+              color: var(--color-sky-dancer);
             }
           }
         }
@@ -459,8 +474,8 @@ header {
 
   &.theme-dark {
     svg.logo {
-      g {
-        fill: var(--color-black);
+      path {
+        fill: var(--color-pelati);
       }
     }
 
@@ -482,6 +497,16 @@ header {
         }
       }
 
+      a {
+        display: flex;
+        font-weight: 500;
+        letter-spacing: 0.3px;
+        color: var(--color-sky-dancer);
+        &.router-link-active {
+          color: var(--color-black);
+        }
+      }
+
       @media (max-width: 1241px) {
         flex-direction: column;
 
@@ -500,7 +525,7 @@ header {
 
       &.hover {
         > a {
-          color: var(--color-blue);
+          color: var(--color-black);
         }
 
         @media (max-width: 1241px) {
@@ -513,7 +538,7 @@ header {
       @media (hover) {
         :hover {
           > a {
-            color: var(--color-blue);
+            color: var(--color-black);
           }
 
           @media (max-width: 1241px) {
@@ -533,20 +558,26 @@ header {
       }
 
       &.special {
-        border: 1px solid var(--color-blue);
-        border-radius: var(--border-radius-button);
+        border: 2px solid var(--color-atomic-lime);
+        background-color: var(--color-atomic-lime);
         padding: 6px 15px;
         transition: all 0.15s ease;
 
+        a {
+          color: var(--color-black);
+          &.router-link-active {
+            color: var(--color-black);
+          }
+        }
+
         @media (max-width: 1241px) {
           border: 0;
-          border-radius: 0;
         }
 
         @media (hover) {
           &:hover {
-            background: var(--color-blue);
-            color: var(--color-white) !important;
+            background: var(--color-black);
+            color: var(--color-atomic-lime) !important;
 
             @include breakpoint('m') {
               border: 0;
@@ -558,7 +589,7 @@ header {
               color: inherit;
 
               @include breakpoint('m') {
-                color: var(--color-blue);
+                color: var(--color-sky-dancer);
               }
             }
           }
@@ -609,8 +640,14 @@ header {
           transform: rotate(0);
 
           path {
-            stroke: var(--color-blue);
+            fill: var(--color-sky-dancer);
+            stroke: var(--color-sky-dancer);
           }
+        }
+
+        &.ext svg {
+          position: relative;
+          top: 2px;
         }
 
         &.hover {
@@ -687,10 +724,11 @@ header {
             }
           }
 
-          color: var(--color-blue);
+          color: var(--color-sky-dancer);
 
           svg path {
-            stroke: var(--color-blue);
+            stroke: var(--color-sky-dancer);
+            fill: var(--color-sky-dancer);
           }
         }
 
@@ -710,26 +748,15 @@ header {
               }
             }
 
-            color: var(--color-blue);
+            color: var(--color-sky-dancer);
 
             svg path {
-              stroke: var(--color-blue);
+              stroke: var(--color-sky-dancer);
             }
           }
         }
 
         ul {
-          &:after {
-            content: '';
-            border-style: solid;
-            border-width: 10px 8px 10px 0;
-            border-color: transparent #f5f5f5 transparent transparent;
-            position: absolute;
-            left: 45px;
-            top: -15px;
-            transform: rotate(90deg);
-          }
-
           &:before {
             content: '';
             position: absolute;
@@ -745,7 +772,6 @@ header {
           display: flex;
           flex-direction: column;
           border: 1px solid #ccc;
-          border-radius: 8px;
           padding-top: 0;
           top: 0;
           left: -8%;
@@ -775,16 +801,6 @@ header {
               &:nth-child(#{$x}) {
                 animation-delay: 75ms * ($x - 1);
               }
-            }
-
-            &:first-child {
-              border-top-left-radius: 8px;
-              border-top-right-radius: 8px;
-            }
-
-            &:last-child {
-              border-bottom-left-radius: 8px;
-              border-bottom-right-radius: 8px;
             }
           }
         }
@@ -844,7 +860,6 @@ header {
             ul {
               left: 0;
               border: 0;
-              border-radius: 0;
               top: 0;
               outline: 0;
               width: 100%;
@@ -872,6 +887,11 @@ header {
         display: flex;
         justify-content: flex-end;
         align-items: center;
+
+        @include breakpoint('sm') {
+          min-width: 15px;
+          min-height: 15px;
+        }
       }
     }
 
@@ -906,7 +926,11 @@ header {
   }
 
   svg {
+    position: relative;
+    top: -2px;
     overflow: visible;
+    width: 24px;
+    height: auto;
 
     * {
       transition: all 0.25s ease-in-out;
@@ -955,9 +979,5 @@ header {
       }
     }
   }
-}
-
-.router-link-active {
-  color: var(--color-blue);
 }
 </style>

@@ -131,10 +131,9 @@ export default {
 @import '~scss/mixins';
 
 .block-video-collection {
-  background: #f5f5f5;
   padding-top: 80px;
   padding-bottom: 80px;
-  margin-top: 160px;
+  background-color: var(--color-pelati);
 
   @include breakpoint('sm') {
     margin-top: 45px;

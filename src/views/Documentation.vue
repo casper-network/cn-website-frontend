@@ -73,13 +73,7 @@ export default {
   // created() {},
   // beforeMount() {},
   // render(h) { return h(); },
-  mounted() {
-    if (typeof this.$options.components.Hero === 'object') {
-      this.$store.commit('changeNavigationTintState', 'light');
-    } else {
-      this.$store.commit('changeNavigationTintState', 'dark');
-    }
-  },
+  // mounted() {}
   // beforeUpdate() {},
   // updated() {},
   // beforeDestroy() {},

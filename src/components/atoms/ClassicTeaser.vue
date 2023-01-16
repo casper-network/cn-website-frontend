@@ -1,7 +1,7 @@
 <template>
   <div class="outer-wrap">
     <div class="inner-wrap">
-      <img :src="teaserImage" alt="">
+      <img v-if="teaserImage" :src="teaserImage" alt="">
       <div>
         <h3>{{blockData.title}}</h3>
         <p v-html="blockData.content"></p>
@@ -45,7 +45,11 @@ export default {
   //---------------------------------------------------
   computed: {
     teaserImage() {
-      return `${API_URL}/assets/${this.blockData.media}`;
+      const media = this.blockData?.media || null;
+      if (media) {
+        return `${API_URL}/assets/${media}`;
+      }
+      return null;
     },
   },
   //---------------------------------------------------
@@ -124,7 +128,6 @@ export default {
     max-width: 100%;
     height: auto;
     object-fit: cover;
-    border-radius: 24px;
   }
 
   div {

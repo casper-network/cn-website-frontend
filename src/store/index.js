@@ -7,11 +7,18 @@ export default new Vuex.Store({
   state: {
     canonical: null,
     navigationTintState: 'dark', // dark or light (inversion)
+    heroHasBgColor: false,
     isMobileNavigationOpen: false,
   },
   getters: {
     canonical(state) {
       return state.canonical;
+    },
+    navigationTintState(state) {
+      return state.navigationTintState;
+    },
+    heroHasBgColor(state) {
+      return state.heroHasBgColor;
     },
   },
   mutations: {
@@ -20,6 +27,9 @@ export default new Vuex.Store({
     },
     canonical(state, payload) {
       state.canonical = payload;
+    },
+    heroHasBgColor(state, payload) {
+      state.heroHasBgColor = payload;
     },
   },
   actions: {

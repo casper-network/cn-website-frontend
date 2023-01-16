@@ -31,8 +31,8 @@
 </template>
 
 <script>
-import SVGPlusIcon from '@/assets/svg/plus.svg?inline';
-import SVGMinusIcon from '@/assets/svg/minus.svg?inline';
+import SVGPlusIcon from '@/assets/svg/icon-accordion-plus.svg?inline';
+import SVGMinusIcon from '@/assets/svg/icon-accordion-minus.svg?inline';
 
 export default {
   name: 'accordionItem',
@@ -210,6 +210,7 @@ export default {
   svg {
     width: 40px;
     transition: all 0.65s ease-in-out;
+    color: var(--color-sky-dancer);
 
     @include breakpoint('sm') {
       width: 24px;

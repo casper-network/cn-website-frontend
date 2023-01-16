@@ -1,7 +1,9 @@
 <template>
-  <div class="text-component">
+  <div class="text-component" :class="{ margined: setAsH1 }">
     <div>
-      <h2 class="h1" v-html="boxTitle"></h2>
+      <h1 v-if="setAsH1" class="h1" v-html="boxTitle" />
+      <h2 v-else class="h1" v-html="boxTitle" />
+      <p v-html="boxContent"></p>
       <Button class="primary" v-if="buttonTarget">
         <router-link v-if="buttonType === 'int'" :to="`/${$i18n.locale}${buttonTarget}`">
           {{buttonLabel}}
@@ -12,7 +14,7 @@
       </Button>
     </div>
     <div>
-      <p v-html="boxContent"></p>
+
     </div>
   </div>
 </template>
@@ -59,7 +61,9 @@ export default {
   //
   //---------------------------------------------------
   data() {
-    return {};
+    return {
+      setAsH1: false,
+    };
   },
   //---------------------------------------------------
   //
@@ -94,7 +98,13 @@ export default {
   // created() {},
   // beforeMount() {},
   // render(h) { return h(); },
-  // mounted() {},
+  mounted() {
+    const h1 = document.querySelector('h1');
+    if (!h1 && window.h1Set !== true) {
+      this.setAsH1 = true;
+      window.h1Set = true;
+    }
+  },
   // beforeUpdate() {},
   // updated() {},
   // beforeDestroy() {},
@@ -120,15 +130,36 @@ export default {
   justify-content: space-between;
   align-items: flex-start;
   gap: 32px;
-  padding-top: 160px;
+  padding-top: 100px;
   // padding-bottom: 160px;
 
+  &.margined {
+    margin-bottom: 100px;
+  }
+
+  &.white {
+    color: var(--color-white);
+  }
+
   > div:first-child {
-    width: 50%;
+    width: 55%;
+    min-width: 55%;
   }
 
   > div:last-child {
     width: 70%;
+  }
+
+  &.fullwidth {
+
+    > div:first-child {
+      width: 100%;
+      min-width: 100%;
+    }
+
+    > div:last-child {
+      width: 100%;
+    }
   }
 
   @include breakpoint('sm') {
@@ -146,16 +177,16 @@ export default {
   }
 
   h1 {
-    font-weight: 400;
-    margin-bottom: 0;
+    font-weight: 300;
+    margin-bottom: 48px;
 
     span {
-      font-weight: 700;
+      font-weight: 300;
     }
   }
 
   p {
-    @include style-body('large');
+    font-weight: 300;
 
     a {
       font-family: inherit;

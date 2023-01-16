@@ -38,8 +38,8 @@
 
 <script>
 import SVGIconGlobe from '@/assets/svg/globe.svg?inline';
-import SVGIconClose from '@/assets/svg/close.svg?inline';
-import SVGIconArrowRight from '@/assets/svg/arrowRight.svg?inline';
+import SVGIconClose from '@/assets/svg/icon-close.svg?inline';
+import SVGIconArrowRight from '@/assets/svg/icon-arrow-right.svg?inline';
 
 export default {
   name: 'LanguageSwitcher',

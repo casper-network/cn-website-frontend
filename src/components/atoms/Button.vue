@@ -9,8 +9,8 @@
 
 <script>
 import SVGGlobe from '@/assets/svg/globe.svg?inline';
-import SVGShare from '@/assets/svg/share.svg?inline';
-import SVGBack from '@/assets/svg/backArrow.svg?inline';
+import SVGShare from '@/assets/svg/icon-share.svg?inline';
+import SVGBack from '@/assets/svg/icon-arrow-left.svg?inline';
 
 export default {
   name: 'Button',
@@ -105,15 +105,16 @@ export default {
   font-size: var(--typography-cta-d-font-size);
 
   a, p {
-    padding: 12px 30px 14px;
+    padding: 10px 30px 14px;
     display: flex;
+    font-weight: 500;
   }
 
   &.primary {
-    background-color: var(--color-blue);
-    border-radius: var(--border-radius-button);
-    border: 1px solid var(--color-white);
-    color: var(--color-white);
+    background-color: var(--color-atomic-lime);
+    border: 2px solid var(--color-atomic-lime);
+    color: var(--color-black);
+    transition: all 0.15s ease;
 
     svg {
       margin-right: 15px;
@@ -124,31 +125,47 @@ export default {
     }
 
     &:hover {
-      background-color: var(--color-dark-blue);
+      background-color: var(--color-black);
+      color: var(--color-atomic-lime);
     }
   }
 
   &.secondary {
-    background-color: var(--color-white);
-    border-radius: var(--border-radius-button);
-    border: 1px solid var(--color-blue);
-    color: var(--color-blue);
+    background-color: var(--color-atomic-lime);
+    border: 2px solid var(--color-atomic-lime);
+    color: var(--color-black);
+    transition: all 0.15s ease;
 
     svg {
-      margin-left: 15px;
+      position: relative;
+      left: 15px;
+      top: -1px;
+      margin-left: 0;
+      margin-right: 0;
+      width: 22px;
 
       path {
-        fill: var(--color-blue);
+        &:nth-child(1) {
+          fill: transparent;
+        }
+        &:nth-child(2) {
+          fill: var(--color-black);
+        }
       }
     }
 
     &:hover {
-      background-color: var(--color-blue);
-      color: var(--color-white);
+      background-color: var(--color-black);
+      color: var(--color-atomic-lime);
 
       svg {
         path {
-          fill: var(--color-white);
+          &:nth-child(1) {
+            fill: transparent;
+          }
+          &:nth-child(2) {
+            fill: var(--color-atomic-lime);
+          }
         }
       }
     }

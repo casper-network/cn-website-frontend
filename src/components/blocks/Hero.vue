@@ -1,24 +1,29 @@
 <template>
-  <div class="hero" :class="type">
-    <div :style="`background-image: url('${heroImage}')`">
-      <div class="hero__content">
-        <div class="intro-content">
-          <h1 v-html="blockTitle"></h1>
-          <p v-html="blockContent"></p>
+  <div class="hero" :class="type" :style="`background-color: ${bgColor};`">
+    <div class="outer-center">
+      <div class="inner-left">
+        <div class="hero__content">
+          <div class="intro-content">
+            <h1 v-html="blockTitle"></h1>
+            <p v-html="blockContent"></p>
+          </div>
+          <slot></slot>
+          <div class="buttons" v-if="buttons">
+            <Button v-for="(button, btnIndex) in buttons" :key="`hero-btn-${btnIndex}`" :class="button.style">
+              <template v-if="button.type === 'ext'">
+                <a :href="button.url" target="_blank" rel="noopener">{{ button.text }}</a>
+              </template>
+              <template v-else>
+                <router-link :to="`/${$i18n.locale}${button.url}`">
+                  {{ button.text }}
+                </router-link>
+              </template>
+            </Button>
+          </div>
         </div>
-        <slot></slot>
-        <div class="buttons" v-if="buttons">
-          <Button v-for="(button, btnIndex) in buttons" :key="`hero-btn-${btnIndex}`" :class="button.style">
-            <template v-if="button.type === 'ext'">
-              <a :href="button.url" target="_blank" rel="noopener">{{ button.text }}</a>
-            </template>
-            <template v-else>
-              <router-link :to="`/${$i18n.locale}${button.url}`">
-                {{ button.text }}
-              </router-link>
-            </template>
-          </Button>
-        </div>
+      </div>
+      <div class="inner-right" :class="placement">
+        <img :src="heroImage">
       </div>
       <Disturber
         v-if="cta.url"
@@ -82,15 +87,18 @@ export default {
   //
   //---------------------------------------------------
   computed: {
+    bgColor() {
+      return this.block?.bgcolor || 'transparent';
+    },
+    placement() {
+      return this.block?.imagepos || 'center';
+    },
     heroImage() {
       const media = this.block?.media || [];
-      if (media.length === 0) {
-        if (this.type === 'full' || this.type === '' || !this.type) {
-          return '/img/bg.webp';
-        }
-        return `${API_URL}/assets/34dff585-16a1-4499-ac08-907f5c853e25`;
+      if (media.length > 0 && media[0]) {
+        return `${API_URL}/assets/${media[0]}`;
       }
-      return `${API_URL}/assets/${media[0]}`;
+      return null;
     },
   },
   //---------------------------------------------------
@@ -147,64 +155,43 @@ div.hero {
   width: 100%;
   position: relative;
   height: 100vh;
+  overflow: hidden;
 
-  &.reduced {
-    min-height: 50vh;
-    height: initial;
-
-    > div {
-      background: linear-gradient(180deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0) 50%),
-      linear-gradient(90.28deg, rgba(0, 0, 0, 0.2) 0.21%, rgba(0, 0, 0, 0) 72.89%);
-      background-size: cover;
-      background-position: center;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .hero__content {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      position: relative;
-      padding: 120px 30px;
-
-      > div.intro-content {
-        display: flex;
-        flex-direction: row;
-
-        @include breakpoint('sm') {
-          flex-direction: column;
-        }
-      }
-
-      @include breakpoint('sm') {
-        flex-direction: column;
-      }
-    }
-
-    &.single {
-      height: auto;
-
-      .hero__content {
-        padding: 210px 20px 120px 20px;
-        @include breakpoint('sm') {
-          padding-top: 120px;
-        }
-      }
-    }
+  @include breakpoint('sm') {
+    height: auto;
+    min-height: none;
   }
 
-  > div {
+  & > div.outer-center {
+    margin: 0 auto;
     height: 100%;
-    background: linear-gradient(180deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0) 50%),
-    linear-gradient(90.28deg, rgba(0, 0, 0, 0.2) 0.21%, rgba(0, 0, 0, 0) 72.89%);
-    background-size: cover;
-    background-position: center;
-
+    max-width: 1248px;
     display: flex;
+    padding-left: 30px;
+    padding-right: 30px;
     justify-content: flex-start;
     align-items: center;
+
+    @include breakpoint('sm') {
+      flex-direction: column;
+      padding-left: 0;
+      padding-right: 0;
+    }
+
+    & > div.inner-left {
+      display: flex;
+      align-items: center;
+      height: 100%;
+      max-width: 60%;
+      min-width: 600px;
+
+      @include breakpoint('sm') {
+        padding-top: 60px;
+        min-width: 100%;
+        max-width: 100%;
+        padding-bottom: 60px;
+      }
+    }
   }
 
   .cta {
@@ -220,23 +207,21 @@ div.hero {
   .hero__content {
     flex-direction: column;
     // padding-left: 10vw;
-    max-width: 1248px;
     margin: 0 auto;
     width: 100%;
     margin-top: var(--headerHeight);
-    padding: 0 30px;
+    padding: 0;
 
     @include breakpoint('sm') {
     }
 
     h1 {
-      width: 40%;
-      color: white;
+      color: var(--color-black);
       font-weight: 300;
       flex: 1 0 40%;
 
       span {
-        font-weight: 700;
+        font-weight: 300;
       }
 
       @include breakpoint('sm') {
@@ -245,9 +230,13 @@ div.hero {
       }
     }
 
+    ::v-deep h1 > strong {
+      color: var(--color-white);
+    }
+
     p {
-      max-width: 50%;
-      color: white;
+      color: var(--color-black);
+      font-weight: 300;
       flex: 1 auto;
       // margin-bottom: 36px;
 
@@ -269,6 +258,68 @@ div.hero {
 
     @include breakpoint('sm') {
       padding: 0 20px;
+    }
+  }
+
+  .inner-right {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+    img {
+      flex: 0;
+      width: 100%;
+      height: auto;
+      max-width: 400px;
+      max-height: 400px;
+    }
+
+    &.center {
+      align-items: center;
+    }
+    &.bottom {
+      align-items: flex-end;
+
+      @include breakpoint('sm') {
+        align-items: flex-end;
+        justify-content: flex-end;
+        width: 100%;
+        img {
+          margin-right: 30px;
+          max-width: 200px;
+          max-height: 200px;
+        }
+      }
+    }
+  }
+
+  &.reduced {
+    height: auto;
+    padding-top: 140px;
+    padding-bottom: 100px;
+
+    @include breakpoint('sm') {
+      padding-top: 0;
+    }
+
+    & > div.outer-center {
+      & > div.inner-right img {
+        position: relative;
+        top: 20%;
+      }
+    }
+
+    &.single {
+      height: auto;
+      padding-bottom: 0;
+
+      & > div.outer-center {
+        align-items: flex-start;
+        & > div.inner-right img {
+          position: relative;
+        }
+      }
     }
   }
 }

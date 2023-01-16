@@ -9,8 +9,8 @@
 </template>
 
 <script>
-import SVGIconSearch from '@/assets/svg/search.svg?inline';
-import SVGIconClose from '@/assets/svg/close.svg?inline';
+import SVGIconSearch from '@/assets/svg/icon-search.svg?inline';
+import SVGIconClose from '@/assets/svg/icon-close.svg?inline';
 
 export default {
   name: 'SearchInput',
@@ -118,7 +118,7 @@ export default {
 .input-type-search {
   padding-bottom: 10px;
   padding-right: 50px;
-  border-bottom: 1px solid var(--color-grey-dark);
+  border-bottom: 1px solid var(--color-black);
   display: flex;
   align-items: center;
   position: relative;
@@ -133,7 +133,7 @@ export default {
     position: absolute;
     bottom: 0;
     height: 1px;
-    background: var(--color-blue);
+    background: var(--color-sky-dancer);
     z-index: 2;
     width: 0;
     transition: width 0.35s ease-in-out;
@@ -149,6 +149,9 @@ export default {
   svg {
     position: absolute;
     right: 0;
+    path {
+      fill: var(--color-sky-dancer);
+    }
   }
 
   label {
@@ -161,6 +164,7 @@ export default {
     box-shadow: none;
     border: 0;
     width: 100%;
+    background-color: transparent;
 
     font-size: 18px;
     line-height: 24px;
@@ -171,6 +175,7 @@ export default {
     }
 
     &::placeholder {
+      color: var(--color-black);
       font-size: 16px;
     }
   }

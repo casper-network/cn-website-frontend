@@ -61,8 +61,8 @@ import 'intl-tel-input/build/css/intlTelInput.css';
 import { required, minLength } from 'vuelidate/lib/validators';
 import axios from 'axios';
 import 'vue-select/dist/vue-select.css';
-import SVGCheck from '@/assets/svg/checkCircle.svg?inline';
-import SVGError from '@/assets/svg/closeCircle.svg?inline';
+import SVGCheck from '@/assets/svg/icon-checkmark.svg?inline';
+import SVGError from '@/assets/svg/icon-close-circle.svg?inline';
 import config from '@/directus/config';
 
 const { API_URL } = config;

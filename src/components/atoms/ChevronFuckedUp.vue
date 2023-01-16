@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import SVGChevronDown from '@/assets/svg/chevronDown.svg?inline';
+import SVGChevronDown from '@/assets/svg/icon-chevron-down.svg?inline';
 
 export default {
   name: 'ChevronFuckedUp',

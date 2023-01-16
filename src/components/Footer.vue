@@ -1,8 +1,8 @@
 <template>
   <footer>
     <div class="container -long">
-      <div class="social">
-        <p class="h2" v-html="$t('footer.socialTitle')"></p>
+      <div class="main">
+        <p class="h1" v-html="$t('footer.socialTitle')"></p>
         <ul>
           <li>
             <a :href="$t('social.discord')" target="_blank">
@@ -35,6 +35,14 @@
             </a>
           </li>
         </ul>
+        <div class="secondary desktop">
+          <SVGLogo class="logo"/>
+          <ul>
+            <li v-for="(navItem, i) in compNavFooter4" :key="`nav-col-2-${i}`">
+              <router-link :to="`/${$i18n.locale}/${navItem.url}`">{{navItem.title}}</router-link>
+            </li>
+          </ul>
+        </div>
       </div>
       <div class="footer-nav nav-1">
         <ul :aria-label="$t('footer.nav1Title')">
@@ -60,32 +68,25 @@
           </li>
         </ul>
       </div>
-    </div>
-    <div class="container -long">
-      <div class="secondary-footer">
-        <div>
-          <SVGLogo class="logo"/>
-<!--          <LanguageSwitcher />-->
-        </div>
-        <div class="secondary-footer-nav">
-          <ul>
-            <li v-for="(navItem, i) in compNavFooter4" :key="`nav-col-2-${i}`">
-              <router-link :to="`/${$i18n.locale}/${navItem.url}`">{{navItem.title}}</router-link>
-            </li>
-          </ul>
-        </div>
+      <div class="secondary mobile">
+        <SVGLogo class="logo"/>
+        <ul>
+          <li v-for="(navItem, i) in compNavFooter4" :key="`nav-col-2-${i}`">
+            <router-link :to="`/${$i18n.locale}/${navItem.url}`">{{navItem.title}}</router-link>
+          </li>
+        </ul>
       </div>
     </div>
   </footer>
 </template>
 
 <script>
-import SVGIconDiscord from '@/assets/svg/social_discord.svg?inline';
-import SVGIconTwitter from '@/assets/svg/social_twitter.svg?inline';
-import SVGIconTelegram from '@/assets/svg/social_telegram.svg?inline';
-import SVGIconLinkedIn from '@/assets/svg/social_linkedin.svg?inline';
-import SVGIconYoutube from '@/assets/svg/social_youtube.svg?inline';
-import SVGIconGithub from '@/assets/svg/social_github.svg?inline';
+import SVGIconDiscord from '@/assets/svg/icon-social-discord.svg?inline';
+import SVGIconTwitter from '@/assets/svg/icon-social-twitter.svg?inline';
+import SVGIconTelegram from '@/assets/svg/icon-social-telegram.svg?inline';
+import SVGIconLinkedIn from '@/assets/svg/icon-social-linkedin.svg?inline';
+import SVGIconYoutube from '@/assets/svg/icon-social-youtube.svg?inline';
+import SVGIconGithub from '@/assets/svg/icon-social-github.svg?inline';
 import SVGLogo from '@/assets/svg/logo.svg?inline';
 
 export default {
@@ -198,7 +199,7 @@ export default {
 
 footer {
   padding: 48px 48px 0;
-  background: var(--color-grey-light);
+  background: var(--color-white);
 
   @include breakpoint('m') {
     padding: 30px 20px 0;
@@ -212,9 +213,9 @@ footer {
     }
   }
 
-  .social {
+  .main {
     p.h2 span {
-      font-weight: 700;
+      font-weight: 500;
       line-height: 1.3;
       display: inline-block;
     }
@@ -224,6 +225,11 @@ footer {
       justify-content: space-between;
       padding-left: 0;
       margin-top: 60px;
+
+      @include breakpoint('mx') {
+        justify-content: flex-start;
+        gap: 15px;
+      }
 
       @include breakpoint('sm') {
         margin-top: 24px;
@@ -244,13 +250,6 @@ footer {
             width: 32px;
             height: 32px;
           }
-
-          &:hover {
-            path {
-              stroke: var(--color-blue);
-              stroke-width: 2px;
-            }
-          }
         }
       }
     }
@@ -261,10 +260,11 @@ footer {
       &::before {
         content: attr(aria-label);
         margin-left: 0;
-        margin-bottom: 20px;
+        margin-bottom: 10px;
         display: block;
         font-size: 14px;
-        font-weight: 700;
+        font-weight: 500;
+        letter-spacing: 0.5px;
         text-transform: uppercase;
       }
 
@@ -273,77 +273,64 @@ footer {
 
       li {
         list-style: none;
-        padding: 9px 0;
-
-        &:hover {
-          color: var(--color-blue);
-        }
+        padding: 0 0 4px 0;
+        color: var(--color-sky-dancer);
       }
     }
   }
 
-  .secondary-footer {
-    margin-top: 120px;
-    border-top: 1px solid var(--color-grey-dark);
-    padding-top: 24px;
-    display: flex;
-    flex: 1;
-    justify-content: space-between;
-    align-items: center;
+  .secondary.desktop {
+    margin-top: 40px;
+    margin-bottom: 48px;
 
     @include breakpoint('sm') {
-      margin-top: 10px;
+      display: none;
+    }
+    & > svg {
+      max-width: 159px;
+      path {
+        fill: var(--color-pelati);
+      }
+    }
+
+    & > ul {
+      margin-top: 30px;
+      display: flex;
+      justify-content: flex-start;
+      gap: 70px;
+
+      a {
+        color: var(--color-sky-dancer);
+      }
+    }
+  }
+
+  .secondary.mobile {
+    display: none;
+    margin-top: 40px;
+
+    @include breakpoint('sm') {
+      display: block;
+    }
+
+    & > svg {
+      max-width: 159px;
+      path {
+        fill: var(--color-pelati);
+      }
+    }
+
+    & > ul {
+      padding: 0 0;
+      margin-top: 30px;
+      display: flex;
       flex-direction: column;
       justify-content: flex-start;
-      align-items: flex-start;
-    }
+      list-style-type: none;
+      gap: 0;
 
-    > div:not(.secondary-footer-nav) {
-      svg.logo {
-        width: 110px;
-        margin-right: 50px;
-      }
-
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-
-      @include breakpoint('sm') {
-        width: 100%;
-        justify-content: space-between;
-      }
-    }
-
-    .secondary-footer-nav {
-      width: 100%;
-      padding: 16px 0;
-
-      ul {
-        display: flex;
-        list-style-type: none;
-        padding-left: 0;
-        justify-content: flex-end;
-
-        @include breakpoint('sm') {
-          justify-content: flex-start;
-        }
-
-        li {
-          margin-right: 20px;
-
-          a {
-            font-size: 14px;
-            line-height: 24px;
-          }
-
-          &:hover {
-            color: var(--color-blue);
-          }
-
-          &:last-child {
-            margin-right: 0;
-          }
-        }
+      a {
+        color: var(--color-sky-dancer);
       }
     }
   }

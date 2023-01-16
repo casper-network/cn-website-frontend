@@ -66,7 +66,6 @@ export default {
 
 .custom-select .selected {
   background-color: white;
-  border-radius: var(--border-radius-input);
   border: 1px solid #ccc;
   color: #666;
   padding-left: 1em;
@@ -76,7 +75,6 @@ export default {
 
 .custom-select .selected.open {
   border: 1px solid var(--color-blue);
-  border-radius: 6px 6px 0px 0px;
 }
 
 .custom-select .selected:after {
@@ -92,7 +90,6 @@ export default {
 
 .custom-select .items {
   color: #666;
-  border-radius: 0px 0px 6px 6px;
   overflow: hidden;
   border: 1px solid var(--color-blue);
   position: absolute;

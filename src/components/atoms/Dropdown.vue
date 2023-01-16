@@ -172,7 +172,6 @@ export default {
     font-size: 16px;
     line-height: 28px;
     border: 1px solid #ccc;
-    border-radius: var(--border-radius-input);
     background: #fff;
     position: relative;
     z-index: 1;
@@ -187,7 +186,6 @@ export default {
     }
 
     &.isActive {
-      border-radius: 10px 10px 0 0;
       background: #fff;
 
       svg {
@@ -228,9 +226,8 @@ export default {
     left: 0;
     right: 0;
     box-shadow: 0 12px 15px 6px rgba(0, 0, 0, 0.1);
-    border-radius: 0 0 8px 8px;
     overflow: hidden;
-    padding-bottom: 25px;
+    // padding-bottom: 25px;
 
     &:after,
     &:before {

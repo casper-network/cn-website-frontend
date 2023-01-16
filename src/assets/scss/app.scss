@@ -1,16 +1,17 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
 @import './animations.scss';
 @import './mixins.scss';
 @import './variables.scss';
+@import './fonts.scss';
 @import './forms.scss';
 @import './utils.scss';
 
 html, body {
-  font-family: 'Inter', sans-serif;
+  font-family: $font-name, sans-serif;
   font-size: 16px;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  background-color: var(--color-lighthouse);
 
   &.no-scroll {
     overflow: hidden;
@@ -22,7 +23,7 @@ html, body {
 }
 
 #app {
-  font-family: 'Inter', sans-serif;
+  font-family: $font-name, sans-serif;
 }
 
 a {
@@ -38,12 +39,12 @@ h1, h2 {
 
   span,
   b {
-    font-weight: 700;
+    font-weight: 500;
   }
 }
 
 b {
-  font-weight: 700;
+  font-weight: 500;
 }
 
 .container {
@@ -58,10 +59,14 @@ b {
   @include breakpoint('sm') {
     padding-left: 20px;
     padding-right: 20px;
+    max-width: calc(100vw - 40px);
   }
 
   &.-long {
     max-width: 1506px;
+    @include breakpoint('sm') {
+      max-width: 100vw;
+    }
   }
 
   &.col {

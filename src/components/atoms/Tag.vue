@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import SVGPlus from '@/assets/svg/plus.svg?inline';
+import SVGPlus from '@/assets/svg/icon-accordion-plus.svg?inline';
 
 export default {
   name: 'Tag',
@@ -92,7 +92,7 @@ export default {
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  padding: 3px 12px;
+  padding: 3px 0;
   cursor: pointer;
   margin: 0;
   text-align: center;
@@ -102,8 +102,6 @@ export default {
   width: auto;
 
   &.primary {
-    background-color: var(--color-blue);
-    border-radius: var(--border-radius-button);
     border: 1px solid var(--color-white);
     color: var(--color-white);
 
@@ -132,26 +130,23 @@ export default {
     }
 
     &:hover {
-      background-color: var(--color-dark-blue);
     }
   }
 
   &.secondary {
-    background-color: var(--color-white);
-    border-radius: var(--border-radius-button);
-    border: 1px solid var(--color-blue);
-    color: var(--color-blue);
+    color: var(--color-sky-dancer);
 
     svg {
       margin-right: 15px;
 
       path {
-        fill: var(--color-blue);
+        fill: var(--color-sky-dancer);
       }
     }
 
     a {
-      font-size: 14px ;
+      font-size: 1.1851851852rem;
+      font-weight: 500;
     }
 
     &.icon {
@@ -166,17 +161,6 @@ export default {
 
         path {
           fill: var(--color-blue);
-        }
-      }
-    }
-
-    &:hover {
-      background-color: var(--color-blue);
-      color: var(--color-white);
-
-      svg {
-        path {
-          fill: var(--color-white);
         }
       }
     }

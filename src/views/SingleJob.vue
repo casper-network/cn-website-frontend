@@ -71,7 +71,6 @@ export default {
   // beforeMount() {},
   // render(h) { return h(); },
   mounted() {
-    this.$store.commit('changeNavigationTintState', 'light');
     this.pageData = this.$d.data;
   },
   // beforeUpdate() {},
@@ -117,7 +116,7 @@ div.single-job {
 
         p.title {
           @include style-body('large');
-          font-weight: 700;
+          font-weight: 500;
         }
 
         h2,

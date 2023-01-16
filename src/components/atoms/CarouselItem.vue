@@ -136,11 +136,12 @@ export default {
 
   div ::v-deep p {
     @include style-body('medium');
+    font-weight: 300;
   }
 
   p.h4 {
     margin-bottom: 16px;
-    font-weight: 700;
+    font-weight: 400;
   }
 
   a.read-more {

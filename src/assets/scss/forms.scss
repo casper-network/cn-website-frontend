@@ -1,6 +1,4 @@
 .form-container {
-  background: #f5f5f5;
-  border-radius: var(--border-radius-teaser);
   transition: all 0.35s ease-in-out;
   // width: 83%;
   width: 100%;
@@ -12,7 +10,7 @@
   }
 
   form {
-    padding: 80px 128px;
+    // padding: 80px 128px;
     display: flex;
     flex-direction: column;
     gap: 32px;
@@ -98,14 +96,13 @@
     input[type="url"],
     input[type="file"],
     input[type="email"] {
-      font-family: 'Inter', sans-serif;
+      font-family: $font-name, sans-serif;
       padding: 10px 10px 10px 20px;
       width: calc(100% - 32px);
       font-weight: 400;
       font-size: 16px;
       line-height: 28px;
       border: 1px solid #ccc;
-      border-radius: var(--border-radius-input);
       outline: none;
 
       &:focus {
@@ -154,7 +151,6 @@
       width: auto;
       font-size: var(--typography-cta-s-font-size);
       background-color: var(--color-blue);
-      border-radius: var(--border-radius-button);
       border: 1px solid var(--color-white);
       color: var(--color-white);
 
@@ -234,7 +230,6 @@
   width: 100%;
   height: 100%;
   min-height: 450px;
-  border-radius: inherit;
 
   p {
     margin-top: 12px;
@@ -257,7 +252,6 @@
   width: 100%;
   height: 100%;
   min-height: 450px;
-  border-radius: inherit;
 
   p {
     margin-top: 12px;
@@ -279,12 +273,12 @@
   font-size: 16px;
   line-height: 28px;
   border: 1px solid #ccc;
-  border-radius: var(--border-radius-input);
   outline: 1px solid #ccc;
+  border-radius: 0;
 }
 
 .vs__dropdown-toggle {
-  border-radius: var(--border-radius-input) !important;
+  border-radius: 0 !important;
   padding: 10px 8px !important;
 }
 

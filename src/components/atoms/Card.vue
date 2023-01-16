@@ -113,7 +113,6 @@ export default {
     aspect-ratio: 16 / 9;
     width: 100%;
     height: 100%;
-    border-radius: var(--border-radius-input);
   }
 
   .card-header {
@@ -135,7 +134,8 @@ export default {
 
     h5 {
       margin: 0;
-      font-size: 24px;
+      font-size: 26px;
+      font-weight: 400;
     }
 
     p {
@@ -148,11 +148,11 @@ export default {
 
     p {
       @include style-body('medium')
+      font-weight: 300;
     }
   }
 
   img.avatar {
-    border-radius: 100%;
     width: 64px;
     height: 64px;
     display: block;

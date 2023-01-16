@@ -4,8 +4,10 @@
           :block="pageData.page_blocks[0]"
           :block-title="pageData.page_blocks[0].title"
           :block-content="pageData.page_blocks[0].content">
-    <FormNewsletter></FormNewsletter>
     </Hero>
+    <div class="restrict">
+      <FormNewsletter />
+    </div>
   </div>
 </template>
 
@@ -105,16 +107,10 @@ export default {
       this.isMobile = window.innerWidth < 768;
     });
 
-    if (document.querySelector('.hero')) {
-      this.$store.commit('changeNavigationTintState', 'light');
-    } else {
-      this.$store.commit('changeNavigationTintState', 'dark');
-    }
-
     setTimeout(() => {
       const el = document.querySelector('header');
       el.classList = [];
-      el.classList.add('header', 'overlap-state-true', 'theme-light');
+      el.classList.add('header', 'overlap-state-true', 'theme-dark');
     }, 50);
 
     const root = document.querySelector(':root');
@@ -139,4 +135,10 @@ export default {
 
 <style lang="scss" scoped>
 @import '@/assets/scss/mixins.scss';
+
+.restrict {
+  margin: 0 auto;
+  padding-bottom: 100px;
+  max-width: 1248px;
+}
 </style>

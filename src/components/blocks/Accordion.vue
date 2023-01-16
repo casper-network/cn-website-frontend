@@ -107,7 +107,6 @@ export default {
       width: 100%;
       margin: 0 auto;
       padding: 0;
-      padding-top: 0;
       padding-bottom: 45px;
     }
   }

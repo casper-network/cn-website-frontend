@@ -4,8 +4,10 @@
           :block="pageData.page_blocks[0]"
           :block-title="pageData.page_blocks[0].title"
           :block-content="pageData.page_blocks[0].content">
-      <FormContact></FormContact>
     </Hero>
+    <div class="restrict">
+      <FormContact />
+    </div>
   </div>
 </template>
 
@@ -94,17 +96,10 @@ export default {
   // beforeMount() {},
   // render(h) { return h(); },
   mounted() {
-    // eslint-disable-next-line valid-typeof
-    if (typeof this.$options.components.Hero === 'object') {
-      this.$store.commit('changeNavigationTintState', 'light');
-    } else {
-      this.$store.commit('changeNavigationTintState', 'dark');
-    }
-
     setTimeout(() => {
       const el = document.querySelector('header');
       el.classList = [];
-      el.classList.add('header', 'overlap-state-true', 'theme-light');
+      el.classList.add('header', 'overlap-state-true', 'theme-dark');
     }, 50);
 
     this.pageData = this.$d.data;
@@ -135,103 +130,10 @@ export default {
 <style lang="scss" scoped>
 @import '@/assets/scss/mixins.scss';
 
-/*.form-container {
-  background: white;
-  border-radius: var(--border-radius-teaser);
-  padding: 80px 128px;
-  width: 70%;
-  display: block;
-  margin-top: 90px;
+.restrict {
+  margin: 0 auto;
+  padding-bottom: 100px;
+  max-width: 1248px;
+}
 
-  @include breakpoint('sm') {
-    width: 85%;
-  }
-
-  form {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 30px;
-  }
-
-  @include breakpoint('sm') {
-    padding: 32px;
-    margin-top: 32px;
-  }
-
-  .form-group {
-    flex: 1;
-
-    @include breakpoint('sm') {
-      flex: 1 0 100%;
-    }
-
-    label {
-      display: block;
-      margin-bottom: 16px;
-    }
-
-    input[type="text"],
-    input[type="email"] {
-      display: flex;
-      flex-direction: row;
-      align-items: flex-start;
-      padding: 10px 10px 10px 20px;
-      width: 90%;
-      font-weight: 400;
-      font-size: 16px;
-      line-height: 28px;
-      border: 1px solid #ccc;
-      border-radius: var(--border-radius-input);
-      outline: 1px solid #ccc;
-
-      &:focus {
-        outline: 1px solid var(--color-blue);
-      }
-
-      &.error {
-        outline: 1px solid red;
-      }
-    }
-
-    ::placeholder {
-      color: #ccc;
-    }
-
-    &.checkboxes {
-      flex-basis: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-top: 30px;
-
-      @include breakpoint('sm') {
-        flex-direction: column;
-      }
-
-      > div {
-        display: flex;
-        align-items: center;
-        @include breakpoint('sm') {
-          flex-direction: column;
-        }
-
-        label {
-          margin: 0;
-        }
-      }
-
-      .group {
-        div {
-          align-items: center;
-          display: flex;
-          margin-right: 24px;
-          @include breakpoint('sm') {
-            flex-direction: column;
-          }
-        }
-      }
-    }
-  }
-}*/
 </style>
