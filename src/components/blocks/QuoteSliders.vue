@@ -33,8 +33,8 @@
 </template>
 
 <script>
-import SVGArrowLeft from '@/assets/svg/arrowLeft.svg?inline';
-import SVGArrowRight from '@/assets/svg/arrowRight.svg?inline';
+import SVGArrowLeft from '@/assets/svg/icon-arrow-left.svg?inline';
+import SVGArrowRight from '@/assets/svg/icon-arrow-right.svg?inline';
 import config from '@/directus/config';
 
 const { API_URL } = config;
@@ -227,6 +227,9 @@ export default {
 
         path {
           fill: var(--color-white);
+          &:nth-child(1) {
+            fill: transparent;
+          }
         }
       }
     }

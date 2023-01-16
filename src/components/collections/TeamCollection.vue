@@ -65,13 +65,6 @@ export default {
   // beforeMount() {},
   // render(h) { return h(); },
   async mounted() {
-    // eslint-disable-next-line valid-typeof
-    if (typeof this.$options.components.Hero === 'object') {
-      this.$store.commit('changeNavigationTintState', 'light');
-    } else {
-      this.$store.commit('changeNavigationTintState', 'dark');
-    }
-
     await this.getTeamData();
   },
   // beforeUpdate() {},

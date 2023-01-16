@@ -50,8 +50,8 @@
 <script>
 
 import Glide from '@glidejs/glide/dist/glide';
-import ChevronLeft from '@/assets/svg/chevronLeft.svg?inline';
-import ChevronRight from '@/assets/svg/chevronRight.svg?inline';
+import ChevronLeft from '@/assets/svg/icon-chevron-left.svg?inline';
+import ChevronRight from '@/assets/svg/icon-chevron-right.svg?inline';
 
 export default {
   name: 'PostCollection',
@@ -266,28 +266,36 @@ export default {
 }
 
 .glide__arrow {
-  background: white;
-  border-radius: 100%;
+  border: 2px solid var(--color-atomic-lime);
+  background-color: var(--color-atomic-lime);
   box-shadow: none;
   text-shadow: none;
-  border: 1px solid var(--color-blue);
   width: 48px;
   height: 48px;
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
+  transition: all 0.15s ease;
 
   svg {
+    width: 13px;
     margin: 0;
+
+    path {
+      fill: var(--color-black);
+      transition: fill 0.15s ease;
+    }
   }
 
   &:hover {
-    border: 1px solid var(--color-white);
-    background: var(--color-blue);
-
+    background-color: var(--color-black);
     svg {
-      path {
-        fill: var(--color-white);
+      path:nth-child(1) {
+        fill: var(--color-atomic-lime);
+      }
+      path:nth-child(2) {
+        fill: var(--color-atomic-lime);
       }
     }
   }

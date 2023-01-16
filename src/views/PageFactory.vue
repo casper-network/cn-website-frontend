@@ -10,6 +10,10 @@
         :cta="block.cta"
         :buttons="block.buttons"
       />
+      <Stack
+        v-if="block.blocktype === 'stack'"
+        :block="block"
+      />
       <TextTeaser
         class="container"
         v-if="block.blocktype === 'section'"
@@ -29,15 +33,19 @@
           :block-data="block"
         ></FileList>
       </div>
-      <div class="container"
-           v-if="block.blocktype === 'video'">
-        <VideoPlayer
-          class=""
-          :thumb="block.media.thumbnail"
-          :provider="block.media.service"
-          :video-id="block.media.id"
-          :caption="block.media.caption"
-        />
+      <div class="fill"
+           v-if="block.blocktype === 'video'"
+           :style="`background-color: ${block.bgcolor || 'transparent'}`"
+      >
+        <div class="container">
+          <VideoPlayer
+            class=""
+            :thumb="block.media.thumbnail"
+            :provider="block.media.service"
+            :video-id="block.media.id"
+            :caption="block.media.caption"
+          />
+        </div>
       </div>
       <QuoteSliders
         v-if="block.blocktype === 'quotes'"
@@ -58,10 +66,9 @@
         :block-title="block.title"
         :button-data="block.buttons"
       />
-      <div class="container col"
-           v-if="block.blocktype === 'accordion'">
+      <div class="container col" v-if="block.blocktype === 'accordion'">
         <TextTeaser v-if="block.title"
-                    class="container mb-md px-0"
+                    class="container mb-md"
                     :box-title="block.title"
                     :box-content="(block.content) ? block.content : ''"
         />
@@ -79,9 +86,12 @@
           </accordionItem>
         </accordion>
       </div>
-      <div v-if="block.blocktype === 'ctas'">
+      <div
+        v-if="block.blocktype === 'ctas'"
+        class="fill bg-black"
+      >
         <TextTeaser v-if="block.title"
-                    class="container"
+                    class="container white fullwidth"
                     :box-title="block.title"
         />
         <CTACollection
@@ -112,6 +122,7 @@
         teaser-type="newsletter"
         :teaser-block="block"
         :teaser-title="block.title"
+        :teaser-content="block.content"
         :teaser-label="block.button.text"
         :teaser-target="block.button.url"
       />
@@ -148,7 +159,7 @@ const { API_URL } = config;
 
 export default {
   name: 'PageFactory',
-  components: { },
+  components: {},
   //---------------------------------------------------
   //
   //  Properties
@@ -244,12 +255,7 @@ export default {
   // beforeMount() {},
   // render(h) { return h(); },
   mounted() {
-    if (this.dummyData[0].blocktype === 'hero') {
-      this.$store.commit('changeNavigationTintState', 'light');
-    } else {
-      this.$store.commit('changeNavigationTintState', 'dark');
-    }
-
+    this.checkTint();
     if (this.dummyData[this.dummyData.length - 1].blocktype === 'startnow' || (this.dummyData[this.dummyData.length - 1].blocktype === 'imgteaser' && this.dummyData[this.dummyData.length - 1].variation === 'full')) {
       document.querySelector('main')
         .classList
@@ -278,13 +284,7 @@ export default {
   },
   // beforeUpdate() {},
   updated() {
-    // console.log(this.dummyData[0].blocktype === 'hero');
-    if (this.dummyData[0].blocktype === 'hero') {
-      this.$store.commit('changeNavigationTintState', 'light');
-    } else {
-      this.$store.commit('changeNavigationTintState', 'dark');
-    }
-
+    this.checkTint();
     if (this.dummyData[this.dummyData.length - 1].blocktype === 'startnow' || (this.dummyData[this.dummyData.length - 1].blocktype === 'imgteaser' && this.dummyData[this.dummyData.length - 1].variation === 'full')) {
       document.querySelector('main')
         .classList
@@ -322,6 +322,17 @@ export default {
   //
   //---------------------------------------------------
   methods: {
+    checkTint() {
+      const data = (this.dummyData || [])[0] || null;
+      const hasColor = data?.bgcolor !== null && data?.bgcolor !== undefined;
+      if (data && data.blocktype === 'hero' && hasColor) {
+        this.$store.commit('heroHasBgColor', true);
+        this.$store.commit('changeNavigationTintState', 'light');
+      } else {
+        this.$store.commit('heroHasBgColor', false);
+        this.$store.commit('changeNavigationTintState', 'dark');
+      }
+    },
     //----------------------------------
     // Event Handlers
     //----------------------------------
@@ -333,6 +344,9 @@ export default {
 @import '~scss/mixins';
 @import '~scss/variables';
 
+main.lp-career, main.lp-documentation {
+  padding-bottom: 0;
+}
 main.lp-casper {
   padding-bottom: 0;
 
@@ -355,6 +369,15 @@ main.lp-casper {
       & > .outer-wrap {
         margin: 0 auto 0;
       }
+    }
+  }
+}
+
+section.ctas {
+  .fill {
+    &.bg-black {
+      background-color: var(--color-black);
+      padding: 0 0 100px 0;
     }
   }
 }

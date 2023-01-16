@@ -1,8 +1,17 @@
+/* -------------------------------
+  Setup
+------------------------------- */
+$assets-path: '~@/assets';
+$font-name: 'Casper Sans';
+
+/* -------------------------------
+  Variables
+------------------------------- */
 :root {
   /* DESKTOP */
   --typography-big-d-font-size: 8.125rem;
   --typography-d1-d-font-size: 5rem;
-  --typography-h1-d-font-size: 3.5rem;
+  --typography-h1-d-font-size: 5.92rem;
   --typography-h2-d-font-size: 3rem;
   --typography-h3-d-font-size: 2.5rem;
   --typography-h4-d-font-size: 2rem;
@@ -13,7 +22,7 @@
   --typography-tag-d-font-size: 0.875rem;
   --typography-big-m-font-size: 3.25rem;
   --typography-d1-m-font-size: 3rem;
-  --typography-h1-m-font-size: 2.375rem;
+  --typography-h1-m-font-size: 3.375rem;
   --typography-h2-m-font-size: 2rem;
   --typography-h3-m-font-size: 1.75rem;
   --typography-h4-m-font-size: 1.5rem;
@@ -33,6 +42,15 @@
   --color-gradient-vertical: linear-gradient(180deg, var(--color-blue) 0%, var(--color-red) 100%);
   --color-gradient-diagonal: linear-gradient(31.33deg, var(--color-blue) 11%, var(--color-red) 111%);
   --color-gradient-diagonal-hover: linear-gradient(31.33deg, var(--color-blue) 111%, var(--color-red) 150%);
+
+  --color-lighthouse: #f4f4f4;
+  --color-atomic-lime: #BCFC07;
+  --color-pelati: #ff2d2e;
+  --color-hello-spring: #3edc64;
+  --color-sky-dancer: #4589f6;
+  --color-blue: #4589f6;
+
+
   /* BORDERS */
   --border-radius-teaser: 24px;
   --border-radius-input: 8px;

@@ -106,7 +106,6 @@ export default {
 
 div.container {
   .posts {
-    padding-top: 160px;
 
     @include breakpoint('sm') {
       padding-top: 45px;

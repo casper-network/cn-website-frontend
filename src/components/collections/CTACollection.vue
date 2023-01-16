@@ -148,7 +148,6 @@ export default {
 @import '~scss/mixins';
 
 div.container.-long {
-  padding-bottom: 160px;
 
   @include breakpoint('sm') {
     padding-bottom: 80px;
@@ -156,8 +155,7 @@ div.container.-long {
 }
 
 div.grid {
-  margin-top: 160px;
-  margin-bottom: 32px;
+  margin-top: 100px;
   display: grid;
   grid-template-columns: repeat(2, minmax(49%, 1fr));
   grid-gap: 32px;
@@ -168,7 +166,7 @@ div.grid {
 
     @include breakpoint('sm') {
       grid-template-columns: repeat(1, minmax(100%, 1fr));
-      margin-top: 80px;
+      margin-top: 0px;
       grid-gap: 16px;
     }
   }

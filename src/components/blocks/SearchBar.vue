@@ -46,7 +46,7 @@
 </template>
 
 <script>
-import SVGChevronDown from '@/assets/svg/chevronDown.svg?inline';
+import SVGChevronDown from '@/assets/svg/icon-chevron-down.svg?inline';
 import axios from 'axios';
 import config from '@/directus/config';
 
@@ -165,8 +165,8 @@ div.search-bar {
   width: 100%;
   max-width: 1506px;
   margin: 0 auto;
-  border-top: 1px solid var(--color-grey-light);
-  border-bottom: 1px solid var(--color-grey-light);
+  border-top: 1px solid var(--color-grey-dark);
+  border-bottom: 1px solid var(--color-grey-dark);
 
   div.container {
     display: flex;
@@ -220,11 +220,11 @@ div.search-bar {
 
         a {
           &:hover {
-            color: var(--color-blue);
+            color: var(--color-sky-dancer);
           }
 
           &.router-link-exact-active {
-            color: var(--color-blue);
+            color: var(--color-sky-dancer);
           }
         }
       }
@@ -240,17 +240,6 @@ div.search-bar {
       }
 
       ul {
-        &:after {
-          content: '';
-          border-style: solid;
-          border-width: 10px 8px 10px 0;
-          border-color: transparent #f5f5f5 transparent transparent;
-          position: absolute;
-          left: 45px;
-          top: -15px;
-          transform: rotate(90deg);
-        }
-
         &:before {
           content: '';
           position: absolute;
@@ -266,7 +255,6 @@ div.search-bar {
         display: flex;
         flex-direction: column;
         border: 1px solid #ccc;
-        border-radius: 8px;
         padding-top: 0;
         top: -10px;
         left: -30px;
@@ -299,16 +287,6 @@ div.search-bar {
               animation-delay: 75ms * ($x - 1);
             }
           }
-
-          &:first-child {
-            border-top-left-radius: 8px;
-            border-top-right-radius: 8px;
-          }
-
-          &:last-child {
-            border-bottom-left-radius: 8px;
-            border-bottom-right-radius: 8px;
-          }
         }
       }
 
@@ -327,10 +305,10 @@ div.search-bar {
           }
         }
 
-        color: var(--color-blue);
+        color: var(--color-sky-dancer);
 
         svg path {
-          stroke: var(--color-blue);
+          stroke: var(--color-sky-dancer);
         }
       }
     }

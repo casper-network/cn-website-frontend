@@ -4,6 +4,17 @@ h1,
 .h1 {
   margin: 0 0 48px 0;
   font-size: var(--typography-h1-d-font-size);
+  line-height: 1;
+  font-weight: 300;
+
+  strong, b {
+    font-weight: inherit;
+  }
+
+  p {
+    font-size: inherit;
+    line-height: inherit;
+  }
 
   @include breakpoint('sm') {
     font-size: var(--typography-h1-m-font-size);
@@ -15,6 +26,11 @@ h2,
 .h2 {
   margin: 0;
   font-size: var(--typography-h2-d-font-size);
+  font-weight: 300;
+
+  strong, b {
+    font-weight: inherit;
+  }
 
   @include breakpoint('sm') {
     font-size: var(--typography-h2-m-font-size);
@@ -24,8 +40,12 @@ h2,
 h3,
 .h3 {
   margin: 0;
-  font-weight: 400;
+  font-weight: 300;
   font-size: var(--typography-h3-d-font-size);
+
+  strong, b {
+    font-weight: inherit;
+  }
 
   @include breakpoint('sm') {
     font-size: var(--typography-h3-m-font-size);
@@ -35,7 +55,7 @@ h3,
 h4,
 .h4 {
   margin: 0;
-  font-weight: 400;
+  font-weight: 300;
   font-size: var(--typography-h4-d-font-size);
 
   @include breakpoint('sm') {

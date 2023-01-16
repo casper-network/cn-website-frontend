@@ -1,13 +1,14 @@
+@import 'variables';
 
 /* --------------------------------------------------
    Font Style Mixin
    -------------------------------------------------- */
 @mixin style-body($body-style: 'large') {
-  font-family: 'Inter', sans-serif;
+  font-family: $font-name, sans-serif;
   @if $body-style=='large' {
-    font-size: 24px;
-    line-height: 38px;
-    letter-spacing: 0.5px;
+    font-size: 19.85px;
+    line-height: 1.5;
+    letter-spacing: 2px;
     @include breakpoint('sm') {
       font-size: 20px;
       line-height: 32px;
@@ -39,6 +40,7 @@ $breakpoints: (
   's': 667px,
   'sm': 768px,
   'm': 1024px,
+  'mx': 1180px,
   'l': 1280px,
   'xl': 1680px,
 );

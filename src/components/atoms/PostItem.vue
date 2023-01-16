@@ -8,7 +8,7 @@
     </div>
     <div class="content" :class="`postType-${type}`">
       <div class="time" v-if="type === 'news'">
-        <SVGWatch />
+        <SVGClock />
         {{ getRelativeDate }}
       </div>
       <h3 v-if="type === 'news'">{{postItemData.content[0].title}}</h3>
@@ -36,7 +36,7 @@
 <script>
 import dayjs from 'dayjs';
 import RelativeTime from 'dayjs/plugin/relativeTime';
-import SVGWatch from '@/assets/svg/watch.svg?inline';
+import SVGClock from '@/assets/svg/icon-clock.svg?inline';
 import config from '@/directus/config';
 
 const { API_URL } = config;
@@ -46,7 +46,7 @@ dayjs.extend(RelativeTime);
 export default {
   name: 'PostItem',
   components: {
-    SVGWatch,
+    SVGClock,
   },
   //---------------------------------------------------
   //
@@ -141,6 +141,13 @@ article {
   border-top: 1px solid var(--color-grey-light);
   border-bottom: 1px solid var(--color-grey-light);
 
+  &:first-of-type {
+    border-top: 1px solid transparent;
+  }
+  &:last-of-type {
+    border-bottom: 1px solid transparent;
+  }
+
   &:hover {
     .img-container {
       transform: translateX(16px);
@@ -163,6 +170,7 @@ article {
 
   h3 {
     font-weight: 300;
+    font-size: 3.4568rem;
   }
 
   h3 ~ p {
@@ -177,7 +185,6 @@ article {
   img {
     max-width: 500px;
     aspect-ratio: 16 / 8;
-    border-radius: var(--border-radius-input);
 
     @include breakpoint('sm') {
       width: 100%;
@@ -187,24 +194,19 @@ article {
   div.time {
     display: flex;
     align-items: center;
-    margin-bottom: 32px;
-    font-weight: 400;
-    font-size: 14px;
+    margin-bottom: 20px;
+    font-weight: 300;
+    font-size: 1.185rem;
     line-height: 24px;
-    color: #666;
 
     @include breakpoint('sm') {
       margin-bottom: 16px;
     }
 
     svg {
-      margin-right: 8px;
-      width: 17px;
-      height: 17px;
-
-      path {
-        fill: #666;
-      }
+      margin-right: 13px;
+      width: 48px;
+      height: 48px;
     }
   }
 
@@ -222,7 +224,8 @@ article {
     align-items: flex-start;
 
     h3 {
-      font-size: 30px;
+      font-size: 3.4568rem;
+      line-height: 1.1;
 
       @include breakpoint('sm') {
         font-size: var(--typography-h3-m-font-size);
@@ -232,7 +235,7 @@ article {
 
   div.tags {
     display: flex;
-    margin: 32px 0;
+    margin: 15px 0;
     gap: 8px;
 
     @include breakpoint('sm') {

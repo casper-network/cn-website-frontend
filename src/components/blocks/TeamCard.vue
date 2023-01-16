@@ -105,7 +105,7 @@ export default {
 
     .members-name {
       @extend h5;
-      font-weight: 700;
+      font-weight: 500;
     }
 
     .members-title {
@@ -124,7 +124,6 @@ export default {
       height: 100%;
       aspect-ratio: 480 / 500;
       object-fit: cover;
-      border-radius: var(--border-radius-input);
     }
 
     svg {

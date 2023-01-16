@@ -5,7 +5,7 @@
       <div class="container">
         <div class="title">
           <h1 style="margin-top: 32px; margin-bottom: 0;" v-html="(!searchString) ? `<strong>The latest</strong> from the Casper ${computedFilter}` : `<strong>'${searchString}'</strong>`"></h1>
-          <p style="font-weight: 700;margin-top: 16px;" v-if="isSearching">
+          <p style="font-weight: 500;margin-top: 16px;" v-if="isSearching">
             <span>{{$t('titles.resultsFound')}}</span>
             <span>{{("0" + newsData.length).slice(-2)}}</span>
           </p>

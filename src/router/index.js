@@ -79,6 +79,7 @@ export function getRouter() {
       });
 
       router.beforeResolve(async (to, from, next) => {
+        window.h1Set = false;
         const ignoreLanguage = to.meta.ignoreLanguage || false;
         const language = (to.params.lang) ? to.params.lang : to.query.lang || '';
         const urlQueryString = window.location.search || '';

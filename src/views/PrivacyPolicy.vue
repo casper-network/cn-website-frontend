@@ -33,12 +33,6 @@ export default {
     };
   },
   mounted() {
-    // eslint-disable-next-line valid-typeof
-    if (typeof this.$options.components.Hero === 'object') {
-      this.$store.commit('changeNavigationTintState', 'light');
-    } else {
-      this.$store.commit('changeNavigationTintState', 'dark');
-    }
     /* HTTP.get('posts')
       .then((response) => {
         this.posts = response.data;

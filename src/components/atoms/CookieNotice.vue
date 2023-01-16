@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import SVGIconClose from '@/assets/svg/close.svg?inline';
+import SVGIconClose from '@/assets/svg/icon-close.svg?inline';
 import ScriptLoader from '@/utils/ScriptLoader';
 import i18n from '@/i18n';
 
@@ -162,8 +162,8 @@ export default {
 @import '@/assets/scss/mixins.scss';
 
 #cookieNotice {
-  background: var(--color-blue);
-  color: var(--color-white);
+  background: var(--color-lighthouse);
+  color: var(--color-black);
   padding: 16px 48px;
   display: flex;
   justify-content: space-between;
@@ -173,10 +173,10 @@ export default {
   bottom: 0;
   right: 0;
   z-index: 9999999;
-  outline: 1px solid var(--color-white);
+  outline: 2px solid var(--color-atomic-lime);
   transition: all 0.65s ease-in-out;
 
-  @include breakpoint('sm') {
+  @include breakpoint('mx') {
     width: calc(100% - 24px);
     left: 0;
     right: 0;
@@ -201,7 +201,8 @@ export default {
   }
 
   a {
-    border-bottom: 1px solid white;
+    color: var(--color-sky-dancer);
+    // border-bottom: 1px solid white;
   }
 
   .buttons {
@@ -213,7 +214,11 @@ export default {
     }
 
     a {
+      color: var(--color-black);
       border-bottom: 0;
+      &:hover {
+        color: var(--color-atomic-lime);
+      }
     }
   }
 

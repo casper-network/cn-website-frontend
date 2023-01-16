@@ -19,8 +19,8 @@
 </template>
 
 <script>
-import SVGIconPlay from '@/assets/svg/bigPlay.svg?inline';
-import SVGClose from '@/assets/svg/close.svg?inline';
+import SVGIconPlay from '@/assets/svg/icon-play.svg?inline';
+import SVGClose from '@/assets/svg/icon-close.svg?inline';
 
 export default {
   name: 'VideoPlayer',
@@ -179,14 +179,14 @@ div[data-vimeo-initialized="true"] {
   position: relative;
   aspect-ratio: 16 / 9;
   width: 100%;
-  padding: 160px 0 0;
+  padding: 100px 0;
 
   &.in-article {
     padding-top: 0;
   }
 
   @include breakpoint('sm') {
-    padding: 80px 0 0;
+    padding: 80px 0 50px;
   }
 }
 
@@ -198,7 +198,6 @@ div[data-vimeo-initialized="true"] {
   left: 48px;
   width: 100%;
   height: 100%;
-  border-radius: var(--border-radius-teaser);
 }
 
 .video-overlay {
@@ -208,7 +207,6 @@ div[data-vimeo-initialized="true"] {
   align-items: center;
   background: rgba(255, 255, 255, 0.9);
   overflow: hidden;
-  border-radius: var(--border-radius-teaser);
   transform: translateY(0);
   padding-bottom: 56.25%;
 
@@ -266,18 +264,15 @@ div[data-vimeo-initialized="true"] {
 
     &:hover {
       div.blur {
-        filter: blur(40px);
+        filter: blur(5px);
       }
-    }
-
-    svg {
     }
   }
 }
 
 .video-caption {
-  margin-top: 16px;
-  @include style-body('medium');
+  margin-top: 51px;
+  font-weight: 300;
 }
 
 .video-modal {
@@ -306,6 +301,7 @@ div[data-vimeo-initialized="true"] {
 
     svg {
       path {
+        fill: white;
         stroke: white;
       }
     }

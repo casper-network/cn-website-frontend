@@ -230,7 +230,7 @@ main.news-detail-container {
 
   p.title {
     @include style-body('large');
-    font-weight: 700;
+    font-weight: 500;
   }
 
   h2,

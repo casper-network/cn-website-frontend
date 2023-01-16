@@ -128,7 +128,7 @@ export default {
   width: 100%;
   border-top: 1px solid var(--color-grey-light);
   padding-top: 16px;
-  font-weight: 700;
+  font-weight: 500;
   text-transform: uppercase;
   margin-bottom: 8px;
 }

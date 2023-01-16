@@ -1,17 +1,18 @@
 <template>
-  <div class="teaser-full" :class="teaserType" :style="`background-image: url(${bgImage});`">
-    <video src="/video/bgvideo.mp4" autoplay loop muted v-if="!teaserBlock.media"></video>
+  <div class="teaser-full" :class="teaserType" :style="`${bgImage}`">
+    <!-- <video src="/video/bgvideo.mp4" autoplay loop muted v-if="!teaserBlock.media"></video> -->
     <div class="container">
-      <h2 v-html="teaserTitle"></h2>
+      <h2 class="h1" v-html="teaserTitle"></h2>
+      <p v-html="teaserContent"></p>
+      <Button class="secondary">
+        <router-link :to="`/${$i18n.locale}${teaserTarget}`" v-if="teaserBlock.button.type === 'int'">
+          {{ teaserLabel }}
+        </router-link>
+        <a :href="`/${$i18n.locale}${teaserTarget}`" v-if="teaserBlock.button.type === 'ext'">
+          {{ teaserLabel }}
+        </a>
+      </Button>
     </div>
-    <Button class="secondary">
-      <router-link :to="`/${$i18n.locale}${teaserTarget}`" v-if="teaserBlock.button.type === 'int'">
-        {{ teaserLabel }}
-      </router-link>
-      <a :href="`/${$i18n.locale}${teaserTarget}`" v-if="teaserBlock.button.type === 'ext'">
-        {{ teaserLabel }}
-      </a>
-    </Button>
   </div>
 </template>
 
@@ -33,6 +34,10 @@ export default {
     teaserTitle: {
       type: String,
       default: '',
+    },
+    teaserContent: {
+      type: String,
+      default: null,
     },
     teaserTarget: {
       type: String,
@@ -62,7 +67,11 @@ export default {
   //---------------------------------------------------
   computed: {
     bgImage() {
-      return `${API_URL}/assets/${this.teaserBlock.media}`;
+      const media = this.teaserBlock?.media;
+      if (media) {
+        return `background-image: url('${API_URL}/assets/${this.teaserBlock.media}');`;
+      }
+      return '';
     },
   },
   //---------------------------------------------------
@@ -117,17 +126,33 @@ export default {
   width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
   aspect-ratio: 16 / 8;
   text-align: center;
-  background: var(--color-gradient-diagonal);
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-  color: var(--color-white);
-  margin-top: 160px;
+  color: var(--color-black);
+  margin-top: 100px;
   position: relative;
+
+  & > .container {
+    display: block;
+    width: 100%;
+    text-align: left;
+
+    & > * {
+      max-width: 50%;
+      @include breakpoint('sm') {
+        max-width: 100%;
+      }
+    }
+
+    p {
+      padding: 0 0 45px 0;
+    }
+  }
 
   video {
     position: absolute;
@@ -140,12 +165,14 @@ export default {
   }
 
   h2 {
-    font-weight: 400;
-    font-size: 42px;
+    font-weight: 300;
     margin-bottom: 32px;
 
+    ::v-deep strong {
+      font-weight: 300 !important;
+    }
     span {
-      font-weight: 700;
+      font-weight: 300;
     }
   }
 
@@ -153,10 +180,11 @@ export default {
     margin-top: 80px;
     padding-top: 120px;
     padding-bottom: 120px;
+  }
 
-    h2 {
-      font-size: 28px;
-    }
+  &.newsletter {
+    margin-top: 0;
+    background-color: var(--color-pelati);
   }
 }
 </style>

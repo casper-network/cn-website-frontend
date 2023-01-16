@@ -132,7 +132,7 @@ export default {
     align-items: center;
     background: blue;
     color: white;
-    font-weight: 700;
+    font-weight: 500;
     z-index: 2;
     transition: all 0.35s ease-in-out;
     transform: translateY(-250px);

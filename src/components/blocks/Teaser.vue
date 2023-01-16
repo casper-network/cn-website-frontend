@@ -1,7 +1,7 @@
 <template>
   <a class="teaser" :class="`teaser-type-${type}`" :href="url" target="_blank">
     <div>
-      <Icon :icon="icon"/>
+      <Icon :icon="icon" black />
       <div class="teaser-content-wrap">
         <p class="teaser-title">
           <slot name="title"></slot>
@@ -102,10 +102,10 @@ export default {
   flex-direction: column;
   align-items: flex-start;
   padding: 64px;
-  background: var(--color-grey-light);
-  border-radius: var(--border-radius-teaser);
+  background: var(--color-atomic-lime);
   cursor: pointer;
   overflow: hidden;
+  transition: background 0.3s ease;
 
   .teaser-content-wrap {
     position: relative;
@@ -113,7 +113,7 @@ export default {
   }
 
   .teaser-title {
-    @extend h3;
+    font-weight: 500;
     margin-bottom: 10px;
   }
 
@@ -138,15 +138,26 @@ export default {
 
   .teaser-title {
     @extend h4;
-    font-weight: 700;
+    font-weight: 500;
     margin-bottom: 10px;
   }
 
   &:hover {
-    box-shadow: 0 0 0 4px rgba(0, 36, 207, 0.3);
+    box-shadow: 0 0 0 4px var(--color-atomic-lime);
+    background: var(--color-black);
+    color: var(--color-atomic-lime);
 
     .teaser-title {
-      color: var(--color-blue);
+      color: var(--color-atomic-lime);
+    }
+
+    .icon {
+      svg {
+        path {
+          fill: var(--color-atomic-lime);
+          stroke: var(--color-atomic-lime);
+        }
+      }
     }
   }
 
@@ -224,7 +235,7 @@ export default {
   background-repeat: no-repeat;
   background-size: 200% 100%;
   background-position: 50%;
-  transition: all 0.3s ease;
+  transition: all 0.15s ease;
   width: 100%;
 
   .teaser-title {
@@ -270,11 +281,20 @@ export default {
   }
 
   &:hover {
-    box-shadow: 0 0 0 4px rgba(0, 36, 207, 0.3);
+    box-shadow: 0 0 0 4px var(--color-atomic-lime);
+    background-color: var(--color-black);
+
+    .icon {
+      svg {
+        path {
+          fill: var(--color-atomic-lime);
+          stroke: var(--color-atomic-lime);
+        }
+      }
+    }
 
     .teaser-title {
-      @extend h4;
-      color: var(--color-blue);
+      color: var(--color-atomic-lime);
       margin-bottom: 10px;
     }
   }

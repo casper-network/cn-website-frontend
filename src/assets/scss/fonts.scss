@@ -1,0 +1,26 @@
+@import 'variables';
+@font-face {
+  font-family: 'Casper Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: local(''),
+  url('#{$assets-path}/fonts/CasperSans-Regular.woff2') format('woff2'),
+  url('#{$assets-path}/fonts/CasperSans-Regular.woff') format('woff');
+}
+@font-face {
+  font-family: 'Casper Sans';
+  font-style: normal;
+  font-weight: 300;
+  src: local(''),
+  url('#{$assets-path}/fonts/CasperSans-Light.woff2') format('woff2'),
+  url('#{$assets-path}/fonts/CasperSans-Light.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Casper Sans';
+  font-style: normal;
+  font-weight: 500;
+  src: local(''),
+  url('#{$assets-path}/fonts/CasperSans-Medium.woff2') format('woff2'),
+  url('#{$assets-path}/fonts/CasperSans-Medium.woff') format('woff');
+}

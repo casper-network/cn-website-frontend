@@ -1,7 +1,6 @@
 <template>
-  <div class="icon">
+  <div class="icon" :class="{ black }">
     <SVGWorld class="icon" v-if="icon === 'world'"/>
-    <SVGDoc class="icon" v-if="icon === 'doc'"/>
     <SVGGit class="icon" v-if="icon === 'github'"/>
     <SVGCircleDiscord class="icon" v-if="icon === 'discord'"/>
     <SVGCommunity class="icon" v-if="icon === 'community'"/>
@@ -10,7 +9,7 @@
     <SVGCircleLinkedin class="icon" v-if="icon === 'linkedin'"/>
     <SVGCircleYoutube class="icon" v-if="icon === 'youtube'"/>
     <SVGCode class="icon" v-if="icon === 'code'"/>
-    <SVGRocket class="icon" v-if="icon === 'rocket'"/>
+    <SVGRocket class="icon" v-if="icon === 'doc' || icon === 'rocket'"/>
     <SVGCog class="icon" v-if="icon === 'computercog'"/>
     <SVGDev class="icon" v-if="icon === 'developMagic'"/>
     <SVGMagicWand class="icon" v-if="icon === 'magicwand'"/>
@@ -24,24 +23,23 @@
 
 <script>
 import SVGWorld from '@/assets/svg/worldGrad.svg?inline';
-import SVGDoc from '@/assets/svg/documentaryGrad.svg?inline';
-import SVGGit from '@/assets/svg/github.svg?inline';
-import SVGCode from '@/assets/svg/code.svg?inline';
-import SVGRocket from '@/assets/svg/rocket.svg?inline';
-import SVGCog from '@/assets/svg/computerCog.svg?inline';
+import SVGGit from '@/assets/svg/icon-social-github.svg?inline';
+import SVGCode from '@/assets/svg/icon-code.svg?inline';
+import SVGRocket from '@/assets/svg/icon-rocket.svg?inline';
+import SVGCog from '@/assets/svg/icon-computercog.svg?inline';
 import SVGDev from '@/assets/svg/developMagic.svg?inline';
-import SVGMagicWand from '@/assets/svg/magicWand.svg?inline';
-import SVGUpChart from '@/assets/svg/upChart.svg?inline';
-import SVGCoinstack from '@/assets/svg/coinStack.svg?inline';
-import SVGGlossary from '@/assets/svg/glossary.svg?inline';
-import SVGFaq from '@/assets/svg/faq.svg?inline';
-import SVGCircleDiscord from '@/assets/svg/circleDiscord.svg?inline';
-import SVGCircleTwitter from '@/assets/svg/circleTwitter.svg?inline';
-import SVGCircleTelegram from '@/assets/svg/circleTelegram.svg?inline';
-import SVGCircleLinkedin from '@/assets/svg/circleLinkedin.svg?inline';
-import SVGCircleYoutube from '@/assets/svg/circleYoutube.svg?inline';
-import SVGSmile from '@/assets/svg/smile.svg?inline';
-import SVGCommunity from '@/assets/svg/community.svg?inline';
+import SVGMagicWand from '@/assets/svg/icon-magicwand.svg?inline';
+import SVGUpChart from '@/assets/svg/icon-upchart.svg?inline';
+import SVGCoinstack from '@/assets/svg/icon-coinstack.svg?inline';
+import SVGGlossary from '@/assets/svg/icon-glossary.svg?inline';
+import SVGFaq from '@/assets/svg/icon-faq.svg?inline';
+import SVGCircleDiscord from '@/assets/svg/icon-social-discord.svg?inline';
+import SVGCircleTwitter from '@/assets/svg/icon-social-twitter.svg?inline';
+import SVGCircleTelegram from '@/assets/svg/icon-social-telegram.svg?inline';
+import SVGCircleLinkedin from '@/assets/svg/icon-social-linkedin.svg?inline';
+import SVGCircleYoutube from '@/assets/svg/icon-social-youtube.svg?inline';
+import SVGSmile from '@/assets/svg/icon-smile.svg?inline';
+import SVGCommunity from '@/assets/svg/icon-community.svg?inline';
 
 export default {
   name: 'Icon',
@@ -50,7 +48,6 @@ export default {
     SVGCog,
     SVGDev,
     SVGSmile,
-    SVGDoc,
     SVGGit,
     SVGCode,
     SVGRocket,
@@ -75,6 +72,10 @@ export default {
     icon: {
       type: String,
       default: 'world',
+    },
+    black: {
+      type: Boolean,
+      default: false,
     },
   },
   //---------------------------------------------------
@@ -143,6 +144,13 @@ export default {
   width: 64px;
   height: 64px;
   margin-right: 32px;
+
+  &.black {
+    & > svg path {
+      fill: var(--color-black);
+      stroke: var(--color-black);
+    }
+  }
 }
 
 </style>

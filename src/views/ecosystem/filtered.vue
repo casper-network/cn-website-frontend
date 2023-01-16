@@ -3,8 +3,8 @@
     <SearchBar type="ecosystem" @search="finallyDoSearch" @filterByTag="filterByTag"></SearchBar>
     <div class="container -long">
       <div class="title">
-        <h1 style="font-weight: 700;margin-top: 32px; margin-bottom: 0;" v-html="(!searchString) ? (categories.find(x => x.key === $route.params.category)||{}).name || '' : `'${searchString}'`"></h1>
-        <p style="font-weight: 700;margin-top: 16px;" v-if="isSearching || !isFiltering">
+        <h1 style="font-weight: 500;margin-top: 32px; margin-bottom: 0;" v-html="(!searchString) ? (categories.find(x => x.key === $route.params.category)||{}).name || '' : `'${searchString}'`"></h1>
+        <p style="font-weight: 500;margin-top: 16px;" v-if="isSearching || !isFiltering">
           <span>{{$t('titles.resultsFound')}}</span>
           <span>{{("0" + applicationData.length).slice(-2)}}</span>
         </p>

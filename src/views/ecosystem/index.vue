@@ -3,9 +3,9 @@
     <SearchBar type="Ecosystem" @search="finallyDoSearch"></SearchBar>
     <div class="container -long">
       <div class="title" v-if="applicationData">
-        <h1 style="font-weight: 700;margin-top: 32px; margin-bottom: 0;" v-if="isSearching" v-html="`'${searchString}'`"></h1>
+        <h1 style="font-weight: 500;margin-top: 32px; margin-bottom: 0;" v-if="isSearching" v-html="`'${searchString}'`"></h1>
         <h1 style="margin-top: 32px" v-html="applicationData[0].title" v-else></h1>
-        <p style="font-weight: 700;margin-top: 16px;" v-if="isSearching || isFiltering">
+        <p style="font-weight: 500;margin-top: 16px;" v-if="isSearching || isFiltering">
           <span>{{$t('titles.resultsFound')}}</span>
           <span>{{ searchResults }}</span>
         </p>
