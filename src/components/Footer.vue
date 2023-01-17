@@ -228,12 +228,13 @@ footer {
 
       @include breakpoint('mx') {
         justify-content: flex-start;
-        gap: 15px;
+        gap: 10px;
       }
 
       @include breakpoint('sm') {
         margin-top: 24px;
         justify-content: flex-start;
+        gap: 0;
       }
 
       li {
