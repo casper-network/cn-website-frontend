@@ -2,8 +2,9 @@
   <div class="`collection-latest-${type}`">
     <div class="container">
       <div class="collection-head">
-        <h2 v-if="type === 'news'" v-html="$i18n.t('titles.relatedNews')"></h2>
-        <h2 v-if="type === 'casestudies'" v-html="$i18n.t('titles.relatedCasestudies')"></h2>
+        <h2 v-if="!relatedItems || (relatedItems && relatedItems.length === 0)">&nbsp;</h2>
+        <h2 v-else-if="type === 'news'" v-html="$i18n.t('titles.relatedNews')" />
+        <h2 v-else-if="type === 'casestudies'" v-html="$i18n.t('titles.relatedCasestudies')" />
         <Button class="secondary" icon="back">
           <router-link v-if="type === 'casestudies'" :to="`/${$i18n.locale}/case-studies`">{{$t('ctas.backToOverview')}}</router-link>
           <router-link v-else :to="`/${$i18n.locale}/news`">{{$t('ctas.backToOverview')}}</router-link>
@@ -141,5 +142,9 @@ div.collection-head {
       display: none;
     }
   }
+}
+
+div.collection-body:empty {
+  padding: 24px;
 }
 </style>

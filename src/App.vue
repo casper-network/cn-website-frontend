@@ -2,8 +2,8 @@
   <div id="app">
     <Header></Header>
     <router-view/>
-    <Footer></Footer>
-    <CookieNotice />
+    <Footer @cookies="handleManageCookies"></Footer>
+    <CookieNotice ref="cookieNotice"/>
   </div>
 </template>
 <script>
@@ -20,6 +20,11 @@ export default {
   metaInfo: {
     title: '',
     titleTemplate: '%s | Casper Network',
+  },
+  methods: {
+    handleManageCookies() {
+      this.$refs.cookieNotice.show();
+    },
   },
 };
 </script>

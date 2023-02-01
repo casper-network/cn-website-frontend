@@ -41,6 +41,7 @@
             <li v-for="(navItem, i) in compNavFooter4" :key="`nav-col-2-${i}`">
               <router-link :to="`/${$i18n.locale}/${navItem.url}`">{{navItem.title}}</router-link>
             </li>
+            <li><a href="#" @click.prevent.stop="$emit('cookies')">Manage Cookies</a></li>
           </ul>
         </div>
       </div>
@@ -74,6 +75,7 @@
           <li v-for="(navItem, i) in compNavFooter4" :key="`nav-col-2-${i}`">
             <router-link :to="`/${$i18n.locale}/${navItem.url}`">{{navItem.title}}</router-link>
           </li>
+          <li><a href="#" @click.prevent.stop="$emit('cookies')">Manage Cookies</a></li>
         </ul>
       </div>
     </div>
