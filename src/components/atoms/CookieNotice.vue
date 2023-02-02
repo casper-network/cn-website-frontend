@@ -204,6 +204,8 @@ export default {
       ScriptLoader.load('https://www.googletagmanager.com/gtm.js?id=GTM-PHQC53L', 'gtag', true);
     },
     handleTitleClick(evt, value) {
+      evt.preventDefault();
+      evt.stopPropagation();
       const index = this.selections.findIndex((val) => val === value);
       if (index !== -1) {
         this.selections.splice(index, 1);
