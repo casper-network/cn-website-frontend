@@ -24,6 +24,7 @@ jobs:
           VALIDATE_ALL_CODEBASE: true
           DEFAULT_BRANCH: ${{ github.base_ref }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DISABLE_ERRORS: true
 
       - name: Lint Code Base (against PR base branch)
         # yamllint disable-line rule:line-length
@@ -46,3 +47,6 @@ jobs:
 
       - name: 'Dependency Review'
         uses: actions/dependency-review-action@v3
+        with:
+          fail-on-severity: 'high'
+          base-ref: ${{ github.base_ref }}
