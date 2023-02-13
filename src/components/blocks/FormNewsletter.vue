@@ -1,44 +1,34 @@
 <template>
   <div class="form-container">
     <form action="" v-if="!submissionFailed && !wasSubmitted">
-      <div class="form-group">
-        <div>
-          <label for="name">{{ $t('form.newsletterSelectLabel') }}</label>
-          <Dropdown :filters="$t('form.newsletterOptions')"
-                    dropdownLabel="dropdownLabel"
-                    :class="{ 'error': $v.formData.categories.$error }"
-                    @input="setNewsletterOptions"
-          />
-          <div class="error"
-               v-if="!$v.formData.categories.required && $v.formData.categories.$error">
-            {{ $t('formErrors.required') }}
-          </div>
-        </div>
-        <div>
-          <label for="name">{{ $t('form.name') }}</label>
-          <input type="text" name="name" placeholder="Jean Claude" v-model="formData.name"
-                 :class="{ 'error': $v.formData.name.$error }">
-          <div class="error" v-if="!$v.formData.name.required && $v.formData.name.$error">
-            {{ $t('formErrors.required') }}
-          </div>
-          <div class="error" v-if="!$v.formData.name.minLength">min Length</div>
-        </div>
-        <div>
-          <label for="name">*E-Mail</label>
-          <input type="email" name="email" placeholder="jc@casper.network"
-                 v-model="formData.email"
-                 :class="{ 'error': $v.formData.email.$error }">
-          <div class="error" v-if="!$v.formData.email.required && $v.formData.email.$error">
-            {{ $t('formErrors.required') }}
-          </div>
-        </div>
-      </div>
-      <div class="form-group wide">
-        <div>
-          <label for="location">Country</label>
-          <v-select :options="countryList" v-model="formData.country"
-                    :class="{ 'error': $v.formData.email.$error }"></v-select>
-          <div class="error" v-if="!$v.formData.country.required && $v.formData.country.$error">
+      <div class="form-group" v-for="(group, gidx) in definition.groups" :key="`group-${gidx}`" :class="{ wide: group.length <= 1}">
+        <div v-for="(field, fidx) in group" :key="`group-${gidx}-field-${fidx}`">
+          <label :for="field.name">{{ field.label }}</label>
+          <template v-if="field.type === 'text'">
+            <input
+              type="text"
+              :name="field.name"
+              v-model="formData[field.name]"
+              :class="{ 'error': $v.formData[field.name].$error }"
+            >
+          </template>
+          <template v-else-if="field.type === 'email'">
+            <input
+              type="email"
+              :name="field.name"
+              v-model="formData[field.name]"
+              :class="{ 'error': $v.formData[field.name].$error }"
+            >
+          </template>
+          <template v-else-if="field.type === 'dropdown'">
+            <v-select
+              :options="field.options"
+              v-model="formData[field.name]"
+              :reduce="obj => obj.value"
+              :class="{ 'error': $v.formData[field.name].$error }"
+            />
+          </template>
+          <div class="error" v-if="$v.formData[field.name].$error">
             {{ $t('formErrors.required') }}
           </div>
         </div>
@@ -66,13 +56,14 @@
 
 <script>
 import 'intl-tel-input/build/css/intlTelInput.css';
-import { required, minLength } from 'vuelidate/lib/validators';
+import { required, email } from 'vuelidate/lib/validators';
 import 'vue-select/dist/vue-select.css';
 import SVGCheck from '@/assets/svg/icon-checkmark.svg?inline';
 import SVGError from '@/assets/svg/icon-close-circle.svg?inline';
 import config from '@/directus/config';
+import Cookie from '../../utils/Cookie';
 
-const { ZOHO_ENDPOINT } = config;
+const { API_URL } = config;
 
 export default {
   name: 'FormNewsletter',
@@ -93,42 +84,48 @@ export default {
   //---------------------------------------------------
   data() {
     return {
+      definition: {
+        groups: [],
+        consents: null,
+      },
       formData: {
-        name: '',
-        email: '',
-        country: '',
-        categories: [],
-        phone: '',
-        message: '',
       },
       countryList: this.$i18n.t('countries'),
       wasSubmitted: false,
       submissionFailed: false,
     };
   },
-  validations: {
-    formData: {
-      name: {
-        required,
-        minLength: minLength(4),
-      },
-      email: {
-        required,
-      },
-      country: {
-        required,
-      },
-      categories: {
-        required,
-      },
-    },
+  validations() {
+    const out = {};
+    const fields = this.computedFields;
+    fields.forEach((field) => {
+      out[field.name] = {};
+      if (field.required) {
+        out[field.name] = { required };
+      }
+      if (field.type === 'email') {
+        out[field.name] = { required, email };
+      }
+    });
+    return { formData: out };
   },
   //---------------------------------------------------
   //
   //  Computed Properties
   //
   //---------------------------------------------------
-  computed: {},
+  computed: {
+    computedFields() {
+      const { groups } = this.definition;
+      const fields = [];
+      groups.forEach((group) => {
+        group.forEach((field) => {
+          fields.push(field);
+        });
+      });
+      return fields;
+    },
+  },
   //---------------------------------------------------
   //
   //  Watch Properties
@@ -156,7 +153,9 @@ export default {
   // created() {},
   // beforeMount() {},
   // render(h) { return h(); },
-  mounted() {
+  async mounted() {
+    const response = await fetch(`${API_URL}/cce/newsletter`);
+    this.definition = await response.json();
   },
   // beforeUpdate() {},
   // updated() {},
@@ -177,30 +176,56 @@ export default {
     //----------------------------------
     // Event Handlers
     //----------------------------------
-    submitForm() {
+    async submitForm() {
       this.$v.$touch();
       if (!this.$v.$invalid) {
-        const data = `zcsffield=83025000007696057&CONTACT_CF5=${this.formData.categories.join(';')}&CONTACT_EMAIL=${this.formData.email}&FIRSTNAME=${this.formData.name}&CONTACT_CF6=${this.formData.country.label}&PRIVACY_POLICY=PRIVACY_AGREED&SIGNUP_SUBMIT_BUTTON=Join%20now&zc_trackCode=ZCFORMVIEW&submitType=optinCustomView&lD=1126f6cc30ef7e9d&emailReportId=&zx=14acd88297&zcvers=2.0&oldListIds=&mode=OptinCreateView&zcld=1126f6cc30ef7e9d&zctd=&zc_formIx=3z340768bb239465bfc3cef6071c7676282dea9ae06a24b9800b1d1620ebb18f0f&scriptless=yes`;
-
-        const xhr = new XMLHttpRequest();
-        xhr.withCredentials = true;
-
-        xhr.addEventListener('readystatechange', () => {
-          if (xhr.readyState === XMLHttpRequest.DONE) {
-            const { status } = xhr;
-            if (status === 0 || (status >= 200 && status < 400)) {
-              this.wasSubmitted = true;
-              // console.log(xhr.responseText);
-            } else {
-              this.submissionFailed = true;
-            }
-          }
+        const hubspotUtk = Cookie.get('hubspotutk');
+        const definition = this.computedFields;
+        const fields = [];
+        definition.forEach((def) => {
+          fields.push({
+            objectTypeId: def.id,
+            name: def.name,
+            value: this.formData[def.name],
+          });
         });
 
-        xhr.open('POST', ZOHO_ENDPOINT);
-        xhr.setRequestHeader('content-type', 'application/x-www-form-urlencoded');
+        let consents = this.definition?.consents || [];
+        consents = consents.map((consent) => ({
+          value: true,
+          subscriptionTypeId: consent.subscriptionTypeId,
+          text: (consent.label || '').replace(/(<([^>]+)>)/ig, ''),
+        }));
+        console.log(this.definition);
 
-        xhr.send(data);
+        const formData = {
+          submittedAt: Date.now(),
+          fields,
+          context: {
+            hutk: hubspotUtk !== '' ? hubspotUtk : null,
+            pageUri: window.location.href,
+            pageName: 'Newsletter',
+          },
+          legalConsentOptions: {
+            consent: {
+              consentToProcess: true,
+              text: 'I agree to allow Casper Association to store and process my personal data.',
+              communications: consents,
+            },
+          },
+        };
+        console.log(formData);
+
+        const response = await fetch(`${API_URL}/cce/newsletter`, {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify(formData),
+        });
+        if (response.status >= 200 && response.status < 400) {
+          // this.wasSubmitted = true;
+        } else {
+          // this.submissionFailed = true;
+        }
       }
     },
   },
