@@ -215,7 +215,7 @@ export default {
         const form = new FormData();
         form.append('related_job', this.jobId);
         form.append('fullname', this.formData.name);
-        form.append('portfolio_url', this.formData.url);
+        form.append('portfolio_url', this.formData.portfoliourl);
         form.append('email', this.formData.email);
         form.append('phone', this.formData.phone);
         form.append('location', this.formData.location);
@@ -229,11 +229,11 @@ export default {
         };
         axios.request(options)
           .then((response) => {
-            console.log(response.data);
+            // console.log(response.data);
             this.wasSubmitted = true;
           })
           .catch((error) => {
-            console.error(error);
+            // console.error(error);
             this.wasSubmitted = false;
             this.submissionFailed = true;
           });
