@@ -1,17 +1,14 @@
 ---
-#TODO: Find a way to test "yarn dev" and "yarn preview" in the CI
-
-name: Check code base
+name: Run linters
 
 # yamllint disable-line rule:truthy
 on:
   push:
-    branches: "*"
   pull_request:
     types: [opened, reopened, synchronize]
 
 jobs:
-  check:
+  run-linters:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v3
@@ -44,10 +41,3 @@ jobs:
           DEFAULT_BRANCH: ${{ github.head_ref }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DISABLE_ERRORS: true
-
-      - name: 'Dependency Review'
-        uses: actions/dependency-review-action@v3
-        with:
-          fail-on-severity: 'high'
-          base-ref: ${{ github.base_ref }}
-          head-ref: ${{ github.head_ref }}
