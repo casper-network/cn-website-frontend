@@ -46,6 +46,13 @@ jobs:
           DISABLE_ERRORS: true
 
       - name: 'Dependency Review'
+        if: github.event_name == 'push'
+        uses: actions/dependency-review-action@v3
+        with:
+          fail-on-severity: 'high'
+
+      - name: 'Dependency Review'
+        if: github.event_name == 'pull_request'
         uses: actions/dependency-review-action@v3
         with:
           fail-on-severity: 'high'
