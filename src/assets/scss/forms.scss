@@ -54,6 +54,7 @@
       display: flex;
       justify-content: flex-end;
       align-items: flex-end;
+      padding-bottom: 32px;
 
       @include breakpoint('sm') {
         flex-direction: row;
@@ -223,7 +224,6 @@
 
 .result-success {
   display: flex;
-  background: linear-gradient(0deg, rgba(0, 152, 58, 0.05), rgba(0, 152, 58, 0.05)), #FFFFFF;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -241,11 +241,15 @@
     letter-spacing: 0.5px;
     color: #00983A;
   }
+
+  & > svg {
+    max-width: 50px;
+    fill: #00983A;
+  }
 }
 
 .result-error {
   display: flex;
-  background: linear-gradient(0deg, rgba(190, 22, 34, 0.05), rgba(190, 22, 34, 0.05)), #FFFFFF;
   flex-direction: column;
   justify-content: center;
   align-items: center;
