@@ -199,7 +199,6 @@ export default {
         window[layer].push(obj);
       });
 
-      console.log(window[layer]);
       window[layer].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
       ScriptLoader.load('https://www.googletagmanager.com/gtm.js?id=GTM-PHQC53L', 'gtag', true);
     },

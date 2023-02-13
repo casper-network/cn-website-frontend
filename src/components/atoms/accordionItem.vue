@@ -185,6 +185,11 @@ export default {
       text-decoration: underline;
     }
 
+    ::v-deep div.btn > a {
+      color: inherit;
+      text-decoration: none;
+    }
+
     p {
       max-width: 90%;
       margin-bottom: 32px;
