@@ -54,6 +54,7 @@
       display: flex;
       justify-content: flex-end;
       align-items: flex-end;
+      padding-bottom: 32px;
 
       @include breakpoint('sm') {
         flex-direction: row;
