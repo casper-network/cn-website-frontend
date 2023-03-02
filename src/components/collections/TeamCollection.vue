@@ -103,13 +103,13 @@ div.grid {
   display: grid;
   gap: 32px;
   padding: 80px 20px;
-  grid-template-columns: repeat(3, minmax(300px, 1fr));
+  grid-template-columns: repeat(4, minmax(222px, 1fr));
   border-bottom: 1px solid var(--color-grey-light);
   max-width: 1248px;
   margin: 0 auto;
 
   @include breakpoint('m') {
-    grid-template-columns: repeat(2, minmax(300px, 1fr));
+    grid-template-columns: repeat(2, minmax(222px, 1fr));
   }
 
   @include breakpoint('sm') {

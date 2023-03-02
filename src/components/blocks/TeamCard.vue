@@ -100,19 +100,19 @@ export default {
 
 .card-team {
   div.content-box {
-    margin-top: 26px;
+    margin-top: 13px;
     padding-left: 16px;
 
     .members-name {
       @extend h5;
       font-weight: 500;
+      font-size: 1.6rem;
     }
 
     .members-title {
-      font-size: 20px;
-      line-height: 32px;
+      font-size: 1rem;
       letter-spacing: 0.5px;
-      margin-bottom: 32px;
+      margin-bottom: 16px;
     }
   }
 
