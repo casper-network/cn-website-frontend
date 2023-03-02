@@ -74,7 +74,6 @@ export default {
   //---------------------------------------------------
   methods: {
     toggleForm() {
-      console.log('emit form');
       this.$emit('toggle-form');
     },
     //----------------------------------

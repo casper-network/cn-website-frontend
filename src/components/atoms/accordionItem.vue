@@ -129,7 +129,6 @@ export default {
       elClone.style.height = '';
     },
     shareJob() {
-      console.log('here');
       if (this.$d.clientWidth < 768) {
         window.navigator.share({ url: this.jobSlug });
       } else {

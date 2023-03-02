@@ -228,12 +228,10 @@ export default {
           data: form,
         };
         axios.request(options)
-          .then((response) => {
-            // console.log(response.data);
+          .then(() => {
             this.wasSubmitted = true;
           })
-          .catch((error) => {
-            // console.error(error);
+          .catch(() => {
             this.wasSubmitted = false;
             this.submissionFailed = true;
           });

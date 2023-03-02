@@ -91,7 +91,6 @@ export default {
       return this.pageData || null;
     },
     computedPageBlocks() {
-      console.log(this.pageData.page_blocks.slice(2));
       return this.pageData.page_blocks.slice(2);
     },
   },

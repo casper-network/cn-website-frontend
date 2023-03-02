@@ -103,7 +103,6 @@ export default {
     this.isMobile = window.innerWidth < 768;
 
     window.addEventListener('resize', (e) => {
-      console.log(e);
       this.isMobile = window.innerWidth < 768;
     });
 

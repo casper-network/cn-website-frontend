@@ -159,7 +159,6 @@ export default {
   //---------------------------------------------------
   methods: {
     reloadSite() {
-      console.log('reload');
       window.location.reload();
     },
     setContactCategory(val) {
@@ -183,12 +182,10 @@ export default {
           data: form,
         };
         axios.request(options)
-          .then((response) => {
-            console.log(response.data);
+          .then(() => {
             this.wasSubmitted = true;
           })
-          .catch((error) => {
-            console.error(error);
+          .catch(() => {
             this.submissionFailed = true;
           });
       }

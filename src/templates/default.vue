@@ -55,9 +55,7 @@ export default {
   // created() {},
   // beforeMount() {},
   // render(h) { return h(); },
-  mounted() {
-    console.log(this.$d);
-  },
+  // mounted() {},
   // beforeUpdate() {},
   // updated() {},
   // beforeDestroy() {},
