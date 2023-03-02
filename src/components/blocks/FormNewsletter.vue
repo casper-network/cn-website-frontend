@@ -1,5 +1,5 @@
 <template>
-  <div class="form-container">
+  <div class="form-container" v-if="definition.groups.length > 0">
     <form action="" v-if="!submissionFailed && !wasSubmitted">
       <div class="form-group" v-for="(group, gidx) in definition.groups" :key="`group-${gidx}`" :class="{ wide: group.length <= 1}">
         <div v-for="(field, fidx) in group" :key="`group-${gidx}-field-${fidx}`">
@@ -33,16 +33,25 @@
           </div>
         </div>
       </div>
+      <div class="form-group confirm">
+        <input
+          id="confirm"
+          v-model="isConfirmed"
+          type="checkbox" />
+        <label for="confirm">
+          {{ $t('form.newsletter.confirm') }}
+        </label>
+      </div>
+      <div class="form-group legal" v-html="$t('form.newsletter.legal')" />
       <div class="form-group buttons">
-        <Button class="primary" @click.native="submitForm()">
+        <Button class="primary" :disabled="!isConfirmed" @click.native="submitForm()">
           <a>{{ $t('ctas.joinNow') }}</a>
         </Button>
       </div>
-      <div class="form-group legal" v-html="$t('form.legal.newsletter')" />
     </form>
     <div class="result-success" v-if="wasSubmitted">
       <SVGCheck/>
-      <p>{{ $t('formSuccess') }}</p>
+      <p v-html="$t('form.newsletter.success')" />
     </div>
     <div class="result-error" v-if="submissionFailed">
       <SVGError/>
@@ -90,6 +99,7 @@ export default {
       },
       formData: {
       },
+      isConfirmed: false,
       countryList: this.$i18n.t('countries'),
       wasSubmitted: false,
       submissionFailed: false,
@@ -131,7 +141,11 @@ export default {
   //  Watch Properties
   //
   //---------------------------------------------------
-  watch: {},
+  watch: {
+    isConfirmed(value) {
+      this.isValid = value;
+    },
+  },
   //---------------------------------------------------
   //
   //  Filter Properties

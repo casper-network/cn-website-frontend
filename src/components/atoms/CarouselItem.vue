@@ -134,13 +134,21 @@ export default {
     }
   }
 
+  p {
+    font-weight: 300;
+    letter-spacing: 0.5px;
+  }
+
   div ::v-deep p {
     @include style-body('medium');
     font-weight: 300;
+    letter-spacing: 0.5px;
   }
 
   p.h4 {
     margin-bottom: 16px;
+    line-height: 1.2;
+    letter-spacing: 2px;
     font-weight: 400;
   }
 

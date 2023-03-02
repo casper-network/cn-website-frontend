@@ -21,9 +21,6 @@ export default {
     selectLabel: 'Please select',
     chooseCategory: 'Choose Category',
     otherSelectLabel: 'How can we help you?',
-    newsletterSelectLabel: 'I am a',
-    newsletterOptions: ['Web3 Developer', 'Web2 Developer', 'Validator', 'Blockchain Newbie', 'Blockchain Expert', 'Crypto Enthusiast', 'NFT Enthusiast'],
-    otherOptions: [''],
     portfolioUrl: 'Portfolio URL (if applicable)',
     fileNotes: 'A .pdf or .doc resume is required - Max File Upload Size is 5MB.',
     location: 'Location',
@@ -53,8 +50,12 @@ export default {
         value: 'introduce-project',
       },
     ],
+    newsletter: {
+      confirm: 'I agree to receive communications from Casper Association.',
+      legal: 'Casper Association is committed to protecting and respecting your privacy. You can unsubscribe from these communications at any time.<br/> For more information on how to unsubscribe, our privacy practices, and how we are committed to protecting and respecting your privacy, please review our <a href="/en-us/privacy-policy">Privacy Policy</a>.<br/> By clicking submit below, you consent to allow Casper Association to store and process the personal information submitted above to provide you the content requested.',
+      success: 'Thanks for signing up for our newsletter!<br/>To ensure we have your correct email address and to comply with GDPR regulations,<br/> please confirm your subscription by clicking the link in the email we just sent you.',
+    },
     legal: {
-      newsletter: 'You can withdraw your consent at any time by sending an e-mail to <a href="mailto:withdraw@casper.network">withdraw@casper.network</a>.<br/> For further information see the <a href="/en-us/privacy-policy">Data Privacy Policy</a>.',
       contact: '<a href="/en-us/privacy-policy">Privacy Policy</a>',
     },
   },

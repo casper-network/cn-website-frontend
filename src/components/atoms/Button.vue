@@ -1,5 +1,5 @@
 <template>
-  <div class="btn">
+  <div class="btn" :class="{ disabled }">
     <SVGGlobe v-if="icon === 'globe'"></SVGGlobe>
     <SVGShare v-if="icon === 'share'"></SVGShare>
     <SVGBack v-if="icon === 'back'"></SVGBack>
@@ -28,6 +28,10 @@ export default {
     icon: {
       type: String,
       default: '',
+    },
+    disabled: {
+      type: Boolean,
+      default: false,
     },
   },
   //---------------------------------------------------
@@ -108,6 +112,11 @@ export default {
     padding: 10px 30px 14px;
     display: flex;
     font-weight: 500;
+  }
+
+  &.disabled {
+    opacity: 0.5;
+    pointer-events: none;
   }
 
   &.primary {
