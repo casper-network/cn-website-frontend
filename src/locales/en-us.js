@@ -116,13 +116,13 @@ export default {
       type: 'int',
       children: [
         {
-          title: 'How to',
-          url: 'https://docs.casperlabs.io/workflow/',
+          title: 'Concepts',
+          url: 'https://docs.casperlabs.io/concepts/',
           type: 'ext',
         },
         {
           title: 'Develop',
-          url: 'https://docs.casperlabs.io/dapp-dev-guide/',
+          url: 'https://docs.casperlabs.io/developers/',
           type: 'ext',
         },
         {
