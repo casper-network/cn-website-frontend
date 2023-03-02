@@ -101,7 +101,6 @@ export default {
   //---------------------------------------------------
   methods: {
     toggleForm() {
-      console.log('toggleForm');
       this.isFormToggled = !this.isFormToggled;
     },
     async getCareerItems() {

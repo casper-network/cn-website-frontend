@@ -196,7 +196,6 @@ export default {
           subscriptionTypeId: consent.subscriptionTypeId,
           text: (consent.label || '').replace(/(<([^>]+)>)/ig, ''),
         }));
-        console.log(this.definition);
 
         const formData = {
           submittedAt: Date.now(),
@@ -214,7 +213,6 @@ export default {
             },
           },
         };
-        console.log(formData);
 
         const response = await fetch(`${API_URL}/cce/newsletter`, {
           method: 'POST',
@@ -222,9 +220,9 @@ export default {
           body: JSON.stringify(formData),
         });
         if (response.status >= 200 && response.status < 400) {
-          // this.wasSubmitted = true;
+          this.wasSubmitted = true;
         } else {
-          // this.submissionFailed = true;
+          this.submissionFailed = true;
         }
       }
     },
