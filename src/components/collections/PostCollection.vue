@@ -1,5 +1,5 @@
 <template>
-  <div class="post-collection">
+  <div class="post-collection" v-if="postCollectionData.length > 0">
       <div class="block-header">
         <h2 v-html="blockTitle"></h2>
         <div>
@@ -77,7 +77,7 @@ export default {
   //---------------------------------------------------
   data() {
     return {
-      postCollectionData: {},
+      postCollectionData: [],
     };
   },
   //---------------------------------------------------
@@ -168,7 +168,10 @@ export default {
   //---------------------------------------------------
   methods: {
     async getCollectionData() {
-      const requestAPIEndpoint = this.collectionData.collection.api.replace('VAR_LOCALE', Intl.getCanonicalLocales(this.$i18n.locale));
+      let requestAPIEndpoint = this.collectionData.collection.api.replace('VAR_LOCALE', Intl.getCanonicalLocales(this.$i18n.locale));
+      if (!requestAPIEndpoint.includes('=published')) {
+        requestAPIEndpoint += '&filter[status][_eq]=published';
+      }
       const res = await this.$d.api.get(requestAPIEndpoint);
       this.postCollectionData = this.shuffleArray(res.data);
     },
