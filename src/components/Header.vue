@@ -5,10 +5,13 @@
       <SVGLogo class="logo" @click="$router.push(`/${$i18n.locale}/`)"/>
       <nav>
         <ul>
-          <li class="nav-item" :class="(item.class) ? item.class : ''"
-              v-for="(item, index) in computedNavigation" :key="`navitem-${index}`"
-              :data-has-sub="!!(item.children)">
-            <div v-if="item.url">
+          <li
+            class="nav-item"
+            :class="(item.class) ? item.class : ''"
+            v-for="(item, index) in computedNavigation" :key="`navitem-${index}`"
+            :data-has-sub="!!(item.children)"
+          >
+            <div v-if="item.url && !item.children">
               <router-link @click.native="toggleNavigation" :to="`/${$i18n.locale}/${item.url}`">
                 <span>{{ item.title }}</span>
                 <ChevronFuckedUp
@@ -17,7 +20,16 @@
                 />
               </router-link>
             </div>
-            <div v-if="!item.url">
+            <div v-if="item.url && item.children">
+              <a @click.prevent.stop="handleSpecialNavigation" :data-to="`/${$i18n.locale}/${item.url}`" :href="`/${$i18n.locale}/${item.url}`">
+                <span>{{ item.title }}</span>
+                <ChevronFuckedUp
+                  v-if="item.children" @click.native="toggleChildren"
+                  class="dropdown"
+                />
+              </a>
+            </div>
+            <div v-else-if="!item.url">
               <a class="curs-point" @click="toggleChildren">
                 <span>{{ item.title }}</span>
                 <ChevronFuckedUp
@@ -220,6 +232,22 @@ export default {
       } else {
         header.add('overlap-state-false');
         header.add('theme-light');
+      }
+    },
+
+    handleSpecialNavigation(evt) {
+      const { currentTarget, target } = evt;
+      evt.preventDefault();
+      evt.stopPropagation();
+      if (this.$d.clientWidth <= 1180) {
+        if (target.nodeName !== 'SPAN') {
+          this.toggleChildren(evt);
+        } else {
+          this.toggleNavigation();
+          this.$router.push(currentTarget.dataset.to);
+        }
+      } else {
+        this.$router.push(currentTarget.dataset.to);
       }
     },
 
@@ -499,6 +527,7 @@ header {
 
       a {
         display: flex;
+        align-items: center;
         font-weight: 500;
         letter-spacing: 0.3px;
         color: var(--color-sky-dancer);
@@ -882,7 +911,7 @@ header {
 
     @media (max-width: 1241px) {
       div.dropdown {
-        min-width: 38px;
+        min-width: auto;
         min-height: 38px;
         display: flex;
         justify-content: flex-end;
