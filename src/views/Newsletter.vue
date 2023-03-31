@@ -1,12 +1,12 @@
 <template>
   <div>
-    <Hero type="reduced single" v-if="pageData.page_blocks"
-          :block="pageData.page_blocks[0]"
-          :block-title="pageData.page_blocks[0].title"
-          :block-content="pageData.page_blocks[0].content">
+    <Hero type="reduced single" v-if="hero"
+          :block="hero"
+          :block-title="hero.title"
+          :block-content="hero.content">
     </Hero>
-    <div class="restrict">
-      <FormNewsletter />
+    <div class="restrict" v-if="form">
+      <HubspotForm :form-id="form.id" />
     </div>
   </div>
 </template>
@@ -49,7 +49,22 @@ export default {
   //  Computed Properties
   //
   //---------------------------------------------------
-  computed: {},
+  computed: {
+    hero() {
+      const blocks = this.pageData?.page_blocks;
+      if (blocks) {
+        return blocks.find((b) => b.blocktype === 'hero');
+      }
+      return null;
+    },
+    form() {
+      const blocks = this.pageData?.page_blocks;
+      if (blocks) {
+        return blocks.find((b) => b.blocktype === 'hubspot-form');
+      }
+      return null;
+    },
+  },
   metaInfo() {
     const metaPageData = this.$d.data;
     return {
