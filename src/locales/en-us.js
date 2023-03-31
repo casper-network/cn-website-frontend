@@ -111,48 +111,18 @@ export default {
       ],
     },
     {
-      title: 'Documentation',
+      title: 'Build',
       url: 'documentation',
       type: 'int',
       children: [
         {
-          title: 'Concepts',
-          url: 'https://docs.casperlabs.io/concepts/',
+          title: 'Developer Portal',
+          url: 'https://developer.casper.network/',
           type: 'ext',
         },
         {
-          title: 'Develop',
-          url: 'https://docs.casperlabs.io/developers/',
-          type: 'ext',
-        },
-        {
-          title: 'Operator',
-          url: 'https://docs.casperlabs.io/operators/',
-          type: 'ext',
-        },
-        {
-          title: 'Design',
-          url: 'https://docs.casperlabs.io/design/',
-          type: 'ext',
-        },
-        {
-          title: 'Economics',
-          url: 'https://docs.casperlabs.io/economics/',
-          type: 'ext',
-        },
-        {
-          title: 'Staking',
-          url: 'https://docs.casperlabs.io/staking/',
-          type: 'ext',
-        },
-        {
-          title: 'Glossary',
-          url: 'https://docs.casperlabs.io/glossary/',
-          type: 'ext',
-        },
-        {
-          title: 'FAQ',
-          url: 'https://docs.casperlabs.io/faq/',
+          title: 'Documentation',
+          url: 'https://docs.casper.network/',
           type: 'ext',
         },
       ],

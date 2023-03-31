@@ -1,7 +1,13 @@
 <template>
   <div class="video-container" :class="{ 'in-article': inArticle }">
     <div class="video-overlay" @click="removeCoverAndPlay()">
-      <img :src="(thumb) ? thumb : '/img/bg.webp'" alt="" class="yt-cover">
+      <img
+        ref="thumbnail"
+        :src="computedThumb"
+        @load="handleThumbLoad"
+        class="yt-cover"
+        alt=""
+      >
       <div>
         <div class="blur"/>
         <SVGIconPlay/>
@@ -53,6 +59,7 @@ export default {
       isCoverVisible: true,
       isModalVisible: false,
       player: '',
+      altThumb: null,
     };
   },
   //---------------------------------------------------
@@ -63,6 +70,16 @@ export default {
   computed: {
     vpID() {
       return `player-${this.videoId}`;
+    },
+    computedThumb() {
+      const { altThumb, thumb } = this;
+      if (altThumb) {
+        return altThumb;
+      }
+      if (thumb) {
+        return thumb;
+      }
+      return '/img/bg.webp';
     },
   },
   //---------------------------------------------------
@@ -152,6 +169,13 @@ export default {
         this.isCoverVisible = false;
       }
     },
+    handleThumbLoad() {
+      const { thumbnail } = this.$refs;
+      const { src, naturalHeight } = thumbnail;
+      if (src.includes('maxresdefault.jpg') && naturalHeight < 120) {
+        this.altThumb = src.replace('maxresdefault.jpg', 'hqdefault.jpg');
+      }
+    },
   },
 };
 </script>
@@ -216,6 +240,7 @@ div[data-vimeo-initialized="true"] {
     object-fit: cover;
     inset: 0;
     width: 100%;
+    height: 100%;
     opacity: 1;
     transition: transform, 0.35s ease-in-out;
   }
