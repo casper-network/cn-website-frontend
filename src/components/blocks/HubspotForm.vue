@@ -12,6 +12,13 @@
               :class="{ 'error': $v.formData[field.name].$error }"
             >
           </template>
+          <template v-if="field.type === 'textarea'">
+            <textarea
+              :name="field.name"
+              v-model="formData[field.name]"
+              :class="{ 'error': $v.formData[field.name].$error }"
+            />
+          </template>
           <template v-else-if="field.type === 'email'">
             <input
               type="email"
@@ -33,25 +40,35 @@
           </div>
         </div>
       </div>
-      <div class="form-group confirm">
-        <input
-          id="confirm"
-          v-model="isConfirmed"
-          type="checkbox" />
-        <label for="confirm">
-          {{ $t('form.newsletter.confirm') }}
-        </label>
-      </div>
-      <div class="form-group legal" v-html="$t('form.newsletter.legal')" />
-      <div class="form-group buttons">
-        <Button class="primary" :disabled="!isConfirmed" @click.native="submitForm()">
-          <a>{{ $t('ctas.joinNow') }}</a>
-        </Button>
-      </div>
+      <template v-if="definition.consents.length > 0">
+        <div class="form-group confirm">
+          <input
+            id="confirm"
+            v-model="isConfirmed"
+            type="checkbox" />
+          <label for="confirm">
+            {{ $t('form.newsletter.confirm') }}
+          </label>
+        </div>
+        <div class="form-group legal" v-html="$t('form.newsletter.legal')" />
+        <div class="form-group buttons">
+          <Button class="primary" :disabled="!isConfirmed" @click.native="submitForm()">
+            <a>{{ $t('ctas.joinNow') }}</a>
+          </Button>
+        </div>
+      </template>
+      <template v-else>
+        <div class="form-group buttons">
+          <Button class="primary" @click.native="submitForm()">
+            <a>{{ $t('form.send') }}</a>
+          </Button>
+        </div>
+      </template>
     </form>
     <div class="result-success" v-if="wasSubmitted">
       <SVGCheck/>
-      <p v-html="$t('form.newsletter.success')" />
+      <div v-if="responseMessage" v-html="responseMessage" />
+      <p v-else v-html="$t('form.newsletter.success')" />
     </div>
     <div class="result-error" v-if="submissionFailed">
       <SVGError/>
@@ -75,7 +92,7 @@ import Cookie from '../../utils/Cookie';
 const { API_URL } = config;
 
 export default {
-  name: 'FormNewsletter',
+  name: 'HubspotForm',
   components: {
     SVGCheck,
     SVGError,
@@ -85,7 +102,12 @@ export default {
   //  Properties
   //
   //---------------------------------------------------
-  props: {},
+  props: {
+    formId: {
+      type: String,
+      default: null,
+    },
+  },
   //---------------------------------------------------
   //
   //  Data model
@@ -95,14 +117,14 @@ export default {
     return {
       definition: {
         groups: [],
-        consents: null,
+        consents: [],
       },
       formData: {
       },
       isConfirmed: false,
-      countryList: this.$i18n.t('countries'),
       wasSubmitted: false,
       submissionFailed: false,
+      responseMessage: null,
     };
   },
   validations() {
@@ -145,6 +167,11 @@ export default {
     isConfirmed(value) {
       this.isValid = value;
     },
+    formId(value) {
+      if (value) {
+        this.loadForm(value);
+      }
+    },
   },
   //---------------------------------------------------
   //
@@ -168,8 +195,10 @@ export default {
   // beforeMount() {},
   // render(h) { return h(); },
   async mounted() {
-    const response = await fetch(`${API_URL}/cce/newsletter`);
-    this.definition = await response.json();
+    const { formId } = this;
+    if (formId) {
+      this.loadForm(formId);
+    }
   },
   // beforeUpdate() {},
   // updated() {},
@@ -181,11 +210,12 @@ export default {
   //
   //---------------------------------------------------
   methods: {
+    async loadForm(id) {
+      const response = await fetch(`${API_URL}/cce/form/?id=${id}`);
+      this.definition = await response.json();
+    },
     reloadSite() {
       window.location.reload();
-    },
-    setNewsletterOptions(val) {
-      this.formData.categories = val;
     },
     //----------------------------------
     // Event Handlers
@@ -211,32 +241,46 @@ export default {
           text: (consent.label || '').replace(/(<([^>]+)>)/ig, ''),
         }));
 
-        const formData = {
+        let formData = {
           submittedAt: Date.now(),
           fields,
           context: {
             hutk: hubspotUtk !== '' ? hubspotUtk : null,
             pageUri: window.location.href,
-            pageName: 'Newsletter',
-          },
-          legalConsentOptions: {
-            consent: {
-              consentToProcess: true,
-              text: 'I agree to allow Casper Association to store and process my personal data.',
-              communications: consents,
-            },
+            pageName: document.title,
           },
         };
 
-        const response = await fetch(`${API_URL}/cce/newsletter`, {
+        if (consents.length > 0) {
+          formData = {
+            ...formData,
+            legalConsentOptions: {
+              consent: {
+                consentToProcess: true,
+                text: 'I agree to allow Casper Association to store and process my personal data.',
+                communications: consents,
+              },
+            },
+          };
+        }
+
+        const response = await fetch(`${API_URL}/cce/form?id=${this.formId}`, {
           method: 'POST',
           headers: { 'content-type': 'application/json' },
           body: JSON.stringify(formData),
         });
         if (response.status >= 200 && response.status < 400) {
           this.wasSubmitted = true;
+          const data = await response.json();
+          this.responseMessage = data?.data?.inlineMessage;
+          this.$nextTick(() => {
+            document.querySelector('.result-success').scrollIntoView();
+          });
         } else {
           this.submissionFailed = true;
+          this.$nextTick(() => {
+            document.querySelector('.result-error').scrollIntoView();
+          });
         }
       }
     },

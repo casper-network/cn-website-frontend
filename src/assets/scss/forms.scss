@@ -192,6 +192,11 @@
       }
     }
 
+    textarea {
+      resize: vertical;
+      min-height: 150px;
+    }
+
     /*input[type="search"] {
       border: 0 solid #ccc;
       border-radius: var(--border-radius-input);
@@ -383,7 +388,12 @@
   }
 }
 
+.v-select.error > div:first-of-type {
+  border-color: var(--color-red);
+}
+
 .vs__clear,
 .vs__open-indicator {
   display: none !important;
 }
+
