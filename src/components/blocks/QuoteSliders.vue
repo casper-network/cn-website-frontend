@@ -157,11 +157,9 @@ export default {
   justify-content: center;
   padding: 20px;
   gap: 80px;
-  margin-top: 160px;
   min-height: 890px;
 
   @include breakpoint('sm') {
-    margin-top: 45px;
     min-height: auto;
   }
 

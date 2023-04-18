@@ -5,6 +5,23 @@
   display: block;
   margin-top: 45px;
 
+  &.factorized {
+    margin: 0 auto;
+    margin-top: -100px;
+    max-width: 1248px;
+    padding-left: 30px;
+    padding-right: 30px;
+
+    @include breakpoint('sm') {
+      padding-left: 20px;
+      padding-right: 20px;
+      max-width: calc(100vw - 40px);
+    }
+    form {
+      padding-top: 40px;
+    }
+  }
+
   @include breakpoint('sm') {
     width: calc(100% - 46px);
   }

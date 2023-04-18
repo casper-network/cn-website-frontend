@@ -98,9 +98,11 @@ export default {
   margin: 0;
   margin-left: auto;
   padding: 0 60px;
+  padding-bottom: 100px;
 
   &.full {
     padding: 0 20px;
+    padding-bottom: 100px;
     width: calc(100% - 40px);
 
     @include breakpoint('sm') {
