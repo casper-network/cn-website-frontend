@@ -15,13 +15,17 @@
         :block="block"
       />
       <TextTeaser
-        class="container"
         v-if="block.blocktype === 'section'"
         :box-title="block.title"
         :box-content="block.content"
         :button-target="block.button.url"
         :button-type="block.button.type"
         :button-label="block.button.text"
+        :bg-color="block.bgcolor"
+        :title-color="block.titlecolor"
+        :text-color="block.txtcolor"
+        :media="block.media"
+        :variation="block.variation"
       />
       <div class="container" v-if="block.blocktype === 'linklist'">
         <LinkList
@@ -90,14 +94,8 @@
         v-if="block.blocktype === 'ctas'"
         class="fill bg-black"
       >
-        <TextTeaser v-if="block.title"
-                    class="container white fullwidth"
-                    :box-title="block.title"
-        />
-        <CTACollection
-          :num-cols="block.columns"
-          :cta-collection="block.items"
-        />
+        <TextTeaser v-if="block.title" class="container white no-bottom fullwidth" :box-title="block.title" />
+        <CTACollection :num-cols="block.columns" :cta-collection="block.items" />
       </div>
       <Carousel
         v-if="block.blocktype === 'carousel'"
@@ -148,6 +146,11 @@
         :collection-type="block.collection.collection"
         collection-amount="-1">
       </TeamCollection>
+      <HubspotForm
+        class="factorized"
+        v-if="block.blocktype === 'hubspot-form'"
+        :form-id="block.id"
+      />
     </section>
   </main>
 </template>
