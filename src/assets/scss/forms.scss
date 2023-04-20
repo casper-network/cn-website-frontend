@@ -110,7 +110,7 @@
           top: 5px;
           opacity: 0;
           border-radius: 0;
-          width: 3px;
+          width: 4px;
           height: 8px;
           border: solid var(--color-black);
           border-width: 0 3px 3px 0;
@@ -188,6 +188,7 @@
     input[type="tel"],
     input[type="url"],
     input[type="file"],
+    input[type="number"],
     input[type="email"] {
       font-family: $font-name, sans-serif;
       padding: 10px 10px 10px 20px;
@@ -209,9 +210,95 @@
       }
     }
 
+    input[type="number"] {
+      -moz-appearance: textfield;
+      &::-webkit-outer-spin-button,
+      &::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+    }
+
     textarea {
       resize: vertical;
       min-height: 150px;
+    }
+
+    div.radios {
+      margin-bottom: 8px;
+      input[type=radio] {
+        position: relative;
+        z-index: -1;
+        opacity: 0;
+        appearance: none;
+        margin-left: -3px;
+
+        & + label:before {
+          position: absolute;
+          content: '';
+          left: 8px;
+          top: 1px;
+          width: 16px;
+          height: 16px;
+          border-radius: 16px;
+          border: 2px solid var(--color-black);
+          background-color: transparent;
+          transition: box-shadow 0.3s ease;
+        }
+
+        & + label:after {
+          position: absolute;
+          content: "";
+          left: 15px;
+          top: 5px;
+          opacity: 0;
+          border-radius: 0;
+          width: 4px;
+          height: 8px;
+          border: solid var(--color-black);
+          border-width: 0 3px 3px 0;
+          transform: rotate(45deg);
+        }
+
+        & + label {
+          user-select: none;
+          font-family: inherit;
+          -webkit-tap-highlight-color: transparent;
+          position: absolute;
+          padding-left: 40px;
+          cursor: pointer;
+          display: inline-block;
+        }
+
+        &:focus, &:hover {
+          & + label:before {
+          }
+        }
+
+        &:disabled {
+          & + label:before {
+            background-color: var(--color-black);
+            border: 2px solid transparent !important;
+            opacity: 0.5;
+            cursor: default !important;
+          }
+          & + label:after {
+            opacity: 0.5 !important;
+            cursor: default !important;
+          }
+          pointer-events: none;
+        }
+
+        &:checked {
+          & + label:before {
+            background-color: var(--color-atomic-lime);
+            border: 2px solid var(--color-black);
+          }
+          & + label:after {
+            opacity: 1;
+          }
+        }
+      }
     }
 
     /*input[type="search"] {

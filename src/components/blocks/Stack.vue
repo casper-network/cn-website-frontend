@@ -11,6 +11,20 @@
               <div v-html="item.content" />
             </li>
           </ul>
+          <Button class="primary" v-if="hasButton">
+            <router-link v-if="button.type === 'int'" :to="`/${$i18n.locale}${button.url}`">
+              {{ button.text }}
+            </router-link>
+            <a v-if="button.type === 'ext'" :href="`${button.url}`" target="_blank">
+              {{ button.text }}
+            </a>
+          </Button>
+          <template v-if="hasButton && hasFile">
+            &nbsp;
+          </template>
+          <Button class="primary" v-if="hasFile">
+            <a :href="downloadLink(file.id)" target="_blank">{{file.text}}</a>
+          </Button>
         </div>
         <div class="media">
           <img v-if="media" :src="media" />
@@ -36,6 +50,14 @@ export default {
     block: {
       type: Object,
       default: () => {},
+    },
+    button: {
+      type: Object,
+      default: null,
+    },
+    file: {
+      type: Object,
+      default: null,
     },
   },
   //---------------------------------------------------
@@ -70,6 +92,14 @@ export default {
     },
     items() {
       return this.block?.items || [];
+    },
+    hasFile() {
+      const { file } = this;
+      return file && file.id && file.text;
+    },
+    hasButton() {
+      const { button } = this;
+      return button && button.url && button.text;
     },
   },
   //---------------------------------------------------
@@ -110,6 +140,9 @@ export default {
   //
   //---------------------------------------------------
   methods: {
+    downloadLink(linkID) {
+      return `${API_URL}/assets/${linkID}?download`;
+    },
     //----------------------------------
     // Event Handlers
     //----------------------------------

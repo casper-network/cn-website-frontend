@@ -9,6 +9,7 @@ export default new Vuex.Store({
     navigationTintState: 'dark', // dark or light (inversion)
     heroHasBgColor: false,
     isMobileNavigationOpen: false,
+    navigations: null,
   },
   getters: {
     canonical(state) {
@@ -20,6 +21,9 @@ export default new Vuex.Store({
     heroHasBgColor(state) {
       return state.heroHasBgColor;
     },
+    navigations(state) {
+      return state.navigations;
+    },
   },
   mutations: {
     changeNavigationTintState(state, payload) {
@@ -30,6 +34,9 @@ export default new Vuex.Store({
     },
     heroHasBgColor(state, payload) {
       state.heroHasBgColor = payload;
+    },
+    navigations(state, payload) {
+      state.navigations = payload;
     },
   },
   actions: {

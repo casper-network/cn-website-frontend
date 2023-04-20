@@ -5,14 +5,21 @@
         <h1 v-if="setAsH1" class="h1" v-html="boxTitle" />
         <h2 v-else class="h1" v-html="boxTitle" />
         <p v-html="boxContent"></p>
-        <Button class="primary" v-if="buttonTarget">
-          <router-link v-if="buttonType === 'int'" :to="`/${$i18n.locale}${buttonTarget}`">
-            {{buttonLabel}}
+        <Button class="primary" v-if="hasButton">
+          <router-link v-if="button.type === 'int'" :to="`/${$i18n.locale}${button.url}`">
+            {{ button.text }}
           </router-link>
-          <a v-if="buttonType === 'ext'" :href="`${buttonTarget}`" target="_blank">
-            {{buttonLabel}}
+          <a v-if="button.type === 'ext'" :href="`${button.url}`" target="_blank">
+            {{ button.text }}
           </a>
         </Button>
+        <template v-if="hasButton && hasFile">
+          &nbsp;
+        </template>
+        <Button class="primary" v-if="hasFile">
+          <a :href="downloadLink(file.id)" target="_blank">{{file.text}}</a>
+        </Button>
+
       </div>
       <div>
         <img v-if="image" :src="image" />
@@ -43,21 +50,13 @@ export default {
       type: String,
       default: '',
     },
-    buttonLabel: {
-      type: String,
-      default: '',
+    button: {
+      type: Object,
+      default: null,
     },
-    buttonTarget: {
-      type: String,
-      default: '',
-    },
-    buttonType: {
-      type: String,
-      default: '',
-    },
-    hasButton: {
-      type: Boolean,
-      default: false,
+    file: {
+      type: Object,
+      default: null,
     },
     bgColor: {
       type: String,
@@ -117,6 +116,14 @@ export default {
       }
       return null;
     },
+    hasFile() {
+      const { file } = this;
+      return file && file.id && file.text;
+    },
+    hasButton() {
+      const { button } = this;
+      return button && button.url && button.text;
+    },
   },
   //---------------------------------------------------
   //
@@ -151,11 +158,6 @@ export default {
       this.setAsH1 = true;
       window.h1Set = true;
     }
-    console.log('Variation:', this.variation);
-    console.log('BG Color:', this.bgColor);
-    console.log('Title Color:', this.titleColor);
-    console.log('Text Color:', this.textColor);
-    console.log('Media:', this.media);
   },
   // beforeUpdate() {},
   // updated() {},
@@ -167,6 +169,9 @@ export default {
   //
   //---------------------------------------------------
   methods: {
+    downloadLink(linkID) {
+      return `${API_URL}/assets/${linkID}?download`;
+    },
     //----------------------------------
     // Event Handlers
     //----------------------------------

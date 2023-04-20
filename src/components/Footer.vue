@@ -38,13 +38,23 @@
         <div class="secondary desktop">
           <SVGLogo class="logo"/>
           <ul>
-            <li v-for="(navItem, i) in compNavFooter4" :key="`nav-col-2-${i}`">
-              <router-link :to="`/${$i18n.locale}/${navItem.url}`">{{navItem.title}}</router-link>
+            <li v-for="(item, i) in metaNav" :key="`nav-col-2-${i}`">
+              <router-link :to="`/${$i18n.locale}/${item.url}`">{{item.title}}</router-link>
             </li>
             <li><a href="#" @click.prevent.stop="$emit('cookies')">Manage Cookies</a></li>
           </ul>
         </div>
       </div>
+      <div class="footer-nav" v-for="(nav, nidx) in navigation" :key="`nav-${nidx}`">
+        <ul :aria-label="nav.label">
+          <li v-for="(sub, sidx) in nav.children" :key="`nav-${nidx}-${sidx}`">
+            <router-link v-if="sub.type === 'int'" :to="sub.url">{{ sub.label }}</router-link>
+            <a v-else-if="sub.type === 'ext'" :href="sub.url" target="_blank">{{ sub.label }}</a>
+          </li>
+        </ul>
+
+      </div>
+      <!--
       <div class="footer-nav nav-1">
         <ul :aria-label="$t('footer.nav1Title')">
           <li v-for="(navItem, i) in compNavFooter1" :key="`nav-col-1-${i}`">
@@ -69,11 +79,12 @@
           </li>
         </ul>
       </div>
+      -->
       <div class="secondary mobile">
         <SVGLogo class="logo"/>
         <ul>
-          <li v-for="(navItem, i) in compNavFooter4" :key="`nav-col-2-${i}`">
-            <router-link :to="`/${$i18n.locale}/${navItem.url}`">{{navItem.title}}</router-link>
+          <li v-for="(item, i) in metaNav" :key="`nav-col-2-${i}`">
+            <router-link :to="`/${$i18n.locale}/${item.url}`">{{item.title}}</router-link>
           </li>
           <li><a href="#" @click.prevent.stop="$emit('cookies')">Manage Cookies</a></li>
         </ul>
@@ -122,29 +133,26 @@ export default {
   //
   //---------------------------------------------------
   computed: {
-    compNavFooter1() {
-      const path = 'footer.nav1Content';
-      if (this.$i18n.te(path)) {
-        return this.$i18n.t(path);
-      }
-      return null;
+    navigation() {
+      const navigation = this.$store.state.navigations?.footer_navigation || [];
+      navigation.forEach((o) => {
+        if (o.url) {
+          // eslint-disable-next-line no-param-reassign
+          o.type = o.url.includes('http') ? 'ext' : 'int';
+        }
+        if (o.children) {
+          o.children.forEach((oo) => {
+            if (oo.url) {
+              // eslint-disable-next-line no-param-reassign
+              oo.type = oo.url.includes('http') ? 'ext' : 'int';
+            }
+          });
+        }
+      });
+      return navigation;
     },
-    compNavFooter2() {
-      const path = 'footer.nav2Content';
-      if (this.$i18n.te(path)) {
-        return this.$i18n.t(path);
-      }
-      return null;
-    },
-    compNavFooter3() {
-      const path = 'footer.nav3Content';
-      if (this.$i18n.te(path)) {
-        return this.$i18n.t(path);
-      }
-      return null;
-    },
-    compNavFooter4() {
-      const path = 'footer.nav4Content';
+    metaNav() {
+      const path = 'footer.metanav';
       if (this.$i18n.te(path)) {
         return this.$i18n.t(path);
       }

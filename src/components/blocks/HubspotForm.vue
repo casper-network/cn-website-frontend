@@ -35,6 +35,26 @@
               :class="{ 'error': $v.formData[field.name].$error }"
             />
           </template>
+          <template v-else-if="field.type === 'number'">
+            <input
+              type="number"
+              :name="field.name"
+              v-model="formData[field.name]"
+              :class="{ 'error': $v.formData[field.name].$error }"
+            >
+          </template>
+          <template v-else-if="field.type === 'radio'">
+            <div class="radios" v-for="(option, oidx) in field.options" :key="`field-${fidx}-radio-${oidx}`">
+              <input
+                :id="`field-${fidx}-radio-${oidx}`"
+                v-model="formData[field.name]"
+                :value="option.value" type="radio"
+              />
+              <label :for="`field-${fidx}-radio-${oidx}`">
+                {{ option.label }}
+              </label>
+            </div>
+          </template>
           <div class="error" v-if="$v.formData[field.name].$error">
             {{ $t('formErrors.required') }}
           </div>
