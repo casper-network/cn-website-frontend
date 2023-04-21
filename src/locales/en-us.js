@@ -89,78 +89,7 @@ export default {
   },
   navigation: [
     {
-      title: 'Community',
-      url: 'community',
-      type: 'int',
-    },
-    {
-      title: 'Case Studies',
-      url: 'case-studies',
-      type: 'int',
-    },
-    {
-      title: 'Ecosystem',
-      url: 'ecosystem',
-      type: 'int',
-      children: [
-        {
-          title: 'Grant Program',
-          url: 'lp/accelerate-grant-program',
-          type: 'int',
-        },
-      ],
-    },
-    {
-      title: 'Build',
-      url: 'documentation',
-      type: 'int',
-      children: [
-        {
-          title: 'Developer Portal',
-          url: 'https://developer.casper.network/',
-          type: 'ext',
-        },
-        {
-          title: 'Documentation',
-          url: 'https://docs.casper.network/',
-          type: 'ext',
-        },
-      ],
-    },
-    {
-      title: 'News',
-      url: 'news',
-      type: 'int',
-    },
-    {
-      title: 'About us',
-      url: '',
-      type: '',
-      children: [
-        {
-          title: 'Casper',
-          url: 'casper',
-          type: 'int',
-        },
-        {
-          title: 'Vision',
-          url: 'vision',
-          type: 'int',
-        },
-        {
-          title: 'Team',
-          url: 'team',
-          type: 'int',
-        },
-        {
-          title: 'Career',
-          url: 'career',
-          type: 'int',
-        },
-      ],
-    },
-    {
-      title: 'Get started',
+      label: 'Get started',
       url: 'get-started',
       class: 'special',
       type: 'int',
@@ -168,73 +97,7 @@ export default {
   ],
   footer: {
     socialTitle: 'Join our<br/><span>Community</span>',
-    nav1Title: 'Get in touch',
-    nav2Title: 'What\'s possible',
-    nav3Title: 'Developers',
-    nav1Content: [
-      {
-        title: 'Community',
-        url: 'community',
-        type: 'int',
-      },
-      {
-        title: 'Newsletter subscription',
-        url: 'newsletter',
-        type: 'int',
-      },
-      {
-        title: 'Contact',
-        url: 'contact',
-        type: 'int',
-      },
-      {
-        title: 'Press & Media',
-        url: 'press-and-media',
-        type: 'int',
-      },
-    ],
-    nav2Content: [
-      {
-        title: 'Ecosystem',
-        url: 'ecosystem',
-        type: 'int',
-      },
-      {
-        title: 'Grant Program',
-        url: 'lp/accelerate-grant-program',
-        type: 'int',
-      },
-      {
-        title: 'Case Studies',
-        url: 'case-studies',
-        type: 'int',
-      },
-    ],
-    nav3Content: [
-      {
-        title: 'Get Started',
-        url: 'get-started',
-        type: 'int',
-      },
-      {
-        title: 'Documentation',
-        url: 'documentation',
-        type: 'int',
-      },
-      /*
-      {
-        title: 'Membership Portal',
-        url: 'https://members.casper.network/',
-        type: 'ext',
-      },
-      */
-      {
-        title: 'Whitepaper',
-        url: 'https://arxiv.org/pdf/2101.02159.pdf',
-        type: 'ext',
-      },
-    ],
-    nav4Content: [
+    metanav: [
       { title: 'Terms of Use', url: 'terms-of-use' },
       { title: 'Privacy Policy', url: 'privacy-policy' },
     ],

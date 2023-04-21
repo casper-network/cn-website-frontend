@@ -13,14 +13,15 @@
       <Stack
         v-if="block.blocktype === 'stack'"
         :block="block"
+        :button="block.button"
+        :file="block.file"
       />
       <TextTeaser
         v-if="block.blocktype === 'section'"
         :box-title="block.title"
         :box-content="block.content"
-        :button-target="block.button.url"
-        :button-type="block.button.type"
-        :button-label="block.button.text"
+        :button="block.button"
+        :file="block.file"
         :bg-color="block.bgcolor"
         :title-color="block.titlecolor"
         :text-color="block.txtcolor"

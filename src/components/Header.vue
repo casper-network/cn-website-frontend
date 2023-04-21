@@ -12,8 +12,8 @@
             :data-has-sub="!!(item.children)"
           >
             <div v-if="item.url && !item.children">
-              <router-link @click.native="toggleNavigation" :to="`/${$i18n.locale}/${item.url}`">
-                <span>{{ item.title }}</span>
+              <router-link @click.native="toggleNavigation" :to="item.url">
+                <span>{{ item.label }}</span>
                 <ChevronFuckedUp
                   v-if="item.children" @click.native="toggleChildren"
                   class="dropdown"
@@ -21,8 +21,8 @@
               </router-link>
             </div>
             <div v-if="item.url && item.children">
-              <a @click.prevent.stop="handleSpecialNavigation" :data-to="`/${$i18n.locale}/${item.url}`" :href="`/${$i18n.locale}/${item.url}`">
-                <span>{{ item.title }}</span>
+              <a @click.prevent.stop="handleSpecialNavigation" :data-to="item.url" :href="item.url">
+                <span>{{ item.label }}</span>
                 <ChevronFuckedUp
                   v-if="item.children" @click.native="toggleChildren"
                   class="dropdown"
@@ -31,7 +31,7 @@
             </div>
             <div v-else-if="!item.url">
               <a class="curs-point" @click="toggleChildren">
-                <span>{{ item.title }}</span>
+                <span>{{ item.label }}</span>
                 <ChevronFuckedUp
                   v-if="item.children" @click.native="toggleChildren"
                   class="dropdown"
@@ -46,13 +46,13 @@
                 <div v-if="subItem.type === 'ext'">
                   <SVGCurvedArrow/>
                   <a @click="toggleNavigation" :href="subItem.url" v-if="subItem" target="_blank">
-                    <span>{{ subItem.title }}</span>
+                    <span>{{ subItem.label }}</span>
                   </a>
                 </div>
                 <div v-if="subItem.type === 'int'">
                   <SVGRightArrow/>
-                  <router-link @click="toggleNavigation" :to="`/${$i18n.locale}/${subItem.url}`" v-if="subItem">
-                    <span>{{ subItem.title }}</span>
+                  <router-link @click="toggleNavigation" :to="subItem.url" v-if="subItem">
+                    <span>{{ subItem.label }}</span>
                   </router-link>
                 </div>
               </li>
@@ -107,11 +107,27 @@ export default {
   //---------------------------------------------------
   computed: {
     computedNavigation() {
+      let navigation = this.$store.state.navigations?.main_navigation || [];
+      navigation.forEach((o) => {
+        if (o.url) {
+          // eslint-disable-next-line no-param-reassign
+          o.type = o.url.includes('http') ? 'ext' : 'int';
+        }
+        if (o.children) {
+          o.children.forEach((oo) => {
+            if (oo.url) {
+              // eslint-disable-next-line no-param-reassign
+              oo.type = oo.url.includes('http') ? 'ext' : 'int';
+            }
+          });
+        }
+      });
+
       const path = 'navigation';
       if (this.$i18n.te(path)) {
-        return this.$i18n.t(path);
+        navigation = navigation.concat(this.$i18n.t(path));
       }
-      return null;
+      return navigation;
     },
     themeState() {
       return this.$store.getters.navigationTintState;
@@ -173,7 +189,12 @@ export default {
   //
   //---------------------------------------------------
   // beforeCreate() {},
-  // created() {},
+  async created() {
+    const [locale] = Intl.getCanonicalLocales(this.$i18n.locale);
+    const response = await this.$d.api.get(`/navigations?filter[content][languages_code][_eq]=${locale}&fields=*.main_navigation,*.footer_navigation`);
+    // eslint-disable-next-line prefer-destructuring
+    this.$store.state.navigations = (response?.data.content || [])[0];
+  },
   // beforeMount() {},
   // render(h) { return h(); },
   mounted() {
