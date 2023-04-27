@@ -2,7 +2,7 @@
   <div class="container" :id="slugged">
     <div class="article-text-block">
       <div>
-        <h2 v-html="title"></h2>
+        <h2 v-html="title" :data-slug="hashSlug"></h2>
         <Button class="primary" v-if="buttonTarget">
           <router-link :to="`/${$i18n.locale}${buttonTarget}`" v-if="buttonType === 'int'">
             {{buttonLabel}}
@@ -20,6 +20,8 @@
 </template>
 
 <script>
+import slugify from 'slugify';
+
 export default {
   name: 'ArticleTextBlock',
   components: {},
@@ -66,6 +68,10 @@ export default {
           .replace(/[~`!@#$%^&*()+={}[\];:'"<>.,/\\?]/g, '');
       }
       return '';
+    },
+    hashSlug() {
+      const title = (this.title || '').replace(/<\/?[^>]+(>|$)/g, '');
+      return slugify(title, { lower: true, strict: true });
     },
   },
   //---------------------------------------------------

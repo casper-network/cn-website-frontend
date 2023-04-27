@@ -1,7 +1,7 @@
 <template>
   <div class="stack" :class="[variation]">
     <div class="container">
-      <h2 class="h1">{{ title }}</h2>
+      <h2 class="h1" :data-slug="slugged">{{ title }}</h2>
       <div v-if="copy" class="copy" v-html="copy" />
       <div class="half">
         <div class="content">
@@ -36,6 +36,7 @@
 
 <script>
 import config from '@/directus/config';
+import slugify from 'slugify';
 
 const { API_URL } = config;
 export default {
@@ -100,6 +101,10 @@ export default {
     hasButton() {
       const { button } = this;
       return button && button.url && button.text;
+    },
+    slugged() {
+      const title = (this.title || '').replace(/<\/?[^>]+(>|$)/g, '');
+      return slugify(title, { lower: true, strict: true });
     },
   },
   //---------------------------------------------------

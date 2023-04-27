@@ -1,7 +1,7 @@
 <template>
   <div class="carousel-container">
     <div class="container">
-      <h2 v-html="blockTitle"></h2>
+      <h2 v-html="blockTitle" :data-slug="slugged"></h2>
       <div class="glide__arrows">
         <div class="glide__arrow glide__arrow--left" data-glide-dir="<" @click="gliderMoveLeft()">
           <ChevronLeft/>
@@ -28,6 +28,7 @@ import Glide from '@glidejs/glide/dist/glide';
 import ChevronLeft from '@/assets/svg/icon-chevron-left.svg?inline';
 import ChevronRight from '@/assets/svg/icon-chevron-right.svg?inline';
 import '@glidejs/glide/dist/css/glide.core.min.css';
+import slugify from 'slugify';
 
 export default {
   name: 'Carousel',
@@ -62,7 +63,12 @@ export default {
   //  Computed Properties
   //
   //---------------------------------------------------
-  computed: {},
+  computed: {
+    slugged() {
+      const title = (this.blockTitle || '').replace(/<\/?[^>]+(>|$)/g, '');
+      return slugify(title, { lower: true, strict: true });
+    },
+  },
   //---------------------------------------------------
   //
   //  Watch Properties

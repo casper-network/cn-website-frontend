@@ -21,6 +21,29 @@ export default {
     title: '',
     titleTemplate: '%s | Casper Network',
   },
+  watch: {
+    $route: {
+      handler(value) {
+        this.hash = value.hash || null;
+      },
+    },
+  },
+  data() {
+    return {
+      hash: null,
+    };
+  },
+  updated() {
+    if (this.hash) {
+      this.$nextTick(() => {
+        const hash = this.hash.substr(1);
+        const element = document.querySelector(`[data-slug='${hash}']`);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
+        }
+      });
+    }
+  },
   methods: {
     handleManageCookies() {
       this.$refs.cookieNotice.show();

@@ -2,7 +2,7 @@
   <div class="collection-start">
     <div class="container">
       <div class="collection-head">
-        <h2 class="h1" v-html="blockTitle" />
+        <h2 class="h1" v-html="blockTitle" :data-slug="slugged"/>
       </div>
       <div class="collection-body">
         <router-link
@@ -48,6 +48,8 @@
 
 <script>
 
+import slugify from 'slugify';
+
 export default {
   name: 'StartNow',
   components: {},
@@ -82,6 +84,10 @@ export default {
   computed: {
     locale() {
       return this.$i18n.locale;
+    },
+    slugged() {
+      const title = (this.blockTitle || '').replace(/<\/?[^>]+(>|$)/g, '');
+      return slugify(title, { lower: true, strict: true });
     },
   },
   //---------------------------------------------------

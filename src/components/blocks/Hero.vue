@@ -4,7 +4,7 @@
       <div class="inner-left">
         <div class="hero__content">
           <div class="intro-content">
-            <h1 v-html="blockTitle"></h1>
+            <h1 v-html="blockTitle" :data-slug="slugged"></h1>
             <p v-html="blockContent"></p>
           </div>
           <slot></slot>
@@ -38,6 +38,7 @@
 
 <script>
 import config from '@/directus/config';
+import slugify from 'slugify';
 
 const { API_URL } = config;
 
@@ -101,6 +102,10 @@ export default {
         return `${API_URL}/assets/${media[0]}`;
       }
       return null;
+    },
+    slugged() {
+      const title = (this.blockTitle || '').replace(/<\/?[^>]+(>|$)/g, '');
+      return slugify(title, { lower: true, strict: true });
     },
   },
   //---------------------------------------------------
