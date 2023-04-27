@@ -295,6 +295,19 @@ export default {
 
       @include breakpoint('sm') {
         flex-direction: column;
+        padding-top: 45px;
+
+        > div:first-child {
+          width: 100%;
+        }
+
+        > div:last-child {
+          width: 100%;
+
+          & > img {
+            max-width: 280px;
+          }
+        }
       }
     }
   }
