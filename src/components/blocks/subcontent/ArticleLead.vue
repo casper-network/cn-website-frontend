@@ -1,7 +1,7 @@
 <template>
   <div class="article-lead">
     <div>
-      <h1 v-html="title"></h1>
+      <h1 v-html="title" :data-slug="slugged"></h1>
       <p v-html="content"></p>
     </div>
     <div>
@@ -13,6 +13,8 @@
 </template>
 
 <script>
+
+import slugify from 'slugify';
 
 export default {
   name: 'ArticleLead',
@@ -40,7 +42,12 @@ export default {
   //  Computed Properties
   //
   //---------------------------------------------------
-  computed: {},
+  computed: {
+    slugged() {
+      const title = (this.title || '').replace(/<\/?[^>]+(>|$)/g, '');
+      return slugify(title, { lower: true, strict: true });
+    },
+  },
   //---------------------------------------------------
   //
   //  Watch Properties

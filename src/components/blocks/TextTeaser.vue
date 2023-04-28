@@ -2,8 +2,8 @@
   <div class="text-component" :class="{ margined: setAsH1, reversed: variation === 'text-right' }" :style="computedStyles">
     <div class="container">
       <div>
-        <h1 v-if="setAsH1" class="h1" v-html="boxTitle" />
-        <h2 v-else class="h1" v-html="boxTitle" />
+        <h1 v-if="setAsH1" class="h1" v-html="boxTitle" :data-slug="slugged" />
+        <h2 v-else class="h1" v-html="boxTitle" :data-slug="slugged" />
         <p v-html="boxContent"></p>
         <Button class="primary" v-if="hasButton">
           <router-link v-if="button.type === 'int'" :to="`/${$i18n.locale}${button.url}`">
@@ -30,6 +30,7 @@
 
 <script>
 import config from '@/directus/config';
+import slugify from 'slugify';
 
 const { API_URL } = config;
 
@@ -123,6 +124,10 @@ export default {
     hasButton() {
       const { button } = this;
       return button && button.url && button.text;
+    },
+    slugged() {
+      const title = (this.boxTitle || '').replace(/<\/?[^>]+(>|$)/g, '');
+      return slugify(title, { lower: true, strict: true });
     },
   },
   //---------------------------------------------------

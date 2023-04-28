@@ -2,7 +2,7 @@
   <div class="block-video-collection">
     <div class="container">
       <div class="block-video-collection__title">
-        <h2 v-html="blockTitle"></h2>
+        <h2 v-html="blockTitle" :data-slug="slugged"></h2>
         <!--        <Button class="secondary">
                   <router-link :to="`/videos`">
                     View All
@@ -30,6 +30,8 @@
 </template>
 
 <script>
+import slugify from 'slugify';
+
 export default {
   name: 'VideoCollection',
   components: {},
@@ -63,7 +65,12 @@ export default {
   //  Computed Properties
   //
   //---------------------------------------------------
-  computed: {},
+  computed: {
+    slugged() {
+      const title = (this.blockTitle || '').replace(/<\/?[^>]+(>|$)/g, '');
+      return slugify(title, { lower: true, strict: true });
+    },
+  },
   //---------------------------------------------------
   //
   //  Watch Properties

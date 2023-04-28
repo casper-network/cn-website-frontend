@@ -2,7 +2,7 @@
   <div class="teaser-full" :class="teaserType" :style="`${bgImage}`">
     <!-- <video src="/video/bgvideo.mp4" autoplay loop muted v-if="!teaserBlock.media"></video> -->
     <div class="container">
-      <h2 class="h1" v-html="teaserTitle"></h2>
+      <h2 class="h1" v-html="teaserTitle" :data-slug="slugged"></h2>
       <p v-html="teaserContent"></p>
       <Button class="secondary">
         <router-link :to="`/${$i18n.locale}${teaserTarget}`" v-if="teaserBlock.button.type === 'int'">
@@ -18,6 +18,7 @@
 
 <script>
 import config from '@/directus/config';
+import slugify from 'slugify';
 
 const { API_URL } = config;
 
@@ -72,6 +73,10 @@ export default {
         return `background-image: url('${API_URL}/assets/${this.teaserBlock.media}');`;
       }
       return '';
+    },
+    slugged() {
+      const title = (this.teaserTitle || '').replace(/<\/?[^>]+(>|$)/g, '');
+      return slugify(title, { lower: true, strict: true });
     },
   },
   //---------------------------------------------------
