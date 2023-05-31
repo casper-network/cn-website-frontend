@@ -92,7 +92,7 @@
     <div class="result-success" v-if="wasSubmitted">
       <SVGCheck/>
       <div v-if="responseMessage" v-html="responseMessage" />
-      <p v-else v-html="$t('form.newsletter.success')" />
+      <p v-else v-html="messages.success" />
     </div>
     <div class="result-error" v-if="submissionFailed">
       <SVGError/>
