@@ -10,7 +10,7 @@ export default {
     applyNow: 'Apply Now',
     backToOverview: 'Back to Overview',
     reload: 'Reload',
-    joinNow: 'Join Now',
+    submit: 'Submit',
     allNews: 'All News',
   },
   form: {
@@ -50,11 +50,6 @@ export default {
         value: 'introduce-project',
       },
     ],
-    newsletter: {
-      confirm: 'I agree to receive communications from Casper Association.',
-      legal: 'Casper Association is committed to protecting and respecting your privacy. You can unsubscribe from these communications at any time.<br/> For more information on how to unsubscribe, our privacy practices, and how we are committed to protecting and respecting your privacy, please review our <a href="/en-us/privacy-policy">Privacy Policy</a>.<br/> By clicking submit below, you consent to allow Casper Association to store and process the personal information submitted above to provide you the content requested.',
-      success: 'Thanks for signing up for our newsletter!<br/>To ensure we have your correct email address and to comply with GDPR regulations,<br/> please confirm your subscription by clicking the link in the email we just sent you.',
-    },
     legal: {
       contact: '<a href="/en-us/privacy-policy">Privacy Policy</a>',
     },

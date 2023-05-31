@@ -1,7 +1,6 @@
 .form-container {
   transition: all 0.35s ease-in-out;
   // width: 83%;
-  width: 100%;
   display: block;
   margin-top: 45px;
 
@@ -15,15 +14,11 @@
     @include breakpoint('sm') {
       padding-left: 20px;
       padding-right: 20px;
-      max-width: calc(100vw - 40px);
     }
+
     form {
       padding-top: 40px;
     }
-  }
-
-  @include breakpoint('sm') {
-    width: calc(100% - 46px);
   }
 
   form {
@@ -36,11 +31,6 @@
       width: 100%;
       padding: 60px 0;
     }
-  }
-
-  @include breakpoint('sm') {
-    padding: 0 23px;
-    margin-top: 32px;
   }
 
   .form-group {
@@ -158,11 +148,39 @@
       }
     }
     &.legal {
-      display: block;
-      text-align: right;
-      font-size: 12px;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 10px;
+      & > div {
+        max-width: 70%;
+        display: block;
+        text-align: right;
+        font-size: 12px;
+        width: 100%;
+
+        @include breakpoint('m') {
+          max-width: 100%;
+
+        }
+
+        @include breakpoint('sm') {
+          max-width: 100%;
+        }
+      }
+
+      strong {
+        font-weight: normal;
+      }
+
+      p {
+        font-size: inherit;
+        letter-spacing: inherit;
+        font-family: inherit;
+        line-height: inherit;
+      }
       a {
         font-size: inherit;
+        white-space: nowrap;
         text-decoration: underline;
       }
     }

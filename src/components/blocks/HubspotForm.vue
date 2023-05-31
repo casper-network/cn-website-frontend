@@ -60,27 +60,31 @@
           </div>
         </div>
       </div>
-      <template v-if="definition.consents.length > 0">
+      <template v-if="consent">
         <div class="form-group confirm">
           <input
             id="confirm"
-            v-model="isConfirmed"
+            v-model="consentGiven"
             type="checkbox" />
           <label for="confirm">
-            {{ $t('form.newsletter.confirm') }}
+            {{ consent }}
           </label>
         </div>
-        <div class="form-group legal" v-html="$t('form.newsletter.legal')" />
+        <div v-if="messages.privacy || messages.consent" class="form-group legal">
+          <div v-if="messages.privacy" v-html="messages.privacy" />
+          <div v-if="messages.consent" v-html="messages.consent" />
+        </div>
+
         <div class="form-group buttons">
-          <Button class="primary" :disabled="!isConfirmed" @click.native="submitForm()">
-            <a>{{ $t('ctas.joinNow') }}</a>
+          <Button class="primary" :disabled="!consentGiven" @click.native="submitForm()">
+            <a>{{ messages.submit }}</a>
           </Button>
         </div>
       </template>
       <template v-else>
         <div class="form-group buttons">
           <Button class="primary" @click.native="submitForm()">
-            <a>{{ $t('form.send') }}</a>
+            <a>{{ messages.submit }}</a>
           </Button>
         </div>
       </template>
@@ -138,10 +142,11 @@ export default {
       definition: {
         groups: [],
         consents: [],
+        messages: {},
       },
       formData: {
       },
-      isConfirmed: false,
+      consentGiven: false,
       wasSubmitted: false,
       submissionFailed: false,
       responseMessage: null,
@@ -177,6 +182,25 @@ export default {
       });
       return fields;
     },
+    messages() {
+      const i18n = this.$i18n;
+      const { messages } = this.definition;
+      return {
+        consent: null,
+        privacy: null,
+        submit: i18n.t('submit'),
+        success: null,
+        ...messages,
+      };
+    },
+    consent() {
+      const { consents } = this.definition;
+      if (consents.length > 0) {
+        const consent = consents[0];
+        return (consent.label || '').replace(/<\/?[^>]+(>|$)/g, '');
+      }
+      return null;
+    },
   },
   //---------------------------------------------------
   //
@@ -184,7 +208,7 @@ export default {
   //
   //---------------------------------------------------
   watch: {
-    isConfirmed(value) {
+    consentGiven(value) {
       this.isValid = value;
     },
     formId(value) {
@@ -233,6 +257,7 @@ export default {
     async loadForm(id) {
       const response = await fetch(`${API_URL}/cce/form/?id=${id}`);
       this.definition = await response.json();
+      console.log(this.definition);
     },
     reloadSite() {
       window.location.reload();

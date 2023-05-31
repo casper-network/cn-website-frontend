@@ -13,7 +13,11 @@
           </div>
 
           <Button class="secondary hidden-on-mobile">
-            <router-link :to="buttonTarget">
+            <a v-if="button && button.type === 'ext'" target="_blank" :href="button.url">{{ button.text }}</a>
+            <router-link v-else-if="button && button.type === 'int'" :to="button.url">
+              {{ button.text }}
+            </router-link>
+            <router-link v-else :to="buttonTarget">
               {{buttonLabel}}
             </router-link>
           </Button>
@@ -39,7 +43,11 @@
       </div>
       <div class="block-footer hidden-on-desktop">
         <Button class="secondary">
-          <router-link :to="buttonTarget">
+          <a v-if="button && button.type === 'ext'" target="_blank" :href="button.url">{{ button.text }}</a>
+          <router-link v-else-if="button && button.type === 'int'" :to="button.url">
+            {{ button.text }}
+          </router-link>
+          <router-link v-else :to="buttonTarget">
             {{buttonLabel}}
           </router-link>
         </Button>
@@ -90,6 +98,13 @@ export default {
     slugged() {
       const title = (this.blockTitle || '').replace(/<\/?[^>]+(>|$)/g, '');
       return slugify(title, { lower: true, strict: true });
+    },
+    button() {
+      const button = this.collectionData?.button;
+      if (button.text && button.url) {
+        return button;
+      }
+      return null;
     },
   },
   //---------------------------------------------------
