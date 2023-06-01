@@ -154,5 +154,12 @@ export default {
   margin: 0 auto;
   padding-bottom: 100px;
   max-width: 1248px;
+  padding-left: 30px;
+  padding-right: 30px;
+
+  @include breakpoint('sm') {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
 }
 </style>

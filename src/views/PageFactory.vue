@@ -28,6 +28,7 @@
         :media="block.media"
         :variation="block.variation"
       />
+      <div class="container embed" v-if="block.blocktype === 'embed'" v-html="block.html" />
       <div class="container" v-if="block.blocktype === 'linklist'">
         <LinkList
           :block-data="block"
