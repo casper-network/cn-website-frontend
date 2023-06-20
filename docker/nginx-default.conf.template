@@ -4,6 +4,23 @@ server {
     root /var/www/html;
     index index.html index.htm;
 
+    set $CSP_DEFAULT "default-src 'self' https:";
+    set $CSP_IMG "img-src 'self' data: blob: https:;
+    set $CSP_STYLE "style-src 'self' 'unsafe-inline';
+    set $CSP_FONT "font-src 'self' https:";
+    set $CSP_SCRIPT "script-src 'self' 'unsafe-eval' 'unsafe-inline' https:";
+    set $CSP_CONNECT "connect-src 'self' blob: https:";
+    set $CSP_MEDIA "media-src 'self' blob: https:";
+    set $CSP_OBJECT "object-src 'none'";
+    set $CSP_WORKER "worker-src blob:";
+    set $CSP_CHILD "child-src blob:";
+    set $CSP_FRAME "frame-src 'self' https:";
+    set $CSP_ANCESTORS "frame-ancestors 'self' https:";
+    add_header Content-Security-Policy "${CSP_DEFAULT}; ${CSP_IMG}; ${CSP_STYLE}; ${CSP_FONT}; ${CSP_SCRIPT}; ${CSP_CONNECT}; ${CSP_MEDIA}; ${CSP_OBJECT}; ${CSP_WORKER}; ${CSP_CHILD}; ${CSP_FRAME}; ${CSP_ANCESTORS}";
+
+    add_header X-Content-Type-Options nosniff;
+    add_header X-XSS-Protection "1; mode=block";
+
     location / {
         try_files $uri @prerender;
         autoindex on;
