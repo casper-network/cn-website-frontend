@@ -79,7 +79,7 @@ export default {
   methods: {
     async getTeamData() {
       try {
-        const response = await axios.get(`${API_URL}/items/team_members?fields=*.*&sort%5B%5D=sort&limit=-1`);
+        const response = await axios.get(`${API_URL}/items/team_members?fields=*.*&sort%5B%5D=sort&limit=-1&filter[status][_eq]=published`);
         this.teamData = response.data.data;
       } catch (error) {
         this.teamData = false;
