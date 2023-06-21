@@ -5,8 +5,8 @@ server {
     index index.html index.htm;
 
     set $CSP_DEFAULT "default-src 'self' https:";
-    set $CSP_IMG "img-src 'self' data: blob: https:;
-    set $CSP_STYLE "style-src 'self' 'unsafe-inline';
+    set $CSP_IMG "img-src 'self' data: blob: https:";
+    set $CSP_STYLE "style-src 'self' 'unsafe-inline'";
     set $CSP_FONT "font-src 'self' https:";
     set $CSP_SCRIPT "script-src 'self' 'unsafe-eval' 'unsafe-inline' https:";
     set $CSP_CONNECT "connect-src 'self' blob: https:";
