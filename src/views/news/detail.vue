@@ -104,25 +104,35 @@ export default {
     },
   },
   metaInfo() {
-    const metaPageData = this.$d.data?.data;
+    const metaPageData = this.$d.data;
     if (metaPageData) {
-      return {
+      const out = {
         title: `${metaPageData.title}`,
-        meta: [
-          { name: 'description', content: metaPageData.description },
-          { itemprop: 'title', content: `${metaPageData.title}` },
-          { itemprop: 'description', content: `${metaPageData.description}` },
-          { itemprop: 'name', content: `${metaPageData.title}` },
-          { itemprop: 'image', content: `${API_URL}/assets/${metaPageData.image}` },
-          { name: 'twitter:card', content: 'summary_large_image' },
-          { property: 'og:title', content: `${metaPageData.title}` },
-          { property: 'og:site_name', content: window.location.hostname },
-          { property: 'og:description', content: metaPageData.description },
-          { property: 'og:type', content: 'website' },
-          { property: 'og:url', content: window.location.href },
-          { property: 'og:image', content: `${API_URL}/assets/${metaPageData.image}` },
-        ],
+        meta: [],
+        link: null,
       };
+      // eslint-disable-next-line prefer-destructuring
+      const canonical = window.canonical;
+      if (canonical) {
+        out.link = [{ rel: 'canonical', href: `${canonical}` }];
+        window.canonical = null;
+      }
+
+      out.meta = [
+        { name: 'description', content: metaPageData.description },
+        { itemprop: 'title', content: `${metaPageData.title}` },
+        { itemprop: 'description', content: `${metaPageData.description}` },
+        { itemprop: 'name', content: `${metaPageData.title}` },
+        { itemprop: 'image', content: `${API_URL}/assets/${metaPageData.image}` },
+        { name: 'twitter:card', content: 'summary_large_image' },
+        { property: 'og:title', content: `${metaPageData.title}` },
+        { property: 'og:site_name', content: window.location.hostname },
+        { property: 'og:description', content: metaPageData.description },
+        { property: 'og:type', content: 'website' },
+        { property: 'og:url', content: window.location.href },
+        { property: 'og:image', content: `${API_URL}/assets/${metaPageData.image}` },
+      ];
+      return out;
     }
     return null;
   },
