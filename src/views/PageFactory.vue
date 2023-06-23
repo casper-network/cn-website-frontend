@@ -213,6 +213,11 @@ export default {
     if (canonical) {
       out.link = [{ rel: 'canonical', href: `${canonical}` }];
       window.canonical = null;
+    } else {
+      const { href } = window.location;
+      if (href.slice(-1) === '/') {
+        out.link = [{ rel: 'canonical', href: `${href.slice(0, -1)}` }];
+      }
     }
 
     out.meta = [

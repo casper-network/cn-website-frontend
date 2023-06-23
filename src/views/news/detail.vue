@@ -104,7 +104,7 @@ export default {
     },
   },
   metaInfo() {
-    const metaPageData = this.$d.data;
+    const metaPageData = this.$d.data?.data;
     if (metaPageData) {
       const out = {
         title: `${metaPageData.title}`,
@@ -116,6 +116,11 @@ export default {
       if (canonical) {
         out.link = [{ rel: 'canonical', href: `${canonical}` }];
         window.canonical = null;
+      } else {
+        const { href } = window.location;
+        if (href.slice(-1) === '/') {
+          out.link = [{ rel: 'canonical', href: `${href.slice(0, -1)}` }];
+        }
       }
 
       out.meta = [

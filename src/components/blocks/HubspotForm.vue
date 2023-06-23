@@ -188,7 +188,7 @@ export default {
       return {
         consent: null,
         privacy: null,
-        submit: i18n.t('submit'),
+        submit: i18n.t('ctas.submit'),
         success: null,
         ...messages,
       };
@@ -257,7 +257,6 @@ export default {
     async loadForm(id) {
       const response = await fetch(`${API_URL}/cce/form/?id=${id}`);
       this.definition = await response.json();
-      console.log(this.definition);
     },
     reloadSite() {
       window.location.reload();
