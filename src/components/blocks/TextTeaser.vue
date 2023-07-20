@@ -88,6 +88,7 @@ export default {
   data() {
     return {
       setAsH1: false,
+      imageDescription: null,
     };
   },
   //---------------------------------------------------
@@ -157,12 +158,20 @@ export default {
   // created() {},
   // beforeMount() {},
   // render(h) { return h(); },
-  mounted() {
+  async mounted() {
     const h1 = document.querySelector('h1');
     if (!h1 && window.h1Set !== true) {
       this.setAsH1 = true;
       window.h1Set = true;
     }
+    /*
+    const media = this.media || [];
+    if (media.length > 0 && media[0]) {
+      const resp = await fetch(`${API_URL}/files/${media[0]}?fields=description`);
+      const data = await resp.json();
+      console.log(data);
+    }
+    */
   },
   // beforeUpdate() {},
   // updated() {},
