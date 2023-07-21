@@ -58,8 +58,8 @@
         :quotes="block.items"
       />
       <SingleQuote
-        class="container"
         v-if="block.blocktype === 'highlight'"
+        class="container"
         :quote="block.content"
       >
       </SingleQuote>
@@ -153,18 +153,22 @@
         v-if="block.blocktype === 'hubspot-form'"
         :form-id="block.id"
       />
+      <PodcastList
+        v-if="block.blocktype === 'podcastlist'"
+      />
     </section>
   </main>
 </template>
 <script>
 import { getDummyPage } from '@/api/endpoints/directusEndpoints';
 import config from '@/directus/config';
+import PodcastList from '@/components/blocks/PodcastList.vue';
 
 const { API_URL } = config;
 
 export default {
   name: 'PageFactory',
-  components: {},
+  components: { PodcastList },
   //---------------------------------------------------
   //
   //  Properties
