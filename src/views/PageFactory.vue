@@ -155,6 +155,9 @@
       />
       <PodcastList
         v-if="block.blocktype === 'podcastlist'"
+        :title="block.title"
+        :content="block.content"
+        :services="block.services"
       />
     </section>
   </main>

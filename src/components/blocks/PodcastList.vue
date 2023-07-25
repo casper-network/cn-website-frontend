@@ -1,5 +1,22 @@
 <template>
   <div class="podcast-list">
+    <template v-if="title">
+      <h1 v-if="setAsH1" class="h1" v-html="title" :data-slug="slugged" />
+      <h2 v-else class="h1" v-html="title" :data-slug="slugged" />
+    </template>
+    <template v-if="content">
+      <p class="copy" v-html="content" />
+    </template>
+    <template v-if="services">
+      <div class="services">
+        <p>Available Services:</p>
+        <div>
+          <a v-for="(service, sidx) in services" :key="`service-${sidx}`" target="_blank" :href="service.url" :title="service.title">
+            <img :src="`${API_URL}/assets/${service.image}`" :alt="service.title" />
+          </a>
+        </div>
+      </div>
+    </template>
     <div class="items">
       <div
         v-for="(pod, idx) in podcasts"
@@ -34,6 +51,7 @@
 import SVGIconPlay from '@/assets/svg/icon-play.svg?inline';
 import SVGClock from '@/assets/svg/icon-clock.svg?inline';
 import config from '@/directus/config';
+import slugify from 'slugify';
 
 const { API_URL } = config;
 
@@ -49,8 +67,16 @@ export default {
   //
   //---------------------------------------------------
   props: {
-    formId: {
+    title: {
       type: String,
+      default: null,
+    },
+    content: {
+      type: String,
+      default: null,
+    },
+    services: {
+      type: Array,
       default: null,
     },
   },
@@ -61,6 +87,7 @@ export default {
   //---------------------------------------------------
   data() {
     return {
+      setAsH1: false,
       podcasts: null,
     };
   },
@@ -70,6 +97,13 @@ export default {
   //
   //---------------------------------------------------
   computed: {
+    API_URL() {
+      return API_URL;
+    },
+    slugged() {
+      const title = (this.title || '').replace(/<\/?[^>]+(>|$)/g, '');
+      return slugify(title, { lower: true, strict: true });
+    },
   },
   //---------------------------------------------------
   //
@@ -105,6 +139,12 @@ export default {
   // beforeMount() {},
   // render(h) { return h(); },
   async mounted() {
+    const h1 = document.querySelector('h1');
+    if (!h1 && window.h1Set !== true) {
+      this.setAsH1 = true;
+      window.h1Set = true;
+    }
+
     const locale = Intl.getCanonicalLocales(this.$i18n.locale);
     const { data } = await this.$d.api.get(`/podcasts?fields[]=url&fields[]=image&fields[]=release_date&fields[]=content.title,content.description&fields[]=status&filter[status][_eq]=published&filter[content][languages_code][_eq]=${locale}&limit=-1`);
     this.podcasts = (data || []).map((o) => ({
@@ -115,6 +155,8 @@ export default {
       description: (o.content[0] || {}).description,
       readmore: false,
     }));
+
+    console.log(this.services);
   },
   // beforeUpdate() {},
   // updated() {},
@@ -150,6 +192,50 @@ export default {
 
   @include breakpoint('sm') {
     padding: 20px;
+  }
+
+  ::v-deep {
+    p, span {
+      font-size: 19.85px !important;
+      line-height: 1.5 !important;
+      letter-spacing: 2px !important;
+      font-weight: 300 !important;
+    }
+    a {
+      font-family: inherit !important;
+      font-size: inherit !important;
+      color: var(--color-blue);
+      text-decoration: underline !important;
+    }
+  }
+
+  & > .copy {
+    margin-bottom: 32px;
+  }
+
+  & > .services {
+    text-align: right;
+
+    @include breakpoint('sm') {
+      text-align: center;
+    }
+
+    & > div {
+      display: inline-flex;
+      gap: 15px;
+      margin-top: 5px;
+      margin-bottom: 32px;
+      & > a {
+        width: 32px;
+        height: 32px;
+
+        > img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+    }
   }
 
    & > .items {
