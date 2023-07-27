@@ -318,10 +318,12 @@ export default {
            -webkit-line-clamp: 3;
            -webkit-box-orient: vertical;
            overflow: hidden;
+           height: 85px;
 
            &.open {
              overflow: visible;
              display: block;
+             height: auto;
 
              ::v-deep {
                p {
