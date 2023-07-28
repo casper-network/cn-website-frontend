@@ -9,7 +9,7 @@
     </template>
     <template v-if="services">
       <div class="services">
-        <p>Available Services:</p>
+        <p>Available on:</p>
         <div>
           <a v-for="(service, sidx) in services" :key="`service-${sidx}`" target="_blank" :href="service.url" :title="service.title">
             <img :src="`${API_URL}/assets/${service.image}`" :alt="service.title" />
@@ -220,20 +220,41 @@ export default {
       text-align: center;
     }
 
+    ::v-deep {
+      & > p {
+        font-size: 2.4rem !important;
+
+        @include breakpoint('sm') {
+          font-size: 1.8rem !important;
+        }
+      }
+    }
+
     & > div {
       display: inline-flex;
-      gap: 15px;
-      margin-top: 5px;
-      margin-bottom: 32px;
+      gap: 32px;
+      margin-top: 6px;
+      margin-bottom: 64px;
+
       & > a {
-        width: 32px;
-        height: 32px;
+        width: 64px;
+        height: 64px;
 
         > img {
           width: 100%;
           height: 100%;
           object-fit: cover;
         }
+      }
+
+      @include breakpoint('sm') {
+        margin-bottom: 32px;
+
+        & > a {
+          width: 42px;
+          height: 42px;
+        }
+
       }
     }
   }
@@ -297,10 +318,12 @@ export default {
            -webkit-line-clamp: 3;
            -webkit-box-orient: vertical;
            overflow: hidden;
+           height: 85px;
 
            &.open {
              overflow: visible;
              display: block;
+             height: auto;
 
              ::v-deep {
                p {
