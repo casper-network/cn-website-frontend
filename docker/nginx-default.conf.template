@@ -30,6 +30,10 @@ server {
         set $vue_app_zoho_endpoint "${VUE_APP_ZOHO_ENDPOINT}";
     }
 
+    location /en-us/ecosystem {
+        return 301 https://casper.network/en-us/lp/ecosystem/;
+    }
+
     location /qr-events {
         return 301 https://www.fk3.co.uk/client-work/CASEVENTQR/;
     }
