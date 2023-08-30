@@ -226,7 +226,7 @@ export default {
           const intersection = availableCategories.filter((e) => articleCategories.includes(e));
           return o.id !== currentId && intersection.length > 0;
         })
-        .sort(() => ((Math.random() > 0.5) ? 1 : -1))
+        .sort((a, b) => (new Date(b.publish_date) - new Date(a.publish_date)))
         .slice(1, 3);
     },
     //----------------------------------
