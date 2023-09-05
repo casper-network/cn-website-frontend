@@ -147,7 +147,7 @@ export default {
 
     const locale = Intl.getCanonicalLocales(this.$i18n.locale);
     const { data } = await this.$d.api.get(`/podcasts?fields[]=url&fields[]=image&fields[]=release_date&fields[]=content.title,content.description&fields[]=status&filter[status][_eq]=published&filter[content][languages_code][_eq]=${locale}&limit=-1`);
-    this.podcasts = (data || []).map((o) => ({
+    const podcasts = (data || []).map((o) => ({
       image: `${API_URL}/assets/${o.image}`,
       release_date: o.release_date,
       url: o.url,
@@ -155,8 +155,7 @@ export default {
       description: (o.content[0] || {}).description,
       readmore: false,
     }));
-
-    console.log(this.services);
+    this.podcasts = podcasts.sort((a, b) => new Date(b.release_date) - new Date(a.release_date));
   },
   // beforeUpdate() {},
   // updated() {},
