@@ -27,17 +27,17 @@
           <img :src="pod.image" alt="">
           <SVGIconPlay />
         </a>
-        <div class="content">
+        <a :href="pod.detail_url" class="content">
           <h4>{{ pod.title }}</h4>
           <div
             class="description"
             :class="{ open: pod.readmore }"
             v-html="pod.description"
           />
-          <button class="more" @click="readMore(idx, pod.readmore)">
+          <button class="more" @click.prevent.stop="readMore(idx, pod.readmore)">
             {{ pod.readmore ? 'Read less' : 'Read more' }}
           </button>
-        </div>
+        </a>
         <div class="release-date">
           <SVGClock />
           {{ pod.release_date | date }}
@@ -145,16 +145,23 @@ export default {
       window.h1Set = true;
     }
 
-    const locale = Intl.getCanonicalLocales(this.$i18n.locale);
-    const { data } = await this.$d.api.get(`/podcasts?fields[]=url&fields[]=image&fields[]=release_date&fields[]=content.title,content.description&fields[]=status&filter[status][_eq]=published&filter[content][languages_code][_eq]=${locale}&limit=-1`);
-    const podcasts = (data || []).map((o) => ({
-      image: `${API_URL}/assets/${o.image}`,
-      release_date: o.release_date,
-      url: o.url,
-      title: (o.content[0] || {}).title,
-      description: (o.content[0] || {}).description,
-      readmore: false,
-    }));
+    const siteLocale = this.$i18n.locale;
+    const locale = Intl.getCanonicalLocales(siteLocale);
+    const { data } = await this.$d.api.get(`/podcasts?fields[]=url&fields[]=image&fields[]=release_date&fields[]=content.title,content.description,content.episode&fields[]=status&filter[status][_eq]=published&filter[content][languages_code][_eq]=${locale}&limit=-1`);
+    const podcasts = (data || []).map((o) => {
+      const episode = (o.content[0] || {}).episode ?? null;
+      const hasEpisode = episode !== null;
+      const siteUrl = `/${siteLocale}/lp/podcast`;
+      return {
+        image: `${API_URL}/assets/${o.image}`,
+        release_date: o.release_date,
+        url: o.url,
+        detail_url: hasEpisode ? `${siteUrl}/episode/${episode}` : siteUrl,
+        title: (o.content[0] || {}).title,
+        description: (o.content[0] || {}).description,
+        readmore: false,
+      };
+    });
     this.podcasts = podcasts.sort((a, b) => new Date(b.release_date) - new Date(a.release_date));
   },
   // beforeUpdate() {},
@@ -308,9 +315,15 @@ export default {
          }
        }
 
-       & > div.content {
+       & > a.content {
+         display: block;
+         text-decoration: none !important;
+         line-height: normal;
+         color: inherit;
+
          h4 {
            margin-bottom: 10px;
+           line-height: 1.1;
          }
          .description {
            display: -webkit-box;

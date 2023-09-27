@@ -21,6 +21,7 @@ import SingleJob from '@/views/SingleJob.vue';
 import NewsIndex from '@/views/news/index.vue';
 import EcoSystemFiltered from '@/views/ecosystem/filtered.vue';
 import NewsFiltered from '@/views/news/filtered.vue';
+import PodcastDetail from '@/views/PodcastDetail.vue';
 
 const { api } = directus;
 const { LANGUAGES, API_URL } = config;
@@ -64,6 +65,12 @@ export function getRouter() {
         ...r,
         component: VIEW_MAPPING[r.meta.page || r.meta.details || r.meta.filtered],
       }));
+      routes = routes.concat([{
+        name: 'podcast-detail',
+        path: '/:lang/lp/podcast/episode/:slug',
+        component: PodcastDetail,
+        props: route => ({ episode: route.params.slug }),
+      }]);
       Vue.use(Router);
       const router = new Router({
         mode: 'history',
