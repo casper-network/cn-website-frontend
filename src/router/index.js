@@ -67,9 +67,9 @@ export function getRouter() {
       }));
       routes = routes.concat([{
         name: 'podcast-detail',
-        path: '/:lang/lp/podcast/episode/:slug',
+        path: '/:lang/lp/podcast/:slug',
         component: PodcastDetail,
-        props: route => ({ episode: route.params.slug }),
+        props: route => ({ slug: route.params.slug }),
       }]);
       Vue.use(Router);
       const router = new Router({

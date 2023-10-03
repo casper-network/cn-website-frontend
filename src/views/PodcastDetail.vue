@@ -44,7 +44,7 @@ export default {
   //
   //---------------------------------------------------
   props: {
-    episode: {
+    slug: {
       type: String,
       default: null,
     },
@@ -122,7 +122,7 @@ export default {
     metaTitle() {
       const content = this.details?.content[0] || {};
       const lead = this.leadSection;
-      let title = content.title || `Podcast Episode #${this.episode}`;
+      let title = content.title || '';
       title = lead.title || title;
       return title;
     },
@@ -174,7 +174,7 @@ export default {
   // render(h) { return h(); },
   async mounted() {
     const locale = Intl.getCanonicalLocales(this.$i18n.locale);
-    const { data } = await this.$d.api.get(`/podcasts?fields[]=image&fields[]=content.title,content.description,content.page_blocks&filter[status][_eq]=published&filter[content][languages_code][_eq]=${locale}&filter[content][episode][_eq]=${this.episode}&limit=1`);
+    const { data } = await this.$d.api.get(`/podcasts?fields[]=image&fields[]=content.title,content.description,content.page_blocks&filter[status][_eq]=published&filter[content][languages_code][_eq]=${locale}&filter[content][slug][_eq]=${this.slug}&limit=1`);
     this.details = (Array.isArray(data) && data[0] !== null) ? data[0] : null;
     /*
     if (!this.$d.data) {

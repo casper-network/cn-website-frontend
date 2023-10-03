@@ -147,16 +147,16 @@ export default {
 
     const siteLocale = this.$i18n.locale;
     const locale = Intl.getCanonicalLocales(siteLocale);
-    const { data } = await this.$d.api.get(`/podcasts?fields[]=url&fields[]=image&fields[]=release_date&fields[]=content.title,content.description,content.episode&fields[]=status&filter[status][_eq]=published&filter[content][languages_code][_eq]=${locale}&limit=-1`);
+    const { data } = await this.$d.api.get(`/podcasts?fields[]=url&fields[]=image&fields[]=release_date&fields[]=content.title,content.description,content.slug&fields[]=status&filter[status][_eq]=published&filter[content][languages_code][_eq]=${locale}&limit=-1`);
     const podcasts = (data || []).map((o) => {
-      const episode = (o.content[0] || {}).episode ?? null;
-      const hasEpisode = episode !== null;
+      const slug = (o.content[0] || {}).slug ?? null;
+      const hasDetails = slug !== null;
       const siteUrl = `/${siteLocale}/lp/podcast`;
       return {
         image: `${API_URL}/assets/${o.image}`,
         release_date: o.release_date,
         url: o.url,
-        detail_url: hasEpisode ? `${siteUrl}/episode/${episode}` : siteUrl,
+        detail_url: hasDetails ? `${siteUrl}/${slug}` : siteUrl,
         title: (o.content[0] || {}).title,
         description: (o.content[0] || {}).description,
         readmore: false,
