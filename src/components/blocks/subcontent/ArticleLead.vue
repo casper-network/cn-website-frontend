@@ -117,7 +117,7 @@ div.article-lead {
 
     a {
       text-decoration: none;
-      color: var(--color-blue);
+      color: var(--color-black);
     }
 
     &:hover {

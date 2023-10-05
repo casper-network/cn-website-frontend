@@ -26,6 +26,11 @@
       <div class="container block" v-if="block.blocktype === 'carousel'">
         <Glider :glide-data="glideData"></Glider>
       </div>
+      <div class="container block" v-if="block.blocktype === 'linklist'">
+        <LinkList
+          :block-data="block"
+        ></LinkList>
+      </div>
     </section>
   </main>
 </template>
@@ -221,6 +226,10 @@ div.container {
     @include breakpoint('sm') {
       margin-top: 32px;
       margin-bottom: 80px;
+    }
+
+    & >.linklist {
+      width: auto;
     }
   }
 
