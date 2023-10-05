@@ -25,22 +25,28 @@
       >
         <a class="image" target="_blank" :href="pod.url">
           <img :src="pod.image" alt="">
-          <SVGIconPlay />
         </a>
-        <a :href="pod.detail_url" class="content">
-          <h4>{{ pod.title }}</h4>
+
+        <div class="content">
+          <div class="release-date">
+            <SVGClock />
+            {{ pod.release_date | date }}
+          </div>
+
+          <h3>{{ pod.title }}</h3>
+
           <div
             class="description"
             :class="{ open: pod.readmore }"
             v-html="pod.description"
           />
-          <button class="more" @click.prevent.stop="readMore(idx, pod.readmore)">
-            {{ pod.readmore ? 'Read less' : 'Read more' }}
-          </button>
-        </a>
-        <div class="release-date">
-          <SVGClock />
-          {{ pod.release_date | date }}
+          <template v-if="pod.internal_url">
+            <router-link class="btn-more" :to="pod.url">{{ $t('ctas.readMore') }}</router-link>
+          </template>
+          <template v-else>
+            <a class="btn-more" :href="pod.url" target="_blank">{{ $t('ctas.readMore') }}</a>
+          </template>
+
         </div>
       </div>
     </div>
@@ -48,7 +54,6 @@
 </template>
 
 <script>
-import SVGIconPlay from '@/assets/svg/icon-play.svg?inline';
 import SVGClock from '@/assets/svg/icon-clock.svg?inline';
 import config from '@/directus/config';
 import slugify from 'slugify';
@@ -58,7 +63,6 @@ const { API_URL } = config;
 export default {
   name: 'PodcastList',
   components: {
-    SVGIconPlay,
     SVGClock,
   },
   //---------------------------------------------------
@@ -150,13 +154,12 @@ export default {
     const { data } = await this.$d.api.get(`/podcasts?fields[]=url&fields[]=image&fields[]=release_date&fields[]=content.title,content.description,content.slug&fields[]=status&filter[status][_eq]=published&filter[content][languages_code][_eq]=${locale}&limit=-1`);
     const podcasts = (data || []).map((o) => {
       const slug = (o.content[0] || {}).slug ?? null;
-      const hasDetails = slug !== null;
       const siteUrl = `/${siteLocale}/lp/podcast`;
       return {
         image: `${API_URL}/assets/${o.image}`,
         release_date: o.release_date,
-        url: o.url,
-        detail_url: hasDetails ? `${siteUrl}/${slug}` : siteUrl,
+        url: slug !== null ? `${siteUrl}/${slug}` : o.url,
+        internal_url: slug !== null,
         title: (o.content[0] || {}).title,
         description: (o.content[0] || {}).description,
         readmore: false,
@@ -174,6 +177,7 @@ export default {
   //
   //---------------------------------------------------
   methods: {
+    /*
     readMore(idx, open) {
       const podcasts = JSON.parse(JSON.stringify(this.podcasts));
       podcasts.forEach((pod) => {
@@ -183,6 +187,7 @@ export default {
       podcasts[idx].readmore = !open;
       this.podcasts = podcasts;
     },
+    */
   },
 };
 </script>
@@ -268,39 +273,56 @@ export default {
    & > .items {
      display: flex;
      flex-direction: column;
-     gap: 20px;
+     gap: 160px;
+
+     @include breakpoint('m') {
+       gap: 80px;
+     }
+
+     @include breakpoint('sm') {
+       margin-top: 60px;
+       gap: 80px;
+     }
 
      & > .item {
        display: flex;
-       border: 1px solid var(--color-grey-medium);
-       padding: 20px;
-       gap: 20px;
+       gap: 128px;
+
+       @include breakpoint('m') {
+         gap: 64px;
+       }
 
        @include breakpoint('sm') {
+         gap: 40px;
+       }
+
+       @include breakpoint('s') {
          flex-direction: column;
+         gap: 10px;
        }
 
        & > a.image {
          position: relative;
          display: block;
-         width: 150px;
-         height: 150px;
-         min-width: 150px;
-         max-width: 150px;
+         flex: 0;
+         width: 300px;
+         height: 300px;
+         padding-top: 10px;
 
          @include breakpoint('sm') {
+           width: 250px;
+           height: 250px;
+         }
+
+         @include breakpoint('s') {
            width: 100%;
-           height: 100%;
-           aspect-ratio: 1;
-           min-width: 100%;
-           max-width: none;
+           height: auto;
          }
 
          & > img {
-           width: 100%;
-           height: 100%;
+           width: inherit;
+           height: inherit;
            object-fit: cover;
-           aspect-ratio: 1;
          }
 
          & > svg {
@@ -315,13 +337,28 @@ export default {
          }
        }
 
-       & > a.content {
+       & > .content {
          display: block;
          text-decoration: none !important;
          line-height: normal;
          color: inherit;
 
-         h4 {
+         & > div.release-date {
+           width: 100%;
+           text-align: left;
+           white-space: nowrap;
+           margin-bottom: 20px;
+           svg {
+             position: relative;
+             top: 8px;
+             margin-right: 8px;
+             display: inline-block;
+             width: 25px;
+             height: 25px;
+           }
+         }
+
+         h3 {
            margin-bottom: 10px;
            line-height: 1.1;
          }
@@ -331,6 +368,7 @@ export default {
            -webkit-box-orient: vertical;
            overflow: hidden;
            height: 85px;
+           margin-bottom: 20px;
 
            &.open {
              overflow: visible;
@@ -363,33 +401,35 @@ export default {
            }
          }
 
-         button.more {
-           background: transparent;
-           border: none;
-           padding: 0;
-           margin: 15px 0 0 0;
-           font-size: inherit;
-           font-family: inherit;
-           font-weight: 500;
-           letter-spacing: 2px;
+         .btn-more {
+           flex-direction: row;
+           justify-content: center;
+           align-items: center;
            cursor: pointer;
-           color: var(--color-blue);
-         }
-       }
+           margin: 0;
+           text-align: center;
+           vertical-align: middle;
+           white-space: nowrap;
+           width: auto;
+           background-color: var(--color-atomic-lime);
+           border: 2px solid var(--color-atomic-lime);
+           color: var(--color-black);
+           transition: all 0.15s ease;
+           display: inline-flex;
+           padding: 10px 30px 14px;
+           font-weight: 500;
+           font-size: 18px !important;
+           text-decoration: none !important;
+           line-height: 24px;
 
-       & > div.release-date {
-         white-space: nowrap;
-         svg {
-           position: relative;
-           top: 8px;
-           margin-right: 8px;
-           display: inline-block;
-           width: 25px;
-           height: 25px;
-         }
+           &:hover {
+             background-color: var(--color-black);
+             color: var(--color-atomic-lime);
+           }
 
-         @include breakpoint('sm') {
-           text-align: right;
+           @include breakpoint('s') {
+             float: right;
+           }
          }
        }
      }
