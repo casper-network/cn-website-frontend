@@ -128,7 +128,7 @@ export default {
       const content = this.details?.content[0] || {};
       const lead = this.leadSection;
       let title = content.title || '';
-      title = lead.title || title;
+      title = content?.meta_title || lead.title || title;
       return title;
     },
     metaDescription() {
@@ -136,13 +136,14 @@ export default {
       const content = this.details?.content[0] || {};
       const lead = this.leadSection;
       let description = content.description || '';
-      div.innerHTML = lead.content || description;
+      div.innerHTML = content?.meta_description || lead.content || description;
       description = div.textContent;
       return description;
     },
     metaImage() {
+      const content = this.details?.content[0] || {};
       let image = this.leadImage?.media || null;
-      image = this.details?.image || image;
+      image = content?.meta_image || this.details?.image || image;
       if (image) {
         return `${API_URL}/assets/${image}`;
       }
@@ -179,19 +180,8 @@ export default {
   // render(h) { return h(); },
   async mounted() {
     const locale = Intl.getCanonicalLocales(this.$i18n.locale);
-    const { data } = await this.$d.api.get(`/podcasts?fields[]=image&fields[]=content.title,content.description,content.page_blocks&filter[status][_eq]=published&filter[content][languages_code][_eq]=${locale}&filter[content][slug][_eq]=${this.slug}&limit=1`);
+    const { data } = await this.$d.api.get(`/podcasts?fields[]=image&fields[]=content.title,content.description,content.meta_title,content.meta_description,content.meta_image,content.page_blocks&filter[status][_eq]=published&filter[content][languages_code][_eq]=${locale}&filter[content][slug][_eq]=${this.slug}&limit=1`);
     this.details = (Array.isArray(data) && data[0] !== null) ? data[0] : null;
-    /*
-    if (!this.$d.data) {
-      const url = `/${this.$i18n.locale}/case-studies/`;
-      window.canonical = window.location.origin + url;
-      this.$router.replace(url);
-    } else {
-      this.getRelatedCasestudies();
-      const root = document.querySelector(':root');
-      root.style.setProperty('--headerHeight', `${document.querySelector('header').clientHeight}px`);
-    }
-    */
   },
   // beforeUpdate() {},
   // updated() {},

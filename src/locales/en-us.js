@@ -3,6 +3,7 @@ export default {
   ctas: {
     learnMore: 'Learn More',
     readMore: 'Read More',
+    more: 'More',
     viewAll: 'View All',
     loadMore: 'Load More',
     visitSite: 'Visit Site',
