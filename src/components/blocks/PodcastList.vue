@@ -41,10 +41,10 @@
             v-html="pod.description"
           />
           <template v-if="pod.internal_url">
-            <router-link class="btn-more" :to="pod.url">{{ $t('ctas.readMore') }}</router-link>
+            <router-link class="btn-more" :to="pod.url">{{ $t('ctas.more') }}</router-link>
           </template>
           <template v-else>
-            <a class="btn-more" :href="pod.url" target="_blank">{{ $t('ctas.readMore') }}</a>
+            <a class="btn-more" :href="pod.url" target="_blank">{{ $t('ctas.more') }}</a>
           </template>
 
         </div>
