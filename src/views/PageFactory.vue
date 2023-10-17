@@ -104,6 +104,17 @@
         :block-title="block.title"
         :glide-data="block.items"
       />
+      <ResponsiveGallery
+        v-if="block.blocktype === 'responsivegallery'"
+        :title="block.title"
+        :desktop-media="block.desktopmedia"
+        :mobile-media="block.mobilemedia"
+      />
+      <div class="container block" v-if="block.blocktype === 'imagegallery'">
+        <div class="half-carousel">
+          <Glider :glide-data="block.media"></Glider>
+        </div>
+      </div>
       <VideoCollection
         v-if="block.blocktype === 'videogallery'"
         :block-title="block.title"
@@ -166,12 +177,13 @@
 import { getDummyPage } from '@/api/endpoints/directusEndpoints';
 import config from '@/directus/config';
 import PodcastList from '@/components/blocks/PodcastList.vue';
+import ResponsiveGallery from '@/components/blocks/ResponsiveGallery.vue';
 
 const { API_URL } = config;
 
 export default {
   name: 'PageFactory',
-  components: { PodcastList },
+  components: { ResponsiveGallery, PodcastList },
   //---------------------------------------------------
   //
   //  Properties

@@ -28,6 +28,8 @@ const { LANGUAGES, API_URL } = config;
 
 const VIEW_MAPPING = {
   lp_home: PageFactory,
+  lp_protocol: PageFactory,
+  lp_protocol_roadmap: PageFactory,
   lp_news: NewsIndex,
   lp_team:PageFactory,
   lp_case_studies: PageFactory,
