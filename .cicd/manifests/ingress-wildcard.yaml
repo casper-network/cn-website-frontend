@@ -2,16 +2,16 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   namespace: {{.Values.namespace}}
-  name: *.{{.Values.appName}}-{{.Values.envName}}-ingress
+  name: "*.{{.Values.appName}}-{{.Values.envName}}-ingress"
   annotations:     
     cert-manager.io/cluster-issuer: "letsencrypt-prod"
 spec:
   tls:
   - hosts:
-    - *.{{.Values.ingressDomainName}}
-    secretName: *.{{.Values.appName}}-{{.Values.envName}}-tls
+    - "*.{{.Values.ingressDomainName}}"
+    secretName: "*.{{.Values.appName}}-{{.Values.envName}}-tls"
   rules:
-  - host: *.{{.Values.ingressDomainName}}
+  - host: "*.{{.Values.ingressDomainName}}"
     http:
       paths:
       - path: /
