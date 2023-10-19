@@ -9,7 +9,7 @@ spec:
   tls:
   - hosts:
     - cn.{{.Values.ingressDomainName}}
-    secretName: vn.{{.Values.appName}}-{{.Values.envName}}-tls
+    secretName: cn.{{.Values.appName}}-{{.Values.envName}}-tls
   rules:
   - host: cn.{{.Values.ingressDomainName}}
     http:
