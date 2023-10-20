@@ -1,7 +1,7 @@
 <template>
   <div class="carousel-container">
     <div class="container">
-      <h2 v-html="title" :data-slug="slugged"></h2>
+      <h2 v-if="title" v-html="title" :data-slug="slugged"></h2>
     </div>
     <div class="fullwidth-glider" ref="glider">
       <div class="glide__track" data-glide-el="track">
@@ -286,15 +286,21 @@ export default {
 .carousel-container {
   display: block;
   width: 100%;
+  overflow: hidden;
   position: relative;
   height: 100%;
   padding: 0 0 var(--margin-80) 0;
-  margin-top: 80px;
+  margin-top: 0;
 
-  > div:first-child {
+  & > div.container {
+    margin-top: 80px;
     display: flex;
     justify-content: space-between;
     margin-bottom: 42px;
+  }
+
+  & > .container:empty {
+    display: none;
   }
 }
 
