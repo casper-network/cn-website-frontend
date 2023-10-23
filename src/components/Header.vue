@@ -151,9 +151,8 @@ export default {
       }
     },
     $route() {
-      if (document.querySelector('.nav-button')
-        .classList
-        .contains('open')) {
+      const navButton = document.querySelector('.nav-button');
+      if (navButton && navButton.classList.contains('open')) {
         this.toggleNavigation();
       }
 

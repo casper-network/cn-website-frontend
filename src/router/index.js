@@ -110,7 +110,6 @@ export function getRouter() {
           countryCode = hostname.replace('.casper.network', '');
           ignoreLanguage = true;
           language = 'en-us';
-          console.log(countryCode);
         }
 
         if (!ignoreLanguage && LANGUAGES.length >= 1 && !LANGUAGES.includes(language)) {
