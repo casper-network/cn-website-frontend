@@ -6,7 +6,7 @@
 @import './utils.scss';
 
 html, body {
-  font-family: $font-name, sans-serif;
+  font-family: $font-name;
   font-size: 16px;
   margin: 0;
   padding: 0;
@@ -23,7 +23,7 @@ html, body {
 }
 
 #app {
-  font-family: $font-name, sans-serif;
+  font-family: $font-name;
 }
 
 a {
