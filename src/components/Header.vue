@@ -2,8 +2,8 @@
   <header class="header"
           :class="`overlap-state-${isOverlapping} navbar-state-${showNavigation} theme-${themeState}`">
     <div class="container -long">
-      <SVGLogo class="logo" @click="$router.push(`/${$i18n.locale}/`)"/>
-      <nav>
+      <SVGLogo class="logo" @click="goHome()"/>
+      <nav v-if="!hideNavigation">
         <ul>
           <li
             class="nav-item"
@@ -60,7 +60,7 @@
           </li>
         </ul>
       </nav>
-      <div class="nav-button" @click="toggleNavigation()">
+      <div v-if="!hideNavigation" class="nav-button" @click="toggleNavigation()">
         <SVGBurger/>
       </div>
     </div>
@@ -94,6 +94,7 @@ export default {
   //---------------------------------------------------
   data() {
     return {
+      hideNavigation: false,
       showNavigation: true,
       lastScrollPosition: 0,
       isOverlapping: true,
@@ -156,6 +157,8 @@ export default {
         this.toggleNavigation();
       }
 
+      this.testForCountryPage();
+
       clearTimeout(this.timeoutId);
       this.timeoutId = setTimeout(() => {
         if (document.querySelector('.hero') && document.documentElement.scrollTop < 100) {
@@ -199,6 +202,7 @@ export default {
   // render(h) { return h(); },
   mounted() {
     window.addEventListener('scroll', this.onScroll);
+    this.testForCountryPage();
   },
   // beforeUpdate() {},
   /* updated() {
@@ -209,6 +213,16 @@ export default {
   },
   // destroyed() {},
   methods: {
+    testForCountryPage() {
+      this.hideNavigation = /^[a-zA-Z]{2}.casper.network/.test(window.location.hostname);
+    },
+    goHome() {
+      if (this.hideNavigation) {
+        window.location.href = 'https://casper.network/en-us/';
+      } else {
+        this.$router.push(`/${this.$i18n.locale}/`);
+      }
+    },
     toggleChildren(evt) {
       const els = this.$el.querySelectorAll('.nav-item.hover');
       els.forEach((el) => {
