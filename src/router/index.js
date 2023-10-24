@@ -22,6 +22,7 @@ import NewsIndex from '@/views/news/index.vue';
 import EcoSystemFiltered from '@/views/ecosystem/filtered.vue';
 import NewsFiltered from '@/views/news/filtered.vue';
 import PodcastDetail from '@/views/PodcastDetail.vue';
+import CountryPageFactory from '@/views/CountryPageFactory.vue';
 
 const { api } = directus;
 const { LANGUAGES, API_URL } = config;
@@ -67,12 +68,19 @@ export function getRouter() {
         ...r,
         component: VIEW_MAPPING[r.meta.page || r.meta.details || r.meta.filtered],
       }));
-      routes = routes.concat([{
-        name: 'podcast-detail',
-        path: '/:lang/lp/podcast/:slug',
-        component: PodcastDetail,
-        props: route => ({ slug: route.params.slug }),
-      }]);
+      routes = routes.concat([
+        {
+          name: 'country-landingpage',
+          path: '/',
+          component: CountryPageFactory,
+        },
+        {
+          name: 'podcast-detail',
+          path: '/:lang/lp/podcast/:slug',
+          component: PodcastDetail,
+          props: route => ({ slug: route.params.slug }),
+        },
+      ]);
       Vue.use(Router);
       const router = new Router({
         mode: 'history',
@@ -89,9 +97,20 @@ export function getRouter() {
 
       router.beforeResolve(async (to, from, next) => {
         window.h1Set = false;
-        const ignoreLanguage = to.meta.ignoreLanguage || false;
-        const language = (to.params.lang) ? to.params.lang : to.query.lang || '';
+        let ignoreLanguage = to.meta.ignoreLanguage || false;
+        let language = (to.params.lang) ? to.params.lang : to.query.lang || '';
         const urlQueryString = window.location.search || '';
+
+        let isCountryLP = false;
+        let countryCode = null;
+        const hostname = window.location.hostname;
+
+        if (/^[a-zA-Z]{2}.casper.network/.test(hostname)) {
+          isCountryLP = true;
+          countryCode = hostname.replace('.casper.network', '');
+          ignoreLanguage = true;
+          language = 'en-us';
+        }
 
         if (!ignoreLanguage && LANGUAGES.length >= 1 && !LANGUAGES.includes(language)) {
           const detected = (navigator.languages.find((lang => LANGUAGES.includes(lang.toLowerCase()))) || '').toLowerCase();
@@ -113,11 +132,19 @@ export function getRouter() {
           });
         }
 
-        if (to.path === '/') {
+        if (to.path === '/' && !isCountryLP) {
           return next({ path: `/${i18n.locale}/${urlQueryString}`, replace: true });
         }
 
-        // const RENDERED_EVENT = new Event('bones-rendered');
+        if (isCountryLP && countryCode) {
+          const { data } = await api.get(`/lp_country_${countryCode}`);
+          if (data) {
+            directus.data = data;
+          }
+          next();
+          return null;
+        }
+
         const [locale] = Intl.getCanonicalLocales(i18n.locale);
         if (to.meta.page) {
           const { data } = await api.get(`/${to.meta.page}?filter[content][languages_code][_eq]=${locale}&fields=*.*`);

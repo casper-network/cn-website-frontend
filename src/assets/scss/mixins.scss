@@ -4,7 +4,7 @@
    Font Style Mixin
    -------------------------------------------------- */
 @mixin style-body($body-style: 'large') {
-  font-family: $font-name, sans-serif;
+  font-family: $font-name;
   @if $body-style=='large' {
     font-size: 19.85px;
     line-height: 1.5;

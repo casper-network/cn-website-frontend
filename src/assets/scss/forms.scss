@@ -208,7 +208,7 @@
     input[type="file"],
     input[type="number"],
     input[type="email"] {
-      font-family: $font-name, sans-serif;
+      font-family: $font-name;
       padding: 10px 10px 10px 20px;
       width: calc(100% - 32px);
       font-weight: 400;
