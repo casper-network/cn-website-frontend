@@ -46,6 +46,10 @@ server {
         return 301 https://casper.network/en-us/lp/accelerate-grant-program;
     }
 
+    location /roadmap {
+        return 301 https://casper.network/en-us/protocol-roadmap;
+    }
+
     location /en-us/articles/caspers-guide-to-blockchain-development {
         return 301 https://casper.network/en-us/web3/blockchain/caspers-guide-to-blockchain-development/;
     }
