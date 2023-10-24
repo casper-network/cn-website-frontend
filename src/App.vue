@@ -17,33 +17,96 @@ export default {
     Footer,
     CookieNotice,
   },
+  //---------------------------------------------------
+  //
+  //  Properties
+  //
+  //---------------------------------------------------
+  props: {},
+  //---------------------------------------------------
+  //
+  //  Meta
+  //
+  //---------------------------------------------------
   metaInfo: {
     title: '',
     titleTemplate: '%s | Casper Network',
   },
-  watch: {
-    $route: {
-      handler(value) {
-        this.hash = value.hash || null;
-      },
-    },
-  },
+  //---------------------------------------------------
+  //
+  //  Data model
+  //
+  //---------------------------------------------------
   data() {
     return {
       hash: null,
+      samePage: false,
     };
   },
+  //---------------------------------------------------
+  //
+  //  Computed Properties
+  //
+  //---------------------------------------------------
+  computed: {},
+  //---------------------------------------------------
+  //
+  //  Watch Properties
+  //
+  //---------------------------------------------------
+  watch: {
+    $route: {
+      handler(newval, oldval) {
+        this.samePage = newval.path === oldval?.path;
+        this.hash = newval.hash || null;
+      },
+    },
+  },
+  //---------------------------------------------------
+  //
+  //  Filter Properties
+  //
+  //---------------------------------------------------
+  // filters: {},
+  //---------------------------------------------------
+  //
+  //  Validation Properties
+  //
+  //---------------------------------------------------
+  // validations: {},
+  //---------------------------------------------------
+  //
+  //  Vue Lifecycle
+  //
+  //---------------------------------------------------
+  // beforeCreate() {},
+  // created() {},
+  // beforeMount() {},
+  // render(h) { return h(); },
+  // mounted() {},
+  // beforeUpdate() {},
   updated() {
     if (this.hash) {
       this.$nextTick(() => {
-        const hash = this.hash.substr(1);
+        const { samePage } = this;
+        let { hash } = this;
+        hash = hash.substr(1);
         const element = document.querySelector(`[data-slug='${hash}']`);
         if (element) {
-          element.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
+          const options = { behavior: 'smooth', block: 'center', inline: 'center' };
+          options.block = samePage ? 'start' : 'center';
+          element.scrollIntoView(options);
         }
       });
     }
   },
+  // beforeDestroy() {},
+  // destroyed() {},
+  //---------------------------------------------------
+  //
+  //  Methods
+  //
+  //---------------------------------------------------
   methods: {
     handleManageCookies() {
       this.$refs.cookieNotice.show();

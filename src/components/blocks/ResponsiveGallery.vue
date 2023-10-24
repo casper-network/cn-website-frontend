@@ -76,7 +76,7 @@ export default {
   //---------------------------------------------------
   computed: {
     slugged() {
-      const title = (this.blockTitle || '').replace(/<\/?[^>]+(>|$)/g, '');
+      const title = (this.title || '').replace(/<\/?[^>]+(>|$)/g, '');
       return slugify(title, { lower: true, strict: true });
     },
     computedItems() {
