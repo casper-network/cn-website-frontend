@@ -83,22 +83,22 @@ export default {
   // created() {},
   // beforeMount() {},
   // render(h) { return h(); },
-  // mounted() {},
+  mounted() {
+    this.checkForAnchorLinks();
+  },
   // beforeUpdate() {},
   updated() {
     if (this.hash) {
       this.$nextTick(() => {
         const { samePage } = this;
         let { hash } = this;
-        hash = hash.substr(1);
-        const element = document.querySelector(`[data-slug='${hash}']`);
-        if (element) {
-          const options = { behavior: 'smooth', block: 'center', inline: 'center' };
-          options.block = samePage ? 'start' : 'center';
-          element.scrollIntoView(options);
+        hash = hash.substr(1) || '';
+        if (hash.length > 0) {
+          this.scrollToAnchor(hash, samePage);
         }
       });
     }
+    this.checkForAnchorLinks();
   },
   // beforeDestroy() {},
   // destroyed() {},
@@ -108,6 +108,29 @@ export default {
   //
   //---------------------------------------------------
   methods: {
+    checkForAnchorLinks() {
+      this.$nextTick(() => {
+        const a = document.querySelectorAll('a[href*="#"]');
+        a.forEach((o) => {
+          o.addEventListener('click', this.handleAnchorLink);
+        });
+      });
+    },
+    handleAnchorLink(evt) {
+      const href = evt.target?.href.split('#')[1] || '';
+      const hash = window.location.hash.substr(1) || '';
+      if (href !== '' && hash !== '' && href === hash) {
+        this.scrollToAnchor(hash);
+      }
+    },
+    scrollToAnchor(anchor, samePage = true) {
+      const element = document.querySelector(`[data-slug='${anchor}'], #${anchor}`);
+      if (element) {
+        const options = { behavior: 'smooth', block: 'center', inline: 'center' };
+        options.block = samePage ? 'start' : 'center';
+        element.scrollIntoView(options);
+      }
+    },
     handleManageCookies() {
       this.$refs.cookieNotice.show();
     },

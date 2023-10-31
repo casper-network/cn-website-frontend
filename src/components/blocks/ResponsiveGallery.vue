@@ -1,5 +1,5 @@
 <template>
-  <div class="carousel-container">
+  <div class="responsive-carousel-container" :id="id">
     <div class="container">
       <h2 v-if="title" v-html="title" :data-slug="slugged"></h2>
     </div>
@@ -65,6 +65,7 @@ export default {
   //---------------------------------------------------
   data() {
     return {
+      id: 'rcc',
       glider: null,
       timeoutId: null,
     };
@@ -283,7 +284,7 @@ export default {
   cursor: pointer;
 }
 
-.carousel-container {
+.responsive-carousel-container {
   display: block;
   width: 100%;
   overflow: hidden;
