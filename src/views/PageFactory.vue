@@ -17,6 +17,7 @@
         :file="block.file"
       />
       <TextTeaser
+        :is-first="blockIndex === 0"
         v-if="block.blocktype === 'section'"
         :box-title="block.title"
         :box-content="block.content"
@@ -284,7 +285,6 @@ export default {
   // beforeMount() {},
   // render(h) { return h(); },
   mounted() {
-    this.checkTint();
     if (this.dummyData[this.dummyData.length - 1].blocktype === 'startnow' || (this.dummyData[this.dummyData.length - 1].blocktype === 'imgteaser' && this.dummyData[this.dummyData.length - 1].variation === 'full')) {
       document.querySelector('main')
         .classList
@@ -313,7 +313,6 @@ export default {
   },
   // beforeUpdate() {},
   updated() {
-    this.checkTint();
     if (this.dummyData[this.dummyData.length - 1].blocktype === 'startnow' || (this.dummyData[this.dummyData.length - 1].blocktype === 'imgteaser' && this.dummyData[this.dummyData.length - 1].variation === 'full')) {
       document.querySelector('main')
         .classList
@@ -351,17 +350,6 @@ export default {
   //
   //---------------------------------------------------
   methods: {
-    checkTint() {
-      const data = (this.dummyData || [])[0] || null;
-      const hasColor = data?.bgcolor !== null && data?.bgcolor !== undefined;
-      if (data && data.blocktype === 'hero' && hasColor) {
-        this.$store.commit('heroHasBgColor', true);
-        this.$store.commit('changeNavigationTintState', 'light');
-      } else {
-        this.$store.commit('heroHasBgColor', false);
-        this.$store.commit('changeNavigationTintState', 'dark');
-      }
-    },
     //----------------------------------
     // Event Handlers
     //----------------------------------

@@ -1,5 +1,5 @@
 <template>
-  <div class="text-component" :class="{ margined: setAsH1, reversed: variation === 'text-right' }" :style="computedStyles">
+  <div class="text-component" :class="{ margined: setAsH1, reversed: variation === 'text-right', 'is-first': isFirst }" :style="computedStyles">
     <div class="container">
       <div>
         <h1 v-if="setAsH1" class="h1" v-html="boxTitle" :data-slug="slugged" />
@@ -73,11 +73,15 @@ export default {
     },
     media: {
       type: Array,
-      defualt: null,
+      default: null,
     },
     variation: {
       type: String,
       default: 'text-left',
+    },
+    isFirst: {
+      type: Boolean,
+      default: false,
     },
   },
   //---------------------------------------------------
@@ -270,6 +274,16 @@ export default {
 
       @include breakpoint('sm') {
         margin-top: 24px;
+      }
+    }
+  }
+
+  &.is-first {
+    & > div {
+      padding-top: 200px;
+
+      @include breakpoint('s') {
+        padding-top: 150px;
       }
     }
   }

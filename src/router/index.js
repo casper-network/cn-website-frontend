@@ -28,26 +28,10 @@ const { api } = directus;
 const { LANGUAGES, API_URL } = config;
 
 const VIEW_MAPPING = {
-  lp_home: PageFactory,
-  lp_protocol: PageFactory,
-  lp_protocol_roadmap: PageFactory,
   lp_news: NewsIndex,
-  lp_team:PageFactory,
-  lp_case_studies: PageFactory,
-  lp_community: PageFactory,
-  lp_pressmedia: PageFactory,
-  lp_terms_of_use: PageFactory,
-  lp_privacy: PageFactory,
-  lp_documentation: PageFactory,
   lp_ecosystem: EcoSystem,
   lp_newsletter: Newsletter,
   lp_contact: Contact,
-  lp_about_us_universe: PageFactory,
-  lp_about_us_vision: PageFactory,
-  lp_about_us_career: PageFactory,
-  lp_get_started: PageFactory,
-  lp_get_started_dev: PageFactory,
-  lp_get_started_reg: PageFactory,
   casestudies: CaseStudiesDetail,
   // applications: EcoSystemDetail,
   news: NewsDetail,
@@ -55,7 +39,6 @@ const VIEW_MAPPING = {
   lp_ecosystem_filtered: EcoSystemFiltered,
   lp_news_filtered: NewsFiltered,
   articles: NewsDetail,
-  landingpages: PageFactory,
 };
 
 // eslint-disable-next-line import/prefer-default-export
@@ -66,7 +49,7 @@ export function getRouter() {
       let routes = await response.json() || [];
       routes = routes.map(r => ({
         ...r,
-        component: VIEW_MAPPING[r.meta.page || r.meta.details || r.meta.filtered],
+        component: VIEW_MAPPING[r.meta.page || r.meta.details || r.meta.filtered] || PageFactory,
       }));
       routes = routes.concat([
         {
