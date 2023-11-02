@@ -1,6 +1,8 @@
 <template>
-  <header class="header"
-          :class="`overlap-state-${isOverlapping} navbar-state-${showNavigation} theme-${themeState}`">
+  <header
+    class="header"
+    :class="`overlap-state-${overlapState} navbar-state-${showNavigation} theme-${themeState}`"
+  >
     <div class="container -long">
       <SVGLogo class="logo" @click="goHome()"/>
       <nav v-if="!hideNavigation">
@@ -95,10 +97,16 @@ export default {
   data() {
     return {
       hideNavigation: false,
+
+      pageThemeState: null,
       showNavigation: true,
-      lastScrollPosition: 0,
-      isOverlapping: true,
-      timeoutId: null,
+      themeState: 'light',
+      overlapState: true,
+      scroll: {
+        top: 0,
+        value: 0,
+        offset: 80,
+      },
     };
   },
   //---------------------------------------------------
@@ -130,12 +138,6 @@ export default {
       }
       return navigation;
     },
-    themeState() {
-      return this.$store.getters.navigationTintState;
-    },
-    heroHasBgColor() {
-      return this.$store.getters.heroHasBgColor || false;
-    },
   },
   //---------------------------------------------------
   //
@@ -143,33 +145,15 @@ export default {
   //
   //---------------------------------------------------
   watch: {
-    isOverlapping(newVal) {
-      if (newVal && this.heroHasBgColor) {
-        this.$store.commit('changeNavigationTintState', 'light');
-      } else {
-        this.$store.commit('changeNavigationTintState', 'dark');
-      }
-    },
     $route() {
       const navButton = document.querySelector('.nav-button');
       if (navButton && navButton.classList.contains('open')) {
         this.toggleNavigation();
       }
 
+      this.updateTheme();
+
       this.testForCountryPage();
-
-      clearTimeout(this.timeoutId);
-      this.timeoutId = setTimeout(() => {
-        if (document.querySelector('.hero') && document.documentElement.scrollTop < 100) {
-          this.isOverlapping = this.elementsOverlap();
-        } else if (document.querySelector('.hero') && document.documentElement.scrollTop > 100) {
-          this.isOverlapping = false;
-          this.$store.commit('changeNavigationTintState', 'dark');
-        } else {
-          this.isOverlapping = false;
-        }
-      }, 50);
-
       this.showNavigation = true;
     },
   },
@@ -200,7 +184,7 @@ export default {
   // beforeMount() {},
   // render(h) { return h(); },
   mounted() {
-    window.addEventListener('scroll', this.onScroll);
+    window.addEventListener('scroll', this.handleScroll);
     this.testForCountryPage();
   },
   // beforeUpdate() {},
@@ -208,7 +192,7 @@ export default {
 
   }, */
   beforeDestroy() {
-    // window.removeEventListener('scroll', this.onScroll);
+    window.removeEventListener('scroll', this.handleScroll);
   },
   // destroyed() {},
   methods: {
@@ -223,14 +207,16 @@ export default {
       }
     },
     toggleChildren(evt) {
-      const els = this.$el.querySelectorAll('.nav-item.hover');
-      els.forEach((el) => {
-        if (el !== evt.currentTarget.parentNode.parentNode) {
-          el.classList.remove('hover');
-        }
-      });
-      evt.currentTarget.parentNode.parentNode.classList.toggle('hover');
-      evt.currentTarget.parentNode.classList.toggle('hover');
+      if (this.$d.clientWidth <= 1241) {
+        const els = this.$el.querySelectorAll('.nav-item.hover');
+        els.forEach((el) => {
+          if (el !== evt.currentTarget.parentNode.parentNode) {
+            el.classList.remove('hover');
+          }
+        });
+        evt.currentTarget.parentNode.parentNode.classList.toggle('hover');
+        evt.currentTarget.parentNode.classList.toggle('hover');
+      }
     },
 
     toggleNavigation() {
@@ -242,31 +228,18 @@ export default {
         });
       }
 
-      const body = document.querySelector('body').classList;
-      const header = document.querySelector('header').classList;
-
       document.querySelector('.nav-button').classList.toggle('open');
       document.querySelector('header nav').classList.toggle('open');
-      body.toggle('no-scroll');
+      document.querySelector('body').classList.toggle('no-scroll');
+    },
 
-      if (body.contains('no-scroll')) {
-        header.remove('overlap-state-true');
-        header.remove('theme-light');
-        header.add('overlap-state-false');
-        header.add('theme-dark');
-      } else if (document.querySelector('.hero')) {
-        /*
-        header.remove('overlap-state-false');
-        header.remove('theme-dark');
-        header.add('overlap-state-true');
-        header.add('theme-light');
-        console.log('case 1');
-        */
-        // WHAT THE FUCK IS THIS SHIT!?
-      } else {
-        header.add('overlap-state-false');
-        header.add('theme-light');
-      }
+    updateTheme() {
+      this.$nextTick(() => {
+        const div = document.querySelector('main > section > div');
+        const bgColor = div?.style.backgroundColor || 'transparent';
+        this.pageThemeState = (bgColor === 'transparent') ? 'dark' : 'light';
+        this.themeState = this.pageThemeState;
+      });
     },
 
     handleSpecialNavigation(evt) {
@@ -285,42 +258,29 @@ export default {
       }
     },
 
-    onScroll() {
-      const currentScrollPosition = window.pageYOffset || document.documentElement.scrollTop;
-      if (currentScrollPosition <= 10) {
-        return;
+    handleScroll() {
+      const { top, offset } = this.scroll;
+      const doc = document.documentElement;
+      const { scrollTop } = doc;
+      if (scrollTop >= 0 && scrollTop + window.innerHeight < doc.scrollHeight) {
+        this.scroll.top = scrollTop;
+        let value = this.scroll.value + (scrollTop - top);
+        if (value >= offset) {
+          this.overlapState = false;
+          this.themeState = 'dark';
+          this.showNavigation = false;
+          value = offset;
+        } else if (value <= 0) {
+          value = 0;
+          this.showNavigation = true;
+        }
+
+        if (scrollTop < offset) {
+          this.overlapState = true;
+          this.themeState = this.pageThemeState;
+        }
+        this.scroll.value = value;
       }
-
-      this.showNavigation = currentScrollPosition < this.lastScrollPosition;
-      this.lastScrollPosition = currentScrollPosition;
-
-      if (document.querySelector('.hero')) {
-        this.isOverlapping = this.elementsOverlap();
-        this.isOverlapping = currentScrollPosition <= document.querySelector('.intro-content')
-          .getBoundingClientRect().top;
-      } else {
-        this.isOverlapping = false;
-      }
-
-      if (document.querySelector('.article-nav-bar') && document.querySelector('.article-nav-bar')
-        .getBoundingClientRect().y === 0) {
-        this.showNavigation = false;
-      }
-    },
-
-    elementsOverlap() {
-      const el1 = document.querySelector('.header');
-      const el2 = document.querySelector('.hero');
-
-      const domRect1 = el1.getBoundingClientRect();
-      const domRect2 = el2.getBoundingClientRect();
-
-      return !(
-        domRect1.top > domRect2.bottom
-        || domRect1.right < domRect2.left
-        || domRect1.bottom < domRect2.top
-        || domRect1.left > domRect2.right
-      );
     },
   },
 };
@@ -380,7 +340,11 @@ header {
       white-space: nowrap;
       color: var(--color-lighthouse);
 
-      div {
+      @include breakpoint('spl') {
+        color: var(--color-sky-dancer);
+      }
+
+     > div {
         display: flex;
         width: 100%;
         align-items: center;
@@ -401,10 +365,44 @@ header {
         letter-spacing: 0.3px;
       }
 
+      @media (max-width: 1241px) {
+        flex-direction: column;
+
+        > div {
+          display: flex;
+          width: 100%;
+          align-items: center;
+          justify-content: space-between;
+        }
+
+        ul {
+          height: 0;
+          overflow: hidden;
+        }
+      }
+
+      &.hover {
+        @media (max-width: 1241px) {
+          ul {
+            height: auto;
+          }
+        }
+      }
+
       @media (hover) {
         :hover {
           > a {
             color: rgba(255, 255, 255, 0.8);
+
+            @include breakpoint('spl') {
+              color: var(--color-sky-dancer);
+            }
+          }
+
+          @media (max-width: 1241px) {
+            ul {
+              height: auto;
+            }
           }
 
           svg {
@@ -454,6 +452,10 @@ header {
         color: #000;
         padding: 0;
         width: 100%;
+
+        @include breakpoint('spl') {
+          color: var(--color-sky-dancer);
+        }
 
         a {
           padding: 13px 26px 13px 0;
@@ -605,6 +607,9 @@ header {
           }
 
           @media (max-width: 1241px) {
+            > a {
+              color: var(--color-sky-dancer);
+            }
             ul {
               height: auto;
             }
@@ -870,12 +875,13 @@ header {
       }
     }
 
-    @include breakpoint(1241) {
+    @include breakpoint('spl') {
       transition: right 0.35s ease-in-out;
       position: fixed;
       width: 100%;
       top: var(--headerHeight);
       right: -100vw;
+      bottom: 0;
 
       ul {
         display: flex;
@@ -888,7 +894,7 @@ header {
           background: white;
           border-top: 1px solid var(--color-grey-light);
           border-bottom: 1px solid var(--color-grey-light);
-          color: black !important;
+          color: var(--color-sky-dancer);
           margin-right: 0;
           padding: 0 16px;
           justify-content: space-between;
