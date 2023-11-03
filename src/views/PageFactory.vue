@@ -26,6 +26,7 @@
         :bg-color="block.bgcolor"
         :title-color="block.titlecolor"
         :text-color="block.txtcolor"
+        :link-color="block.linkcolor"
         :media="block.media"
         :variation="block.variation"
       />
@@ -170,6 +171,10 @@
         :title="block.title"
         :content="block.content"
         :services="block.services"
+      />
+      <InfoBubble
+        v-if="block.blocktype === 'infobubble'"
+        :text="block.text"
       />
     </section>
   </main>

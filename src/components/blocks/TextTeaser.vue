@@ -1,5 +1,8 @@
 <template>
-  <div class="text-component" :class="{ margined: setAsH1, reversed: variation === 'text-right', 'is-first': isFirst }" :style="computedStyles">
+  <div
+    class="text-component"
+    :class="{ margined: setAsH1, reversed: variation === 'text-right', 'is-first': isFirst }"
+    :style="computedStyles">
     <div class="container">
       <div>
         <h1 v-if="setAsH1" class="h1" v-html="boxTitle" :data-slug="slugged" />
@@ -71,6 +74,10 @@ export default {
       type: String,
       default: null,
     },
+    linkColor: {
+      type: String,
+      default: null,
+    },
     media: {
       type: Array,
       default: null,
@@ -102,7 +109,13 @@ export default {
   //---------------------------------------------------
   computed: {
     computedStyles() {
-      const { bgColor, titleColor, textColor } = this;
+      const {
+        bgColor,
+        titleColor,
+        textColor,
+        linkColor,
+      } = this;
+
       let out = '--hcolor:initial;';
       if (titleColor) {
         out += `--hcolor:${titleColor};`;
@@ -111,7 +124,10 @@ export default {
         out += `background-color:${bgColor};`;
       }
       if (textColor) {
-        out += `color:${textColor}`;
+        out += `color:${textColor};`;
+      }
+      if (linkColor) {
+        out += `--lcolor:${linkColor};`;
       }
       return out;
     },
@@ -264,7 +280,7 @@ export default {
       a {
         font-family: inherit;
         font-size: inherit;
-        color: var(--color-blue);
+        color: var(--lcolor, var(--color-blue));
         text-decoration: underline;
       }
     }
