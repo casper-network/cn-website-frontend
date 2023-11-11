@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@glidejs/glide": "^3.5.2",
-    "axios": "^0.27.2",
+    "axios": "^1.6.0",
     "core-js": "^3.6.5",
     "countup.js": "^2.2.0",
     "dayjs": "^1.11.3",
