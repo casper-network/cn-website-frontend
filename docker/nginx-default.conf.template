@@ -9,7 +9,7 @@ server {
     set $CSP_STYLE "style-src 'self' 'unsafe-inline'";
     set $CSP_FONT "font-src 'self' https:";
     set $CSP_SCRIPT "script-src 'self' 'unsafe-eval' 'unsafe-inline' https:";
-    set $CSP_CONNECT "connect-src 'self' blob: https:";
+    set $CSP_CONNECT "connect-src 'self' blob: https: https://api.ipify.org";
     set $CSP_MEDIA "media-src 'self' blob: https:";
     set $CSP_OBJECT "object-src 'none'";
     set $CSP_WORKER "worker-src blob:";

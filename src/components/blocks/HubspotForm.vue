@@ -268,7 +268,12 @@ export default {
       this.$v.$touch();
       if (!this.$v.$invalid) {
         const hubspotUtk = Cookie.get('hubspotutk');
-        const ipAddress = this.definition?.ip || null;
+        let ipAddress = null;
+        const res = await fetch('https://api.ipify.org/?format=json');
+        if (res.ok) {
+          ipAddress = (await res.json() || {}).ip || null;
+        }
+
         const definition = this.computedFields;
         const fields = [];
         definition.forEach((def) => {
