@@ -1,5 +1,5 @@
 #Deployment
-replicaCount: 3
+replicaCount: 15
 
 #Pod
 resourceCpuRequest: 200m
