@@ -4,7 +4,13 @@
       <div class="glide__track" data-glide-el="track">
         <ul class="glide__slides">
           <li class="glide__slide" v-for="(item, i) in glideData" :key="`glide-slide-${i}`">
-            <img loading="lazy" width="1024" height="768" :src="slideImage(item)" alt="">
+            <MediaImage
+              :asset="item.id"
+              loading="lazy"
+              width="1024"
+              height="768"
+              :alt="item.text"
+            />
             <div v-if="item.text" v-html="item.text"></div>
           </li>
         </ul>
@@ -29,13 +35,12 @@
 import Glide from '@glidejs/glide/dist/glide';
 import ChevronLeft from '@/assets/svg/icon-chevron-left.svg?inline';
 import ChevronRight from '@/assets/svg/icon-chevron-right.svg?inline';
-import config from '@/directus/config';
-
-const { API_URL } = config;
+import MediaImage from '@/components/MediaImage.vue';
 
 export default {
   name: 'Glider',
   components: {
+    MediaImage,
     ChevronLeft,
     ChevronRight,
   },
@@ -105,9 +110,6 @@ export default {
   //
   //---------------------------------------------------
   methods: {
-    slideImage(val) {
-      return `${API_URL}/assets/${val.id}`;
-    },
     //----------------------------------
     // Event Handlers
     //----------------------------------

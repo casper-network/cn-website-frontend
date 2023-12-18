@@ -1,10 +1,24 @@
 <template>
   <article>
     <div v-if="type === 'news'" class="img-container">
-      <router-link :to="`/${$i18n.locale}/news/${postItemData.content[0].slug}`"><img :src="postImage" loading="lazy" alt=""></router-link>
+      <router-link :to="`/${$i18n.locale}/news/${postItemData.content[0].slug}`">
+        <MediaImage
+          :asset="postImage"
+          width="500"
+          height="250"
+          loading="lazy"
+        />
+      </router-link>
     </div>
     <div v-if="type === 'casestudies'" class="img-container">
-      <router-link :to="`/${$i18n.locale}/case-studies/${postItemData.slug}`"><img :src="postImage" loading="lazy" alt=""></router-link>
+      <router-link :to="`/${$i18n.locale}/case-studies/${postItemData.slug}`">
+        <MediaImage
+          :asset="postImage"
+          width="500"
+          height="250"
+          loading="lazy"
+        />
+      </router-link>
     </div>
     <div class="content" :class="`postType-${type}`">
       <div class="time" v-if="type === 'news'">
@@ -37,15 +51,14 @@
 import dayjs from 'dayjs';
 import RelativeTime from 'dayjs/plugin/relativeTime';
 import SVGClock from '@/assets/svg/icon-clock.svg?inline';
-import config from '@/directus/config';
-
-const { API_URL } = config;
+import MediaImage from '@/components/MediaImage.vue';
 
 dayjs.extend(RelativeTime);
 
 export default {
   name: 'PostItem',
   components: {
+    MediaImage,
     SVGClock,
   },
   //---------------------------------------------------
@@ -80,9 +93,9 @@ export default {
     },
     postImage() {
       if (this.type === 'news') {
-        return `${API_URL}/assets/${this.postItemData.content[0].image}`;
+        return this.postItemData.content[0].image;
       }
-      return `${API_URL}/assets/${this.postItemData.image}`;
+      return this.postItemData.image;
     },
   },
   //---------------------------------------------------
@@ -184,6 +197,7 @@ article {
 
   img {
     max-width: 500px;
+    height: auto;
     aspect-ratio: 16 / 8;
 
     @include breakpoint('sm') {

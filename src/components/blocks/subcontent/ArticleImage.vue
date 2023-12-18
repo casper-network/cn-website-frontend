@@ -1,20 +1,22 @@
 <template>
   <div class="container">
     <div class="img" :class="{reduced: isReduced}">
-      <img loading="lazy" :src="postImage" :alt="imgAlt" class="img-fluid">
+      <MediaImage
+        :asset="imgSrc"
+        :alt="imgAlt"
+        class="img-fluid"
+      />
       <p>{{imgAlt}}</p>
     </div>
   </div>
 </template>
 
 <script>
-import config from '@/directus/config';
-
-const { API_URL } = config;
+import MediaImage from '@/components/MediaImage.vue';
 
 export default {
   name: 'ArticleImage',
-  components: {},
+  components: { MediaImage },
   //---------------------------------------------------
   //
   //  Properties
@@ -27,7 +29,7 @@ export default {
     },
     imgAlt: {
       type: String,
-      default: '',
+      default: null,
     },
     isReduced: {
       type: Boolean,
@@ -48,9 +50,6 @@ export default {
   //
   //---------------------------------------------------
   computed: {
-    postImage() {
-      return `${API_URL}/assets/${this.imgSrc}`;
-    },
   },
   //---------------------------------------------------
   //

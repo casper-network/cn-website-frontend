@@ -7,7 +7,10 @@
       <div class="glide__track" data-glide-el="track">
         <ul class="glide__slides">
           <li class="glide__slide" v-for="(item, i) in computedItems" :key="`glide-slide-${i}`">
-            <img :src="item.image" :alt="item.text" />
+            <MediaImage
+              :asset="item.image"
+              :alt="item.text"
+            />
           </li>
         </ul>
       </div>
@@ -29,13 +32,12 @@ import ChevronLeft from '@/assets/svg/icon-chevron-left.svg?inline';
 import ChevronRight from '@/assets/svg/icon-chevron-right.svg?inline';
 import '@glidejs/glide/dist/css/glide.core.min.css';
 import slugify from 'slugify';
-import config from '@/directus/config';
-
-const { API_URL } = config;
+import MediaImage from '@/components/MediaImage.vue';
 
 export default {
   name: 'ResponsiveGallery',
   components: {
+    MediaImage,
     ChevronLeft,
     ChevronRight,
   },
@@ -85,7 +87,7 @@ export default {
       const arr = clientWidth < 768 ? this.mobileMedia : this.desktopMedia;
       return arr.map((o) => ({
         text: o.text,
-        image: `${API_URL}/assets/${o.id}`,
+        image: o.id,
       }));
     },
   },

@@ -1,10 +1,20 @@
 <template>
   <div class="carousel-item">
     <router-link :to="cardData.link.url" v-if="cardData.link.type === 'int'">
-      <img loading="lazy" :src="postImage" alt="">
+      <MediaImage
+        :asset="postImage"
+        width="378"
+        height="213"
+        loading="lazy"
+      />
     </router-link>
     <a :href="cardData.link.url" v-if="cardData.link.type === 'ext'"  target="_blank">
-      <img loading="lazy" :src="postImage" alt="">
+      <MediaImage
+        :asset="postImage"
+        width="378"
+        height="213"
+        loading="lazy"
+      />
     </a>
     <router-link :to="cardData.link.url" v-if="cardData.link.type === 'int'">
     <p class="h4" v-html="cardData.title"></p>
@@ -24,13 +34,11 @@
 </template>
 
 <script>
-import config from '@/directus/config';
-
-const { API_URL } = config;
+import MediaImage from '@/components/MediaImage.vue';
 
 export default {
   name: 'CarouselItem',
-  components: {},
+  components: { MediaImage },
   //---------------------------------------------------
   //
   //  Properties
@@ -54,7 +62,7 @@ export default {
   //---------------------------------------------------
   computed: {
     postImage() {
-      return `${API_URL}/assets/${this.cardData.image}`;
+      return this.cardData.image;
     },
   },
   //---------------------------------------------------

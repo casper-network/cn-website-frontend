@@ -12,7 +12,7 @@
         <p>Available on:</p>
         <div>
           <a v-for="(service, sidx) in services" :key="`service-${sidx}`" target="_blank" :href="service.url" :title="service.title">
-            <img :src="`${API_URL}/assets/${service.image}`" :alt="service.title" />
+            <MediaImage :asset="service.image" :alt="service.title" width="64" height="64" />
           </a>
         </div>
       </div>
@@ -24,7 +24,7 @@
         class="item"
       >
         <a class="image" target="_blank" :href="pod.url">
-          <img :src="pod.image" alt="">
+          <MediaImage :asset="pod.image" width="300" height="300"/>
         </a>
 
         <div class="content">
@@ -55,14 +55,13 @@
 
 <script>
 import SVGClock from '@/assets/svg/icon-clock.svg?inline';
-import config from '@/directus/config';
+import MediaImage from '@/components/MediaImage.vue';
 import slugify from 'slugify';
-
-const { API_URL } = config;
 
 export default {
   name: 'PodcastList',
   components: {
+    MediaImage,
     SVGClock,
   },
   //---------------------------------------------------
@@ -101,9 +100,6 @@ export default {
   //
   //---------------------------------------------------
   computed: {
-    API_URL() {
-      return API_URL;
-    },
     slugged() {
       const title = (this.title || '').replace(/<\/?[^>]+(>|$)/g, '');
       return slugify(title, { lower: true, strict: true });
@@ -156,7 +152,7 @@ export default {
       const slug = (o.content[0] || {}).slug ?? null;
       const siteUrl = `/${siteLocale}/lp/podcast`;
       return {
-        image: `${API_URL}/assets/${o.image}`,
+        image: o.image,
         release_date: o.release_date,
         url: slug !== null ? `${siteUrl}/${slug}` : o.url,
         internal_url: slug !== null,

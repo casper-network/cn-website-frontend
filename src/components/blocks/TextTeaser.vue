@@ -25,7 +25,7 @@
 
       </div>
       <div>
-        <img v-if="image" :src="image" />
+        <MediaImage v-if="image" :asset="image" />
       </div>
     </div>
   </div>
@@ -34,12 +34,13 @@
 <script>
 import config from '@/directus/config';
 import slugify from 'slugify';
+import MediaImage from '@/components/MediaImage.vue';
 
 const { API_URL } = config;
 
 export default {
   name: 'TextTeaser',
-  components: {},
+  components: { MediaImage },
   //---------------------------------------------------
   //
   //  Properties
@@ -134,7 +135,7 @@ export default {
     image() {
       const media = this.media || [];
       if (media.length > 0 && media[0]) {
-        return `${API_URL}/assets/${media[0]}`;
+        return media[0];
       }
       return null;
     },

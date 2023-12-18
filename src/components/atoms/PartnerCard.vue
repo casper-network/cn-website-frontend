@@ -1,6 +1,6 @@
 <template>
   <div class="partnerCard">
-    <img src="/img/casperLabsLogo.png" alt="">
+    <img src="/img/casperLabsLogo.png" alt="Casper Labs Logo">
   </div>
 </template>
 
