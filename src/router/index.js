@@ -86,11 +86,16 @@ export function getRouter() {
 
         let isCountryLP = false;
         let countryCode = null;
-        const hostname = window.location.hostname;
+        const { hostname } = window.location;
 
-        if (/^[a-zA-Z]{2}.casper.network/.test(hostname)) {
+        const prodDomainTest = /^[a-zA-Z]{2}.casper.network/.test(hostname);
+        const stagingDomainTest = /^[a-zA-Z]{2}.staging.casper.network/.test(hostname);
+        if (prodDomainTest || stagingDomainTest) {
           isCountryLP = true;
           countryCode = hostname.replace('.casper.network', '');
+          if (countryCode.includes('.')) {
+            countryCode = hostname.replace('.staging.casper.network', '');
+          }
           ignoreLanguage = true;
           language = 'en-us';
         }

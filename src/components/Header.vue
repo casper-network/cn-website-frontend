@@ -197,7 +197,8 @@ export default {
   // destroyed() {},
   methods: {
     testForCountryPage() {
-      this.hideNavigation = /^[a-zA-Z]{2}.casper.network/.test(window.location.hostname);
+      const { hostname } = window.location;
+      this.hideNavigation = /^[a-zA-Z]{2}.casper.network/.test(hostname) || /^[a-zA-Z]{2}.staging.casper.network/.test(hostname);
     },
     goHome() {
       if (this.hideNavigation) {
