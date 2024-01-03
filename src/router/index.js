@@ -96,7 +96,6 @@ export function getRouter() {
           if (countryCode.includes('.')) {
             countryCode = hostname.replace('.staging.casper.network', '');
           }
-          console.log(countryCode);
           ignoreLanguage = true;
           language = 'en-us';
         }
