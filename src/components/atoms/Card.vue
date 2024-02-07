@@ -2,10 +2,15 @@
   <div>
     <div class="card">
       <a :href="`${cardData.url}`" target="_blank">
-        <img :src="cardImage" alt="">
+        <MediaImage
+          :asset="cardImage"
+        />
       </a>
       <div class="card-header">
-        <img :src="logoImage" alt="" class="avatar">
+        <MediaImage
+          :asset="logoImage"
+          class="avatar"
+        />
         <div>
           <a :href="`${cardData.url}`" target="_blank">
             <h5>{{cardData.title}}</h5>
@@ -20,13 +25,11 @@
 </template>
 
 <script>
-import config from '@/directus/config';
-
-const { API_URL } = config;
+import MediaImage from '@/components/MediaImage.vue';
 
 export default {
   name: 'Card',
-  components: {},
+  components: { MediaImage },
   //---------------------------------------------------
   //
   //  Properties
@@ -50,10 +53,10 @@ export default {
   //---------------------------------------------------
   computed: {
     cardImage() {
-      return (this.cardData.image) ? `${API_URL}/assets/${this.cardData.image}` : '/img/mesh6.webp';
+      return (this.cardData.image) ? this.cardData.image : '/img/mesh6.webp';
     },
     logoImage() {
-      return (this.cardData.image) ? `${API_URL}/assets/${this.cardData.logo}` : '/img/mesh1.webp';
+      return (this.cardData.image) ? this.cardData.logo : '/img/mesh1.webp';
     },
   },
   //---------------------------------------------------

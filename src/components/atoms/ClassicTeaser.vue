@@ -1,7 +1,12 @@
 <template>
   <div class="outer-wrap">
     <div class="inner-wrap">
-      <img v-if="teaserImage" :src="teaserImage" alt="">
+      <MediaImage
+        v-if="teaserImage"
+        :asset="teaserImage"
+        width="562"
+        height="326"
+      />
       <div>
         <h3>{{blockData.title}}</h3>
         <p v-html="blockData.content"></p>
@@ -15,13 +20,11 @@
 </template>
 
 <script>
-import config from '@/directus/config';
-
-const { API_URL } = config;
+import MediaImage from '@/components/MediaImage.vue';
 
 export default {
   name: 'ClassicTeaser',
-  components: {},
+  components: { MediaImage },
   //---------------------------------------------------
   //
   //  Properties
@@ -47,7 +50,7 @@ export default {
     teaserImage() {
       const media = this.blockData?.media || null;
       if (media) {
-        return `${API_URL}/assets/${media}`;
+        return media;
       }
       return null;
     },

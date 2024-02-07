@@ -1,32 +1,20 @@
 <template>
-  <div class="card-team">
-    <div class="img-stack">
-      <MediaImage
-        :asset="teamImage"
-        width="461"
-        height="500"
-        loading="lazy"
-      />
-      <a :href="member.linkedin_url" target="_blank" v-if="member.linkedin_url">
-        <SVGTeamLinkedin/>
-      </a>
-    </div>
-    <div class="content-box">
-      <p class="members-name">{{member.content[0].name}}</p>
-      <p class="members-title">{{member.content[0].position}}</p>
-    </div>
-  </div>
+  <img
+    :src="computedUrl"
+    :width="computedWidth"
+    :height="computedHeight"
+    :alt="computedAlt"
+  />
 </template>
 
 <script>
-import SVGTeamLinkedin from '@/assets/svg/teamlinkedin.svg?inline';
-import MediaImage from '@/components/MediaImage.vue';
+import config from '@/directus/config';
+
+const { API_URL } = config;
 
 export default {
-  name: 'TeamCard',
+  name: 'MediaImage',
   components: {
-    MediaImage,
-    SVGTeamLinkedin,
   },
   //---------------------------------------------------
   //
@@ -34,7 +22,22 @@ export default {
   //
   //---------------------------------------------------
   props: {
-    member: Object,
+    asset: {
+      type: String,
+      default: null,
+    },
+    alt: {
+      type: String,
+      default: null,
+    },
+    width: {
+      type: [Number, String],
+      default: null,
+    },
+    height: {
+      type: [Number, String],
+      default: null,
+    },
   },
   //---------------------------------------------------
   //
@@ -42,7 +45,9 @@ export default {
   //
   //---------------------------------------------------
   data() {
-    return {};
+    return {
+      metadata: {},
+    };
   },
   //---------------------------------------------------
   //
@@ -50,8 +55,31 @@ export default {
   //
   //---------------------------------------------------
   computed: {
-    teamImage() {
-      return this.member.content[0].image;
+    computedUrl() {
+      const { asset } = this;
+      if (!this.isAbsoluteUrl) {
+        return `${API_URL}/assets/${asset}`;
+      }
+      if (this.isAbsoluteUrl) {
+        return asset;
+      }
+      return null;
+    },
+    isAbsoluteUrl() {
+      const { asset } = this;
+      return asset.indexOf('/') !== -1;
+    },
+    computedAlt() {
+      const { metadata } = this;
+      return this.alt || metadata?.description || metadata?.title;
+    },
+    computedWidth() {
+      const { metadata } = this;
+      return this.width || metadata?.width || 'auto';
+    },
+    computedHeight() {
+      const { metadata } = this;
+      return this.height || metadata?.height || 'auto';
     },
   },
   //---------------------------------------------------
@@ -59,7 +87,13 @@ export default {
   //  Watch Properties
   //
   //---------------------------------------------------
-  watch: {},
+  watch: {
+    asset(newval, oldval) {
+      if (newval !== oldval) {
+        this.retrieveMetadata();
+      }
+    },
+  },
   //---------------------------------------------------
   //
   //  Filter Properties
@@ -78,7 +112,9 @@ export default {
   //
   //---------------------------------------------------
   // beforeCreate() {},
-  // created() {},
+  async created() {
+    this.retrieveMetadata();
+  },
   // beforeMount() {},
   // render(h) { return h(); },
   // mounted() {},
@@ -92,6 +128,15 @@ export default {
   //
   //---------------------------------------------------
   methods: {
+    async retrieveMetadata() {
+      this.metadata = {};
+      const { asset } = this;
+      if (asset && !this.isAbsoluteUrl) {
+        const response = await fetch(`${API_URL}/files/${asset}`);
+        const { data } = await response.json();
+        this.metadata = data;
+      }
+    },
     //----------------------------------
     // Event Handlers
     //----------------------------------
@@ -100,55 +145,4 @@ export default {
 </script>
 
 <style lang="scss">
-@import "@/assets/scss/typography.scss";
-
-.card-team {
-  div.content-box {
-    margin-top: 13px;
-    padding-left: 16px;
-
-    .members-name {
-      @extend h5;
-      font-weight: 500;
-      font-size: 1.6rem;
-    }
-
-    .members-title {
-      font-size: 1rem;
-      letter-spacing: 0.5px;
-      margin-bottom: 16px;
-    }
-  }
-
-  div.img-stack {
-    position: relative;
-
-    > img {
-      width: 100%;
-      height: 100%;
-      aspect-ratio: 480 / 500;
-      object-fit: cover;
-    }
-
-    svg {
-      cursor: pointer;
-      position: absolute;
-      bottom: 20px;
-      right: 20px;
-      z-index: 200;
-
-      &:hover {
-        path:nth-child(1) {
-          fill: var(--color-white);
-        }
-        path:nth-child(2) {
-          fill: var(--color-blue);
-        }
-        path:nth-child(3) {
-          fill: var(--color-white);
-        }
-      }
-    }
-  }
-}
 </style>

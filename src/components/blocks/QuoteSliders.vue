@@ -3,7 +3,7 @@
     <div class="left-short">
         <div class="quote-img">
       <transition name="scale" mode="out-in">
-          <img :src="quoteImage" alt="" :key="currentQuote.id">
+          <MediaImage :asset="quoteImage" width="500" height="500" />
       </transition>
         </div>
     </div>
@@ -35,13 +35,12 @@
 <script>
 import SVGArrowLeft from '@/assets/svg/icon-arrow-left.svg?inline';
 import SVGArrowRight from '@/assets/svg/icon-arrow-right.svg?inline';
-import config from '@/directus/config';
-
-const { API_URL } = config;
+import MediaImage from '@/components/MediaImage.vue';
 
 export default {
   name: 'QuoteSliders',
   components: {
+    MediaImage,
     SVGArrowLeft,
     SVGArrowRight,
   },
@@ -54,6 +53,7 @@ export default {
     quotes: {
       type: Array,
       required: true,
+
     },
   },
   //---------------------------------------------------
@@ -77,7 +77,7 @@ export default {
   //---------------------------------------------------
   computed: {
     quoteImage() {
-      return `${API_URL}/assets/${this.currentQuote.image}`;
+      return this.currentQuote.image;
     },
   },
   //---------------------------------------------------

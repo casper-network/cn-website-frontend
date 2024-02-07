@@ -76,7 +76,7 @@ export default {
     de: 'German',
   },
   social: {
-    discord: 'https://discord.com/invite/Q38s3Vh',
+    discord: 'https://discord.com/invite/casperblockchain',
     twitter: 'https://twitter.com/Casper_Network',
     linkedin: 'https://www.linkedin.com/company/casper-association/',
     youtube: 'https://www.youtube.com/c/CasperNetwork',

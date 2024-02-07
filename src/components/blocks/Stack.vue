@@ -27,7 +27,10 @@
           </Button>
         </div>
         <div class="media">
-          <img v-if="media" :src="media" />
+          <MediaImage
+            v-if="media"
+            :asset="media"
+          />
         </div>
       </div>
     </div >
@@ -37,11 +40,12 @@
 <script>
 import config from '@/directus/config';
 import slugify from 'slugify';
+import MediaImage from '@/components/MediaImage.vue';
 
 const { API_URL } = config;
 export default {
   name: 'Stack.vue',
-  components: {},
+  components: { MediaImage },
   //---------------------------------------------------
   //
   //  Properties
@@ -87,7 +91,7 @@ export default {
     media() {
       const media = this.block?.media || [];
       if (media.length > 0) {
-        return `${API_URL}/assets/${media[0]}`;
+        return media[0];
       }
       return null;
     },

@@ -6,7 +6,9 @@
         :src="computedThumb"
         @load="handleThumbLoad"
         class="yt-cover"
-        alt=""
+        :alt="caption"
+        width="1280"
+        height="720"
       >
       <div>
         <div class="blur"/>

@@ -23,7 +23,12 @@
         </div>
       </div>
       <div class="inner-right" :class="placement">
-        <img :src="heroImage" :class="{ more: moreImagePadding}">
+        <MediaImage
+          :asset="heroImage"
+          :class="{ more: moreImagePadding}"
+          width="400"
+          height="400"
+        />
       </div>
       <Disturber
         v-if="cta.url"
@@ -37,14 +42,12 @@
 </template>
 
 <script>
-import config from '@/directus/config';
 import slugify from 'slugify';
-
-const { API_URL } = config;
+import MediaImage from '@/components/MediaImage.vue';
 
 export default {
   name: 'Hero',
-  components: {},
+  components: { MediaImage },
   //---------------------------------------------------
   //
   //  Properties
@@ -99,7 +102,7 @@ export default {
     heroImage() {
       const media = this.block?.media || [];
       if (media.length > 0 && media[0]) {
-        return `${API_URL}/assets/${media[0]}`;
+        return media[0];
       }
       return null;
     },

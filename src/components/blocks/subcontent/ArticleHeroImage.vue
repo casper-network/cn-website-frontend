@@ -1,17 +1,21 @@
 <template>
   <div class="img">
-    <img v-if="postImage" loading="lazy" :src="postImage" :alt="imgAlt" class="img-fluid">
+    <MediaImage
+      v-if="imgSrc"
+      :asset="imgSrc"
+      :alt="imgAlt"
+      loading="lazy"
+      class="img-fluid"
+    />
   </div>
 </template>
 
 <script>
-import config from '@/directus/config';
-
-const { API_URL } = config;
+import MediaImage from '@/components/MediaImage.vue';
 
 export default {
   name: 'ArticleHeroImage',
-  components: {},
+  components: { MediaImage },
   //---------------------------------------------------
   //
   //  Properties
@@ -24,7 +28,7 @@ export default {
     },
     imgAlt: {
       type: String,
-      default: '',
+      default: null,
     },
   },
   //---------------------------------------------------
@@ -41,13 +45,6 @@ export default {
   //
   //---------------------------------------------------
   computed: {
-    postImage() {
-      const img = this.imgSrc;
-      if (img) {
-        return `${API_URL}/assets/${img}`;
-      }
-      return null;
-    },
   },
   //---------------------------------------------------
   //
