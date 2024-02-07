@@ -1,0 +1,31 @@
+# note: We explicitly create each language subdomain, rather than a wildcard domain
+# as wildcards are not supportd by http01 cert-manager ClusterIssuer
+
+{{- if .Values.ingressDomainName}}
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  namespace: {{.Values.namespace}}
+  name: kr-{{.Values.appName}}-{{.Values.envName}}-ingress
+  annotations:     
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+spec:
+  tls:
+  - hosts:
+    - kr.{{.Values.ingressDomainName}}
+    secretName: kr-{{.Values.appName}}-{{.Values.envName}}-tls
+  rules:
+  - host: kr.{{.Values.ingressDomainName}}
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: {{.Values.appName}}-{{.Values.envName}}-svc
+            port:
+              number: {{.Values.servicePort}}
+  ingressClassName: nginx
+
+  {{- end}}
