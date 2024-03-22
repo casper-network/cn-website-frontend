@@ -1,8 +1,9 @@
 <template>
   <div class="btn" :class="{ disabled }">
-    <SVGGlobe v-if="icon === 'globe'"></SVGGlobe>
-    <SVGShare v-if="icon === 'share'"></SVGShare>
-    <SVGBack v-if="icon === 'back'"></SVGBack>
+    <SVGGlobe v-if="icon === 'globe'" />
+    <SVGShare v-else-if="icon === 'share'" />
+    <SVGBack v-else-if="icon === 'back'" />
+    <SVGOpenLink v-else-if="icon === 'link'" />
     <slot class="btn__content"></slot>
   </div>
 </template>
@@ -11,6 +12,7 @@
 import SVGGlobe from '@/assets/svg/globe.svg?inline';
 import SVGShare from '@/assets/svg/icon-share.svg?inline';
 import SVGBack from '@/assets/svg/icon-arrow-left.svg?inline';
+import SVGOpenLink from '@/assets/svg/icon-openlink.svg?inline';
 
 export default {
   name: 'Button',
@@ -18,6 +20,7 @@ export default {
     SVGGlobe,
     SVGShare,
     SVGBack,
+    SVGOpenLink,
   },
   //---------------------------------------------------
   //
