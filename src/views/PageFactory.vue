@@ -139,6 +139,9 @@
         :teaser-label="block.button.text"
         :teaser-target="block.button.url"
       />
+      <CSPRCollection
+        v-if="block.blocktype === 'collectionteasers' && block.collection.collection === 'cspr_platforms'"
+        :block-data="block" />
       <NewsCollection
         v-if="block.blocktype === 'collectionteasers' && block.collection.collection === 'news'"
         :collection-type="block.collection.collection"
