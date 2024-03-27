@@ -141,6 +141,7 @@
       />
       <CSPRCollection
         v-if="block.blocktype === 'collectionteasers' && block.collection.collection === 'cspr_platforms'"
+        :is-first="blockIndex === 0"
         :block-data="block" />
       <NewsCollection
         v-if="block.blocktype === 'collectionteasers' && block.collection.collection === 'news'"
